@@ -1,11 +1,26 @@
+// Home.js
+
 import React from 'react';
-import {Button} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-const Home = () => {
-  const navigation = useNavigation();
-  const handleButtonPress = () => {
+import {StyleSheet, SafeAreaView} from 'react-native';
+import SwipeView from '../components/SwipeView';
+
+const Home = ({navigation}) => {
+  const handlePersonSend = () => {
+    navigation.navigate('PersonSend');
+  };
+
+  const handleRoundSend = () => {
     navigation.navigate('RoundSend');
   };
-  return <Button title="Go to PersonSend" onPress={handleButtonPress} />;
+
+  return (
+    <SafeAreaView>
+      <SwipeView
+        handlePersonSend={handlePersonSend}
+        handleRoundSend={handleRoundSend}
+      />
+    </SafeAreaView>
+  );
 };
+
 export default Home;

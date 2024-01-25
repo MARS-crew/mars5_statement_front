@@ -4,17 +4,17 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screen/Home';
-import Share from '../screen/Share';
+import SharePage from '../screen/SharePage';
 import RoundSend from '../screen/RoundSend';
-
+import PersonSend from '../screen/PersonSend';
 const TopTab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-const FirstStackScreen = () => (
+const SendPage = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="First"
+      name="Home"
       component={Home}
       options={{
         headerShown: false,
@@ -27,14 +27,21 @@ const FirstStackScreen = () => (
         headerShown: false,
       }}
     />
+    <Stack.Screen
+      name="PersonSend"
+      component={PersonSend}
+      options={{
+        headerShown: false,
+      }}
+    />
   </Stack.Navigator>
 );
 
-const SecondStackScreen = () => (
+const SharedPage = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Share"
-      component={Share}
+      name="SharePage"
+      component={SharePage}
       options={{
         headerShown: false,
       }}
@@ -44,9 +51,9 @@ const SecondStackScreen = () => (
 
 const TopTabs = () => {
   return (
-    <TopTab.Navigator screenOptions={{swipeEnabled: false}}>
-      <TopTab.Screen name="FirstStack" component={FirstStackScreen} />
-      <TopTab.Screen name="SecondStack" component={SecondStackScreen} />
+    <TopTab.Navigator>
+      <TopTab.Screen name="sendPage" component={SendPage} />
+      <TopTab.Screen name="sharedPage" component={SharedPage} />
     </TopTab.Navigator>
   );
 };
@@ -55,6 +62,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator screenOptions={{swipeEnabled: true}}>
       <Drawer.Screen name="TopTabs" component={TopTabs} />
+      <Drawer.Screen name="RoundSend" component={RoundSend} />
     </Drawer.Navigator>
   );
 };

@@ -17,7 +17,7 @@ const SwipeView = ({handlePersonSend, handleRoundSend}) => (
         <TouchableOpacity
           style={[styles.rightAction, {backgroundColor: '#bfbfbf'}]}
           onPress={handleRoundSend}>
-          <Text>사람별</Text>
+          <Text>회차별</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.rightAction, {backgroundColor: 'red'}]}

@@ -1,10 +1,10 @@
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 
-const PersonSend = () => {
-  return <Text style={styles.text}>사람별</Text>;
+const NewTopicPage = () => {
+  return <Text style={styles.text}>새로운 주제를 만들어 보아요</Text>;
 };
-export default PersonSend;
+export default NewTopicPage;
 
 const styles = StyleSheet.create({
   text: {

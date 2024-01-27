@@ -1,9 +1,10 @@
 import React from 'react';
 import RootNavigation from './src/Navigation/RootNavigation';
-import FirebaseInit from './src/Api/GoogleLogin/FirebaseInit';
+import 'react-native-gesture-handler';
+// import FirebaseInit from './src/Api/GoogleLogin/FirebaseInit';
 
 const App = () => {
-  <FirebaseInit />;
+  // <FirebaseInit />;
   return <RootNavigation />;
 };
 

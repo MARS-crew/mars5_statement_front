@@ -13,9 +13,11 @@
 // export default RootNavigation;
 
 import React from 'react';
+import {Text} from 'react-native';
+import GoogleLoginButton from '../Components/Login/GoogleLoginButton';
 
 const RootNavigation = () => {
-  return <h1>hi</h1>;
+  return <GoogleLoginButton />;
 };
 
 export default RootNavigation;

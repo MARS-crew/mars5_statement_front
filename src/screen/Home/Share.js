@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import SwipeView from '../../components/View/SwipeView';
+import SwipeView from '../../Components/View/SwipeView';
 
 const Share = () => {
   const navigation = useNavigation();

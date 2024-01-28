@@ -1,9 +1,9 @@
 // Home.js
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import LogoTitle from '../../components/Text/LogoTitle';
+import LogoTitle from '../../Components/Text/LogoTitle';
 import DrawerNavigation from '../../Navigation/DrawerNavigation';
-import FloatingButton from '../../components/Button/FloatingButton';
+import FloatingButton from '../../Components/Button/FloatingButton';
 
 const Home = () => {
   const navigation = useNavigation();

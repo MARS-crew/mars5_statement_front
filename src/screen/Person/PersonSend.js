@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import CaptureAndShareButton from '../../components/Button/CaptureAndShareButton';
+import CaptureAndShareButton from '../../Components/Button/CaptureAndShareButton';
 
 const PersonSend = () => {
   const navigation = useNavigation();

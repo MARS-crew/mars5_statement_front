@@ -2,7 +2,7 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import TopTabNavigator from './TopTabNavigation';
-import LogoTitle from '../components/Text/LogoTitle';
+import LogoTitle from '../Components/Text/LogoTitle';
 
 const Drawer = createDrawerNavigator();
 

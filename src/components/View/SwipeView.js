@@ -1,5 +1,4 @@
-// SwipableView.js
-
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Swipelist from 'react-native-swipeable-list-view';

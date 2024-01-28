@@ -1,3 +1,4 @@
+// DrawerNavigation.js
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import TopTabNavigator from './TopTabNavigation';

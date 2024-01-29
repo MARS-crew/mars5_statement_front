@@ -76,6 +76,18 @@ const StackNavigation = () => {
         }}
       />
       <Stack.Screen
+        name="NewTopicChooseMember"
+        component={NewTopicChooseMember}
+        options={{
+          title: 'Add a Writing',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.white,
+            elevation: 0,
+          },
+        }}
+      />
+      <Stack.Screen
         name="PersonSendDetailPage"
         component={PersonSendDetailPage}
         options={{

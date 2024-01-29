@@ -138,17 +138,9 @@ const styles = StyleSheet.create({
     borderWidth: 0.8,
   },
   summarybox: {
-    // top: 20,
     width: '100%',
-    // marginLeft: 20,
-    // marginRight: 20,
-    // borderTopWidth: 1,
-    // borderBottomWidth: 1,
     borderColor: Colors.grey,
     borderWidth: 0.8,
-
-    // borderTopColor: Colors.grey,
-    // borderBottomColor: Colors.grey,
   },
   summarybox2: {
     justifyContent: 'space-between',

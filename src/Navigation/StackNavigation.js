@@ -12,7 +12,6 @@ import Home from '../screen/home';
 import LogoTitle from '../components/text/LogoTitle';
 import RoundShare from '../screen/round/RoundShare';
 import Login from '../screen/login/login';
-
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
@@ -68,7 +67,12 @@ const StackNavigation = () => {
         name="NewTopicPage"
         component={NewTopicPage}
         options={{
-          headerShown: false,
+          title: 'Add a Writing',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.white,
+            elevation: 0,
+          },
         }}
       />
       <Stack.Screen

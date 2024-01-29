@@ -4,7 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Share from '../Screen/Home/Share';
 import RoundSend from '../Screen/Round/RoundSend';
 import PersonSend from '../Screen/Person/PersonSendDetailPage';
-import NewTopicPage from '../Screen/NewTopicPage';
+import NewTopicChooseMember from '../Screen/NewTopicChooseMember';
 import Send from '../Screen/Home/Send';
 import PersonSendDetailPage from '../Screen/Person/PersonSendDetailPage';
 import RoundSendDetailPage from '../Screen/Round/RoundSendDetailPage';
@@ -13,6 +13,7 @@ import LogoTitle from '../Components/Text/LogoTitle';
 import RoundShare from '../screen/Round/RoundShare';
 import Login from '../screen/login/login';
 import Colors from '../constants/Colors';
+import NewTopicPage from '../Screen/NewTopicPage';
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
@@ -70,6 +71,18 @@ const StackNavigation = () => {
       <Stack.Screen
         name="NewTopicPage"
         component={NewTopicPage}
+        options={{
+          title: 'Add a Writing',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.white,
+            elevation: 0,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="NewTopicChooseMember"
+        component={NewTopicChooseMember}
         options={{
           title: 'Add a Writing',
           headerShown: true,

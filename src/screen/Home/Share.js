@@ -4,20 +4,25 @@ import {useNavigation} from '@react-navigation/native';
 import SwipeView from '../../Components/View/SwipeView';
 
 const DATA = {
-  status: 200,
-  message: '주제 조회 성공',
-  data: [
+  suggest_id: 1,
+  suggest: '왜 사람은 잠을 자야만 하는가',
+  SummaryList: [
     {
-      id: 1,
-      suggest: '오늘 점심식사 어땠나요?',
-      type: 'share',
-      reg_dt: '2024-01-28T12:34:56.789Z',
+      chapter_id: 2,
+      summary_id: 2,
+      member_id: 2,
+      member_name: '박지민',
+      reg_dt: '2024-01-01',
+      opinion: '다들 잠을 필요로 하는구나..',
     },
     {
-      id: 2,
-      suggest: '코드리뷰를 해보아요',
-      type: 'send',
-      reg_dt: '2024-01-29T12:34:56.789Z',
+      chapter_id: 1,
+      summary_id: 1,
+      member_id: 1,
+      member_name: '백예나',
+      reg_dt: '2024-01-05',
+      opinion:
+        '생각을 아무리 해도 왜 잠이 계속 오는건지 해결책을 낼 수 없었다.',
     },
   ],
 };
@@ -25,24 +30,24 @@ const DATA = {
 const Share = () => {
   const navigation = useNavigation();
 
-  const handlePersonSend = () => {
+  const handlePersonShare = () => {
     navigation.navigate('PersonSend');
   };
 
-  const handleRoundSend = () => {
-    navigation.navigate('RoundShare');
+  const handleRoundShare = () => {
+    navigation.navigate('RoundShare', {data: DATA});
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <SwipeView
-          handleRoundSend={handleRoundSend}
-          handlePersonSend={handlePersonSend}
+          handleRoundSend={handleRoundShare}
+          handlePersonSend={handlePersonShare}
         />
         <SwipeView
-          handleRoundSend={handleRoundSend}
-          handlePersonSend={handlePersonSend}
+          handleRoundSend={handleRoundShare}
+          handlePersonSend={handlePersonShare}
         />
       </ScrollView>
     </SafeAreaView>

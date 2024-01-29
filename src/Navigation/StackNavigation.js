@@ -1,18 +1,18 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Share from '../screen/Home/Share';
-import RoundSend from '../screen/Round/RoundSend';
-import PersonSend from '../screen/Person/PersonSendDetailPage';
-import NewTopicPage from '../screen/NewTopicPage';
-import Send from '../screen/Home/Send';
-import PersonSendDetailPage from '../screen/Person/PersonSendDetailPage';
-import RoundSendDetailPage from '../screen/Round/RoundSendDetailPage';
-import Home from '../screen/Home';
+import Share from '../Screen/Home/Share';
+import RoundSend from '../Screen/Round/RoundSend';
+import PersonSend from '../Screen/Person/PersonSendDetailPage';
+import NewTopicPage from '../Screen/NewTopicPage';
+import Send from '../Screen/Home/Send';
+import PersonSendDetailPage from '../Screen/Person/PersonSendDetailPage';
+import RoundSendDetailPage from '../Screen/Round/RoundSendDetailPage';
+import Home from '../Screen/Home';
 import LogoTitle from '../Components/Text/LogoTitle';
 import RoundShare from '../screen/Round/RoundShare';
-import Login from '../screen/Login/login';
-
+import Login from '../screen/login/login';
+import Colors from '../constants/Colors';
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
@@ -71,7 +71,12 @@ const StackNavigation = () => {
         name="NewTopicPage"
         component={NewTopicPage}
         options={{
-          headerShown: false,
+          title: 'Add a Writing',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.white,
+            elevation: 0,
+          },
         }}
       />
       <Stack.Screen

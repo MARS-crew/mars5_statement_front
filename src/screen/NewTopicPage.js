@@ -1,13 +1,26 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {Text, StyleSheet, View, Dimensions} from 'react-native';
+import Colors from '../Constants/Colors';
 
 const NewTopicPage = () => {
-  return <Text style={styles.text}>새로운 주제를 만들어 보아요</Text>;
+  return (
+    <View style={styles.container}>
+      <Text style={styles.centeredText}>Select Type</Text>
+    </View>
+  );
 };
+
 export default NewTopicPage;
 
 const styles = StyleSheet.create({
-  text: {
-    color: 'black',
+  container: {
+    flex: 1,
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  centeredText: {
+    color: Colors.black,
+    marginTop: -Dimensions.get('window').height / 2,
   },
 });

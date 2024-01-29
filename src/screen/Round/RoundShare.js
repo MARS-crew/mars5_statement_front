@@ -1,7 +1,16 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+  Image,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import CaptureAndShareButton from '../../Components/Button/CaptureAndShareButton';
+import backBtn from '../../assest/images/header/back.png';
+import Colors from '../../constants/Colors';
+import shareBtn from '../../assest/images/header/shareBtn.png';
 
 const DATA = {
   suggest_id: 1,
@@ -35,12 +44,19 @@ const RoundShare = () => {
   };
 
   return (
-    <View>
-      <TouchableOpacity style={styles.touchable} onPress={handlePress}>
-        <CaptureAndShareButton />
-      </TouchableOpacity>
-      <Text style={styles.text}>회차별</Text>
-    </View>
+    <SafeAreaView>
+      <View style={styles.head}>
+        <View style={styles.header}>
+          <View style={styles.headerLeft}>
+            <Image source={backBtn} style={styles.backBtn} />
+            <Text style={styles.title}>Share</Text>
+          </View>
+          <Image source={shareBtn} style={styles.share} />
+        </View>
+      </View>
+      {/* <TouchableOpacity style={styles.touchable} onPress={handlePress}>
+      </TouchableOpacity> */}
+    </SafeAreaView>
   );
 };
 
@@ -50,8 +66,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
+  head: {
+    alignItems: 'center',
+    top: 20,
+  },
+  header: {
     color: 'black',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 320,
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  backBtn: {
+    width: 8,
+    height: 16,
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: Colors.black,
+    justifyContent: '',
+    left: 20,
+  },
+  share: {
+    width: 40,
+    height: 32,
   },
 });
 

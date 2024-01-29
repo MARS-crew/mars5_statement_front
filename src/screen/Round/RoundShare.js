@@ -54,6 +54,9 @@ const RoundShare = () => {
           <Image source={shareBtn} style={styles.share} />
         </View>
       </View>
+      <View>
+        <Text>아아</Text>
+      </View>
       {/* <TouchableOpacity style={styles.touchable} onPress={handlePress}>
       </TouchableOpacity> */}
     </SafeAreaView>
@@ -92,6 +95,7 @@ const styles = StyleSheet.create({
     color: Colors.black,
     justifyContent: '',
     left: 20,
+    font: 'NotoSansEN',
   },
   share: {
     width: 40,

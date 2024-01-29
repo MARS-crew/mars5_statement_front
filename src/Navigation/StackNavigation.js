@@ -10,6 +10,7 @@ import PersonSendDetailPage from '../screen/Person/PersonSendDetailPage';
 import RoundSendDetailPage from '../screen/Round/RoundSendDetailPage';
 import Home from '../screen/Home';
 import LogoTitle from '../Components/Text/LogoTitle';
+import RoundShare from '../screen/Round/RoundShare';
 
 const Stack = createStackNavigator();
 
@@ -74,6 +75,20 @@ const StackNavigation = () => {
       />
       <Stack.Screen
         name="RoundSendDetailPage"
+        component={RoundSendDetailPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="RoundShare"
+        component={RoundShare}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="RoundShareDetailPage"
         component={RoundSendDetailPage}
         options={{
           headerShown: false,

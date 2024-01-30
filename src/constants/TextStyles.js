@@ -10,7 +10,7 @@ export const TextStyles = StyleSheet.create({
     },
     semiBold: {
         fontSize: 14,
-        fontWeight: '500', // semi-bold를 나타내는 숫자 값
+        fontWeight: '500', // semi-bold
         fontFamily: 'NotoSansEN',
         color: Colors.black,
     },

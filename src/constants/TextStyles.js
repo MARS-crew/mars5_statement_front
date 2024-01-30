@@ -12,7 +12,7 @@ export const TextStyles = StyleSheet.create({
         fontWeight: '500', // semi-bold
         color: Colors.black,
     },
-    bold: {
+    title: {
         fontSize: 18,
         fontWeight: '500',
         color: Colors.black,

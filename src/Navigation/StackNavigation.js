@@ -68,23 +68,25 @@ const StackNavigation = () => {
         component={NewTopicPage}
         options={{
           title: 'Add a Writing',
-          headerShown: true,
           headerStyle: {
             backgroundColor: Colors.white,
             elevation: 0,
           },
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="NewTopicChooseMember"
         component={NewTopicChooseMember}
         options={{
-          title: 'Add a Writing',
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: Colors.white,
-            elevation: 0,
-          },
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="NewTopicTitle"
+        component={NewTopicTitle}
+        options={{
+          headerShown: false,
         }}
       />
       <Stack.Screen

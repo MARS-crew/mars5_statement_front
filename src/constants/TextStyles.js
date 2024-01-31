@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import Colors from './Colors';
 
-
 const baseStyle = {
     fontSize: 14,
     fontFamily: 'NotoSansEN',
@@ -25,4 +24,4 @@ export const TextStyles = StyleSheet.create({
     placeholder :{
         color : Colors.grey
     },
-}); 
+});

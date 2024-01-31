@@ -11,12 +11,20 @@ import RoundSendDetailPage from '../screen/Round/RoundSendDetailPage';
 import Home from '../screen/Home';
 import LogoTitle from '../Components/Text/LogoTitle';
 import RoundShare from '../screen/Round/RoundShare';
+import Login from '../screen/Login/login';
 
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false
+        }}
+      />
       <Stack.Screen
         name="TeamName"
         component={Home}

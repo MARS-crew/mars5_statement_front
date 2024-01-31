@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
 import Colors from '../../constants/Colors';
 import shareBtn from '../../assest/images/header/shareBtn.png';
-import {useRoute} from '@react-navigation/native';\
+import {useRoute} from '@react-navigation/native';
 
 const RoundShare = () => {
   const route = useRoute();

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    elevation: 3,
+    elevation: 4,
     flex: 1,
   },
   selectedButton: {

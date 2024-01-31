@@ -1,19 +1,22 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Share from '../Screen/Home/Share';
-import RoundSend from '../Screen/Round/RoundSend';
-import PersonSend from '../Screen/Person/PersonSendDetailPage';
-import NewTopicChooseMember from '../Screen/NewTopicChooseMember';
-import Send from '../Screen/Home/Send';
-import PersonSendDetailPage from '../Screen/Person/PersonSendDetailPage';
-import RoundSendDetailPage from '../Screen/Round/RoundSendDetailPage';
-import Home from '../Screen/Home';
+import Share from '../screen/Home/Share';
+import RoundSend from '../screen/round/RoundSend';
+import PersonSend from '../screen/Person/PersonSendDetailPage';
+import NewTopicChooseMember from '../screen/newTopic/NewTopicChooseMember';
+import Send from '../screen/Home/Send';
+import PersonSendDetailPage from '../screen/Person/PersonSendDetailPage';
+import RoundSendDetailPage from '../screen/round/RoundSendDetailPage';
+import Home from '../screen/Home';
 import LogoTitle from '../Components/Text/LogoTitle';
-import RoundShare from '../screen/Round/RoundShare';
+import RoundShare from '../screen/round/RoundShare';
 import Login from '../screen/login/login';
 import Colors from '../constants/Colors';
-import NewTopicPage from '../Screen/NewTopicPage';
+import NewTopicPage from '../screen/NewTopicPage';
+import RoundShare from '../screen/round/RoundShare';
+import NewTopicPage from '../screen/newTopic/NewTopicPage';
+import NewTopicTitle from '../screen/newTopic/NewtopicTitle';
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
@@ -73,23 +76,25 @@ const StackNavigation = () => {
         component={NewTopicPage}
         options={{
           title: 'Add a Writing',
-          headerShown: true,
           headerStyle: {
             backgroundColor: Colors.white,
             elevation: 0,
           },
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="NewTopicChooseMember"
         component={NewTopicChooseMember}
         options={{
-          title: 'Add a Writing',
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: Colors.white,
-            elevation: 0,
-          },
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="NewTopicTitle"
+        component={NewTopicTitle}
+        options={{
+          headerShown: false,
         }}
       />
       <Stack.Screen

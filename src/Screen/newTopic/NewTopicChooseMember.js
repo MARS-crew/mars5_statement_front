@@ -5,10 +5,16 @@ import {
   View,
   ScrollView,
   useWindowDimensions,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import MemberChooseButton from '../Components/Button/MemberChooseButton';
-import Colors from '../Constants/Colors';
+import MemberChooseButton from '../../Components/Button/MemberChooseButton';
+import Colors from '../../Constants/Colors';
+import back from '../../Assest/Images/header/back.png';
+import check from '../../Assest/Images/header/check.png';
+import {TextStyles} from '../../Constants/TextStyles';
 
 const NewTopicChooseMember = () => {
   const navigation = useNavigation();
@@ -33,8 +39,8 @@ const NewTopicChooseMember = () => {
     new Array(buttons.length).fill(false),
   );
 
-  const handleChooseMember = () => {
-    navigation.navigate('NewTopicChooseMember');
+  const handleCheck = () => {
+    navigation.navigate('NewTopicTitle');
   };
 
   const toggleButton = index => {
@@ -44,10 +50,23 @@ const NewTopicChooseMember = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.head}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <View style={styles.headerLeft}>
+              <Image source={back} style={styles.backBtn} />
+              <Text style={styles.title}>Add a Writing</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleCheck}>
+            <Image source={check} style={styles.share} />
+          </TouchableOpacity>
+        </View>
+      </View>
       <Text style={styles.centeredText}>Select Member</Text>
       <View style={styles.selectedTextContainer}>
-        <Text style={styles.selectedText}>1명 선택</Text>
+        <Text style={TextStyles.semiBold}>1명 선택</Text>
       </View>
       <View
         style={[
@@ -68,7 +87,7 @@ const NewTopicChooseMember = () => {
           </View>
         </ScrollView>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -77,12 +96,12 @@ export default NewTopicChooseMember;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
     alignItems: 'center',
+    backgroundColor: Colors.white,
   },
   centeredText: {
     color: Colors.black,
-    marginTop: '10%',
+    marginTop: '20%',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -93,11 +112,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     alignSelf: 'flex-end',
   },
-  selectedText: {
-    fontSize: 14,
-    color: Colors.black,
-    fontWeight: '600',
-  },
+
   buttonContainer: {
     marginTop: 10,
     backgroundColor: Colors.lightgrey,
@@ -116,5 +131,35 @@ const styles = StyleSheet.create({
     width: '29%',
     aspectRatio: 1,
     margin: '2%',
+  },
+  head: {
+    alignItems: 'center',
+    top: 20,
+  },
+  header: {
+    color: 'black',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 320,
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  backBtn: {
+    width: 8,
+    height: 16,
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: Colors.black,
+    left: 20,
+  },
+  share: {
+    width: 40,
+    height: 32,
   },
 });

@@ -1,23 +1,28 @@
 import { StyleSheet } from 'react-native';
 import Colors from './Colors';
 
+
+const baseStyle = {
+    fontSize: 14,
+    fontFamily: 'NotoSansEN',
+    color: Colors.black,
+};
+
 export const TextStyles = StyleSheet.create({
     normal: {
-        fontSize: 14,
+        ...baseStyle,
         fontWeight: 'normal',
-        fontFamily: 'NotoSansEN',
-        color: Colors.black,
     },
     semiBold: {
-        fontSize: 14,
-        fontWeight: '500', // semi-bold
-        fontFamily: 'NotoSansEN',
-        color: Colors.black,
+        ...baseStyle,
+        fontWeight: 'bold' // semi-bold
     },
     title: {
+        ...baseStyle,
         fontSize: 18,
-        fontWeight: '500',
-        fontFamily: 'NotoSansEN',
-        color: Colors.black,
+        fontWeight: 'bold',
     },
-});
+    placeholder :{
+        color : Colors.grey
+    },
+}); 

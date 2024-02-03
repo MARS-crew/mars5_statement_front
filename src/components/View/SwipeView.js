@@ -2,71 +2,52 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Swipelist from 'react-native-swipeable-list-view';
+import {scale,verticalScale,moderateScale} from '../../constants/Scale'
+import Colors from '../../constants/Colors'
+import {TextStyles} from '../../constants/TextStyles'
+import HumanButton from '../Button/HumanButton';
+import RoundButton from '../Button/ChapterButton';
 
-const SwipeView = ({handlePersonSend, handleRoundSend}) => (
+
+const SwipeView = () => (
   <Swipelist
     data={[{}]}
     renderRightItem={() => (
       <View style={styles.container}>
-        <Text style={styles.styledText}> React Native</Text>
+        <Text numberOfLines={1} ellipsizeMode='tail' style={[TextStyles.semiBold]}> 코드 리뷰 해보아요 </Text>
+        <Text style={[TextStyles.normal, TextStyles.placeholder]}> 2024-01-02 </Text>
       </View>
     )}
     renderHiddenItem={() => (
       <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity
-          style={[styles.rightAction, {backgroundColor: '#bfbfbf'}]}
-          onPress={handleRoundSend}>
-          <Text>회차별</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.rightAction, {backgroundColor: 'red'}]}
-          onPress={handlePersonSend}>
-          <Text>인물별</Text>
-        </TouchableOpacity>
+        <RoundButton></RoundButton>
+        <HumanButton></HumanButton>
       </View>
     )}
-    rightOpenValue={200}
+    rightOpenValue={scale(88)}
     closeOnRowPress={true}
   />
 );
 
 const styles = {
   container: {
-    height: 60,
-    marginVertical: 10,
-    backgroundColor: '#ffffff',
+    width: '100%',
+    height: scale(44),
+    backgroundColor: Colors.white,
     justifyContent: 'center',
-    paddingLeft: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  styledText: {
-    color: '#111',
-    fontWeight: 'bold',
+    paddingHorizontal: 20,
+    borderTopWidth: 1,
+    borderColor: Colors.grey,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems : 'center'
   },
 
   rightAction: {
-    width: '100%',
-    marginVertical: 10,
-    alignItems: 'center',
     flex: 1,
+    height: scale(44),
+    alignItems: 'center',
     justifyContent: 'center',
-    height: 60,
-    backgroundColor: '#ffffff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
 };
 

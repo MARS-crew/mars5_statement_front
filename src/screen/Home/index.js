@@ -16,7 +16,6 @@ const Home = () => {
     <>
       <DrawerNavigation />
       <FloatingButton onPress={handlePress} />
-      <GoogleLoginButton />
     </>
   );
 };

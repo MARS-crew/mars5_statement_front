@@ -22,9 +22,6 @@ const StackNavigation = () => {
         component={Home}
         options={{
           headerShown: false,
-          headerStyle: {
-            backgroundColor: '#F2F2F2',
-          },
           headerTitle: props => <LogoTitle {...props} />,
         }}
       />

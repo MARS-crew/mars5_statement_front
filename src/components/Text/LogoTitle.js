@@ -1,6 +1,9 @@
 // LogoTitle.js
 import React from 'react';
 import {View, Image, StyleSheet, Text} from 'react-native';
+import Colors from '../../constants/Colors';
+import { TextStyles } from '../../constants/TextStyles';
+import { moderateScale } from '../../constants/Scale';
 
 const LogoTitle = ({teamName}) => (
   <View style={styles.container}>
@@ -8,7 +11,7 @@ const LogoTitle = ({teamName}) => (
       style={styles.logo}
       source={require('../../assest/images/image2.png')}
     />
-    <Text style={styles.title}>{teamName}</Text>
+    <Text style={[TextStyles.title]}>{teamName}</Text>
   </View>
 );
 
@@ -18,16 +21,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f2f2f2',
   },
   logo: {
-    width: 30,
-    height: 30,
-    marginRight: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'black',
+    width: moderateScale(44),
+    height: moderateScale(44),
+    marginRight: 10
   },
 });

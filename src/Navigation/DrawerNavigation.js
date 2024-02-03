@@ -3,6 +3,9 @@ import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import TopTabNavigator from './TopTabNavigation';
 import LogoTitle from '../Components/Text/LogoTitle';
+import Colors from '../constants/Colors';
+import { scale } from '../constants/Scale';
+import { TextStyles } from '../constants/TextStyles';
 
 const Drawer = createDrawerNavigator();
 
@@ -15,10 +18,14 @@ const DrawerNavigation = () => {
         options={({route}) => ({
           headerShown: true,
           headerStyle: {
-            backgroundColor: '#F2F2F2',
+            height: scale(68),
+            backgroundColor: Colors.white
           },
-          headerTitle: props => <LogoTitle {...props} teamName={route.name} />,
+          headerTitle: props => <LogoTitle {...props} teamName={route.name}/>,
           headerLeft: false,
+          headerTitleContainerStyle: {
+            marginRight: 20,
+          },
         })}
       />
     </Drawer.Navigator>

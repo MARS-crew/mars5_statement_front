@@ -3,6 +3,7 @@ import {StyleSheet, SafeAreaView, ScrollView, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import SwipeView from '../../Components/View/SwipeView';
+import Colors from '../../constants/Colors';
 
 const Send = () => {
   const navigation = useNavigation();
@@ -36,23 +37,8 @@ const screenWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.lightgrey,
     position: 'relative',
-  },
-  tabContainer: {
-    flexDirection: 'row',
-    width: screenWidth,
-  },
-  tab: {
-    flex: 1,
-    padding: 10,
-    borderBottomWidth: 1.5,
-    borderBottomColor: 'lightgray',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: 'black',
-    fontSize: 15,
   },
 });
 

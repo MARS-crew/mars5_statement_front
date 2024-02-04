@@ -24,16 +24,18 @@ const RoundShare = () => {
   };
 
   const summaryList = ({item}) => (
-    <View style={styles.summarybox}>
-      <View style={styles.summarybox2}>
-        <View style={styles.summarybox3}>
-          <Text style={styles.round}>{item.chapter_id}th</Text>
-          <Text style={styles.user}>{item.member_name}</Text>
+    <TouchableOpacity onPress={handlePress} data={item}>
+      <View style={styles.summarybox}>
+        <View style={styles.summarybox2}>
+          <View style={styles.summarybox3}>
+            <Text style={styles.round}>{item.chapter_id}th</Text>
+            <Text style={styles.user}>{item.member_name}</Text>
+          </View>
+          <Text style={styles.date}>{item.reg_dt}</Text>
         </View>
-        <Text style={styles.date}>{item.reg_dt}</Text>
+        <Text style={styles.summary}>{item.opinion}</Text>
       </View>
-      <Text style={styles.summary}>{item.opinion}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (

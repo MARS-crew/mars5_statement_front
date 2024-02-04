@@ -19,12 +19,16 @@ const RoundShare = () => {
   const data = route.params?.data;
   const navigation = useNavigation();
 
-  const handlePress = () => {
+  const handlePress = ({item}) => {
     navigation.navigate('RoundShareDetailPage');
   };
 
-  const summaryList = ({item}) => (
-    <TouchableOpacity onPress={handlePress} data={item}>
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
+  const summaryList = ({item, shareData}) => (
+    <TouchableOpacity onPress={() => handlePress(data)}>
       <View style={styles.summarybox}>
         <View style={styles.summarybox2}>
           <View style={styles.summarybox3}>
@@ -44,14 +48,16 @@ const RoundShare = () => {
       <View style={styles.head}>
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={backBtn} style={styles.backBtn} />
+            <TouchableOpacity onPress={handleBack}>
+              <Image source={backBtn} style={styles.backBtn} />
+            </TouchableOpacity>
             <Text style={styles.title}>Share</Text>
           </View>
           <Image source={shareBtn} style={styles.share} />
         </View>
       </View>
+      {/* 주제 */}
       <View style={styles.middle}>
-        {/* 주제 */}
         <Text style={styles.suggest}>{data.suggest}</Text>
         {/* Round 추가 버튼 */}
         <TouchableOpacity>
@@ -82,6 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: 320,
+    height: 60,
     alignContent: 'center',
     alignItems: 'center',
   },
@@ -97,9 +104,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: Colors.black,
-    justifyContent: '',
     left: 20,
-    font: 'NotoSansEN',
+    fontFamily: 'NotoSansEN',
   },
   share: {
     width: 40,
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: Colors.black,
-    font: 'NotoSansKR',
+    fontFamily: 'NotoSansKR',
     // eslint-disable-next-line no-dupe-keys
     fontWeight: 'bold',
   },
@@ -122,7 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: Colors.black,
-    font: 'NotoSansEN',
+    fontFamily: 'NotoSansEN',
   },
   btn: {
     borderWidth: 1,
@@ -142,7 +148,7 @@ const styles = StyleSheet.create({
   summarybox: {
     width: '100%',
     borderColor: Colors.grey,
-    borderWidth: 0.8,
+    borderWidth: 0.4,
   },
   summarybox2: {
     justifyContent: 'space-between',
@@ -154,13 +160,13 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 16,
     color: Colors.black,
-    font: 'NotoSansKR',
+    fontFamily: 'NotoSansKR',
   },
   user: {
     fontSize: 12,
     marginLeft: 20,
     color: Colors.black,
-    font: 'NotoSansKR',
+    fontFamily: 'NotoSansKR',
   },
   summary: {
     fontSize: 14,
@@ -169,7 +175,7 @@ const styles = StyleSheet.create({
     marginBottom: 18,
     marginRight: 20,
     color: Colors.black,
-    font: 'NotoSansKR',
+    fontFamily: 'NotoSansKR',
   },
   date: {
     fontSize: 14,

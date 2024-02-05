@@ -15,12 +15,13 @@ import back from '../../Assest/Images/header/back.png';
 import check from '../../Assest/Images/header/check.png';
 import {TextStyles} from '../../Constants/TextStyles';
 
-const NewTopicTitle = () => {
+const NewTopicWrite = ({route}) => {
   const navigation = useNavigation();
   const [text, setText] = useState('');
+  const {title} = route.params;
 
-  const handleNextPage = () => {
-    navigation.navigate('NewTopicWrite', {title: text});
+  const handleChooseMember = () => {
+    navigation.navigate('NewTopicTitle');
   };
 
   const onChangeText = inputText => {
@@ -36,15 +37,16 @@ const NewTopicTitle = () => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.headerLeft}>
               <Image source={back} style={styles.backBtn} />
+
               <Text style={styles.title}>Add a Writing</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleNextPage}>
+          <TouchableOpacity>
             <Image source={check} style={styles.share} />
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.centeredText}>Input Title</Text>
+      <Text style={styles.centeredText}>{title}</Text>
       <View
         style={[
           styles.buttonContainer,
@@ -62,7 +64,7 @@ const NewTopicTitle = () => {
     </SafeAreaView>
   );
 };
-export default NewTopicTitle;
+export default NewTopicWrite;
 
 const styles = StyleSheet.create({
   container: {

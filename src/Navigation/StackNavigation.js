@@ -99,6 +99,13 @@ const StackNavigation = () => {
         }}
       />
       <Stack.Screen
+        name="NewTopicWrite"
+        component={NewTopicWrite}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="PersonSendDetailPage"
         component={PersonSendDetailPage}
         options={{

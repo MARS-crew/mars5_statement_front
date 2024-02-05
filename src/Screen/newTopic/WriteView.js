@@ -1,38 +1,32 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Text,
   StyleSheet,
   View,
-  useWindowDimensions,
+  ScrollView,
   TouchableOpacity,
   Image,
   SafeAreaView,
-  TextInput,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import Colors from '../../Constants/Colors';
 import back from '../../Assest/Images/header/back.png';
 import check from '../../Assest/Images/header/check.png';
+import {useNavigation} from '@react-navigation/native';
 import {TextStyles} from '../../Constants/TextStyles';
 
-const NewTopicTitle = ({route}) => {
+const WriteView = ({route}) => {
   const navigation = useNavigation();
-  const {selectedType, selectedButtons} = route.params;
-  const [text, setText] = useState('');
 
-  const handleNextPage = () => {
-    navigation.navigate('NewTopicWrite', {
-      title: text,
+  const {title, text, selectedType, selectedButtons} = route.params;
+
+  const handleChooseMember = () => {
+    navigation.navigate('ReviewPage', {
+      title,
+      text,
       selectedType,
       selectedButtons,
     });
   };
-
-  const onChangeText = inputText => {
-    setText(inputText);
-  };
-  const windowWidth = useWindowDimensions().width;
-  const windowHeight = useWindowDimensions().height;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,33 +35,31 @@ const NewTopicTitle = ({route}) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.headerLeft}>
               <Image source={back} style={styles.backBtn} />
-              <Text style={styles.title}>Add a Writing</Text>
+              <Text style={styles.title}>{selectedType}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleNextPage}>
+          <TouchableOpacity onPress={handleChooseMember}>
             <Image source={check} style={styles.share} />
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.centeredText}>Input Title</Text>
-      <View
-        style={[
-          styles.buttonContainer,
-          {width: windowWidth * 0.9, height: windowHeight * 0.6},
-        ]}>
-        <TextInput
-          onChangeText={onChangeText}
-          value={text}
-          placeholder="아무거나 입력하세요..."
-          i
-          style={TextStyles.normal}
-          placeholderTextColor="#D3D6D3"
-        />
-      </View>
+      <Text style={styles.centeredText}>{title}</Text>
+
+      <ScrollView style={styles.scrollView}>
+        {selectedButtons.map((button, index) => (
+          <View
+            key={index}
+            style={[styles.box, index === 0 && styles.firstBox]}>
+            <Text style={[TextStyles.title, styles.textUser]}>{button}</Text>
+            <Text style={[TextStyles.normal, styles.text]}>{text}</Text>
+          </View>
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
-export default NewTopicTitle;
+
+export default WriteView;
 
 const styles = StyleSheet.create({
   container: {
@@ -82,29 +74,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'NotoSansEN',
   },
-  selectedTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  scrollView: {
     marginTop: 20,
-    marginRight: 20,
-    alignSelf: 'flex-end',
+    marginBottom: 20,
+    width: '100%',
   },
-
-  buttonContainer: {
-    marginTop: 40,
-    backgroundColor: Colors.lightgrey,
-    paddingHorizontal: 10,
-    borderRadius: 10,
+  firstBox: {
+    borderTopWidth: 1,
   },
-  buttonContent: {
-    flexGrow: 1,
+  box: {
+    borderColor: Colors.grey,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
   },
-  buttonRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 20,
-  },
-
   head: {
     alignItems: 'center',
     top: 20,
@@ -134,5 +118,12 @@ const styles = StyleSheet.create({
   share: {
     width: 40,
     height: 32,
+  },
+  text: {
+    marginTop: 20,
+    marginHorizontal: 5,
+  },
+  textUser: {
+    marginHorizontal: 5,
   },
 });

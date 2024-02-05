@@ -100,6 +100,20 @@ const StackNavigation = () => {
         }}
       />
       <Stack.Screen
+        name="WriteView"
+        component={WriteView}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ReviewPage"
+        component={ReviewPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="PersonSendDetailPage"
         component={PersonSendDetailPage}
         options={{

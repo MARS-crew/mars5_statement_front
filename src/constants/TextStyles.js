@@ -10,7 +10,7 @@ export const TextStyles = StyleSheet.create({
   },
   semiBold: {
     fontSize: 14,
-    fontWeight: '500', // semi-bold
+    fontWeight: '500',
     fontFamily: 'NotoSansEN',
     color: Colors.black,
   },

@@ -18,8 +18,8 @@ const NewTopicPage = () => {
   const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const handleChooseMember = () => {
-    navigation.navigate('NewTopicChooseMember');
+  const handleChooseMember = selectedType => {
+    navigation.navigate('NewTopicChooseMember', {selectedType});
   };
   const handleGoBack = () => {
     setModalVisible(true);
@@ -51,14 +51,14 @@ const NewTopicPage = () => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.Sharebutton}
-            onPress={handleChooseMember}>
+            onPress={() => handleChooseMember('Share')}>
             <Text style={(styles.buttonText, TextStyles.titleWhite)}>
               Share
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.Sendbutton}
-            onPress={handleChooseMember}>
+            onPress={() => handleChooseMember('send')}>
             <Text style={(styles.buttonText, TextStyles.titleWhite)}>Send</Text>
           </TouchableOpacity>
         </View>

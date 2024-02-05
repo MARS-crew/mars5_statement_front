@@ -3,34 +3,34 @@ import {
   Text,
   StyleSheet,
   View,
-  useWindowDimensions,
+  ScrollView,
   TouchableOpacity,
   Image,
   SafeAreaView,
+  useWindowDimensions,
   TextInput,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import Colors from '../../Constants/Colors';
+import {useNavigation} from '@react-navigation/native';
 import back from '../../Assest/Images/header/back.png';
 import check from '../../Assest/Images/header/check.png';
 import {TextStyles} from '../../Constants/TextStyles';
 
-const NewTopicTitle = ({route}) => {
+const WriteView = ({route}) => {
   const navigation = useNavigation();
-  const {selectedType, selectedButtons} = route.params;
-  const [text, setText] = useState('');
+  const [review, setReview] = useState('');
+  const {title, text, selectedType, selectedButtons} = route.params;
 
-  const handleNextPage = () => {
-    navigation.navigate('NewTopicWrite', {
-      title: text,
-      selectedType,
-      selectedButtons,
+  const onChangeText = inputText => {
+    setReview(inputText);
+  };
+  const handleChooseMember = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'TeamName'}],
     });
   };
 
-  const onChangeText = inputText => {
-    setText(inputText);
-  };
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
@@ -41,24 +41,41 @@ const NewTopicTitle = ({route}) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.headerLeft}>
               <Image source={back} style={styles.backBtn} />
-              <Text style={styles.title}>Add a Writing</Text>
+              <Text style={styles.title}>{selectedType}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleNextPage}>
+          <TouchableOpacity onPress={handleChooseMember}>
             <Image source={check} style={styles.share} />
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.centeredText}>Input Title</Text>
+      <Text style={[styles.centeredText, {marginLeft: -windowWidth / 1.5}]}>
+        멤버들 의견
+      </Text>
+
+      <View
+        style={[
+          styles.scrollViewContainer,
+          {height: windowHeight / 5, width: windowWidth / 1.125},
+        ]}>
+        <ScrollView style={styles.scrollView}>
+          {selectedButtons.map((button, index) => (
+            <View key={index} style={styles.box}>
+              <Text style={[TextStyles.normal, styles.textUser]}>{button}</Text>
+              <Text style={[TextStyles.semiBold, styles.text]}>{text}</Text>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
       <View
         style={[
           styles.buttonContainer,
-          {width: windowWidth * 0.9, height: windowHeight * 0.6},
+          {width: windowWidth * 0.9, height: windowHeight / 4},
         ]}>
         <TextInput
           onChangeText={onChangeText}
-          value={text}
-          placeholder="아무거나 입력하세요..."
+          value={review}
+          placeholder="후기를 작성해 주세요."
           i
           style={TextStyles.normal}
           placeholderTextColor="#D3D6D3"
@@ -67,7 +84,8 @@ const NewTopicTitle = ({route}) => {
     </SafeAreaView>
   );
 };
-export default NewTopicTitle;
+
+export default WriteView;
 
 const styles = StyleSheet.create({
   container: {
@@ -81,28 +99,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     fontFamily: 'NotoSansEN',
+    marginBottom: '3%',
   },
-  selectedTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-    marginRight: 20,
-    alignSelf: 'flex-end',
-  },
-
-  buttonContainer: {
-    marginTop: 40,
-    backgroundColor: Colors.lightgrey,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-  },
-  buttonContent: {
-    flexGrow: 1,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 20,
+  scrollViewContainer: {
+    borderRadius: 5,
+    overflow: 'hidden',
+    borderColor: Colors.grey,
+    borderWidth: 1,
   },
 
   head: {
@@ -134,5 +137,23 @@ const styles = StyleSheet.create({
   share: {
     width: 40,
     height: 32,
+  },
+  box: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderColor: Colors.grey,
+    padding: 2,
+    borderBottomWidth: 1,
+  },
+  text: {flex: 1},
+  textUser: {
+    fontWeight: 'bold',
+    marginRight: 7,
+  },
+  buttonContainer: {
+    marginTop: 40,
+    backgroundColor: Colors.lightgrey,
+    paddingHorizontal: 10,
+    borderRadius: 10,
   },
 });

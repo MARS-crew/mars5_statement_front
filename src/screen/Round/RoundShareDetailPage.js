@@ -1,4 +1,4 @@
-import Colors from '../../constants/Colors';
+import Colors from '../../Constants/Colors';
 import React from 'react';
 import {
   Text,
@@ -10,8 +10,8 @@ import {
   FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import backBtn from '../../assest/images/header/back.png';
-import heart from '../../assest/images/share/heart.png';
+import backBtn from '../../Assest/Images/header/back.png';
+import heart from '../../Assest/Images/share/heart.png';
 
 const DATA = {
   chapter_id: 1,

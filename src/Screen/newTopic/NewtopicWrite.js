@@ -18,10 +18,15 @@ import {TextStyles} from '../../Constants/TextStyles';
 const NewTopicWrite = ({route}) => {
   const navigation = useNavigation();
   const [text, setText] = useState('');
-  const {title} = route.params;
+  const {title, selectedType, selectedButtons} = route.params;
 
   const handleChooseMember = () => {
-    navigation.navigate('NewTopicTitle');
+    navigation.navigate('WriteView', {
+      title,
+      text,
+      selectedType,
+      selectedButtons,
+    });
   };
 
   const onChangeText = inputText => {
@@ -41,7 +46,7 @@ const NewTopicWrite = ({route}) => {
               <Text style={styles.title}>Add a Writing</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleChooseMember}>
             <Image source={check} style={styles.share} />
           </TouchableOpacity>
         </View>
@@ -56,7 +61,7 @@ const NewTopicWrite = ({route}) => {
           onChangeText={onChangeText}
           value={text}
           placeholder="아무거나 입력하세요..."
-          i
+          multiline={true}
           style={TextStyles.normal}
           placeholderTextColor="#D3D6D3"
         />

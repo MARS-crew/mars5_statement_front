@@ -16,22 +16,23 @@ import back from '../../Assest/Images/header/back.png';
 import check from '../../Assest/Images/header/check.png';
 import {TextStyles} from '../../Constants/TextStyles';
 
-const NewTopicChooseMember = () => {
+const NewTopicChooseMember = ({route}) => {
+  const {selectedType} = route.params;
   const navigation = useNavigation();
   const buttons = [
-    'Button 1',
-    'Button 2',
-    'Button 3',
-    'Button 4',
-    'Button 5',
-    'Button 6',
-    'Button 7',
-    'Button 8',
-    'Button 9',
-    'Button 10',
-    'Button 11',
-    'Button 12',
-    'Button 13',
+    '호호빵 ',
+    '이세진',
+    '임동현',
+    '한민규',
+    '백예나',
+    '박지민',
+    '이영현',
+    '김인후',
+    '문쿼카',
+    '루이바오',
+    '후이바오',
+    '어쩌라구',
+    '푸파옹',
   ];
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
@@ -40,7 +41,13 @@ const NewTopicChooseMember = () => {
   );
 
   const handleCheck = () => {
-    navigation.navigate('NewTopicTitle');
+    const selectedButtonsNames = buttons.filter(
+      (button, index) => selectedButtons[index],
+    );
+    navigation.navigate('NewTopicTitle', {
+      selectedType,
+      selectedButtons: selectedButtonsNames,
+    });
   };
 
   const toggleButton = index => {

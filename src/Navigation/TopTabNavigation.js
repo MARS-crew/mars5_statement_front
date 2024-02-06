@@ -1,8 +1,8 @@
 // TopTabNavigator.js
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Send from '../screen/Home/Send';
-import Share from '../screen/Home/Share';
+import Send from '../screen/home/Send';
+import Share from '../screen/home/Share';
 import Colors from '../constants/Colors';
 import { moderateScale, scale } from '../constants/Scale';
 import { TextStyles } from '../constants/TextStyles';

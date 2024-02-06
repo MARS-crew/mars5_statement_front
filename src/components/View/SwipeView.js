@@ -5,8 +5,8 @@ import Swipelist from 'react-native-swipeable-list-view';
 import {scale,verticalScale,moderateScale} from '../../constants/Scale'
 import Colors from '../../constants/Colors'
 import {TextStyles} from '../../constants/TextStyles'
-import HumanButton from '../Button/HumanButton';
-import RoundButton from '../Button/ChapterButton';
+import HumanButton from '../button/HumanButton';
+import RoundButton from '../button/ChapterButton';
 
 
 const SwipeView = ({DATA}) => (

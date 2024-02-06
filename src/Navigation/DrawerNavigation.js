@@ -2,7 +2,7 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import TopTabNavigator from './TopTabNavigation';
-import LogoTitle from '../Components/Text/LogoTitle';
+import LogoTitle from '../components/text/LogoTitle';
 import Colors from '../constants/Colors';
 import { scale } from '../constants/Scale';
 import { TextStyles } from '../constants/TextStyles';

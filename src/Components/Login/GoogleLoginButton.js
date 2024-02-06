@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button} from 'react-native';
-import {onGoogleButtonPress} from '../../Api/GoogleLogin/GoogleLoginApi';
+import {onGoogleButtonPress} from '../../api/googleLogin/GoogleLoginApi';
 
 const GoogleLoginButton = () => {
   return (

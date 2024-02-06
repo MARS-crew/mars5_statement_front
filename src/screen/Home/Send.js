@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import SwipeView from '../../Components/View/SwipeView';
+import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
 
 const DATA = {

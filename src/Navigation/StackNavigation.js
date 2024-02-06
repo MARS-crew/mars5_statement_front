@@ -1,16 +1,16 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Share from '../screen/Home/Share';
-import RoundSend from '../screen/Round/RoundSend';
-import PersonSend from '../screen/Person/PersonSendDetailPage';
+import Share from '../screen/home/Share';
+import RoundSend from '../screen/round/RoundSend';
+import PersonSend from '../screen/person/PersonSendDetailPage';
 import NewTopicPage from '../screen/NewTopicPage';
-import Send from '../screen/Home/Send';
-import PersonSendDetailPage from '../screen/Person/PersonSendDetailPage';
-import RoundSendDetailPage from '../screen/Round/RoundSendDetailPage';
-import Home from '../screen/Home';
-import LogoTitle from '../Components/Text/LogoTitle';
-import RoundShare from '../screen/Round/RoundShare';
+import Send from '../screen/home/Send';
+import PersonSendDetailPage from '../screen/person/PersonSendDetailPage';
+import RoundSendDetailPage from '../screen/round/RoundSendDetailPage';
+import Home from '../screen/home';
+import LogoTitle from '../components/text/LogoTitle';
+import RoundShare from '../screen/round/RoundShare';
 
 const Stack = createStackNavigator();
 

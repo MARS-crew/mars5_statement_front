@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
 import { moderateScale } from '../../constants/Scale';
 import {useNavigation} from '@react-navigation/native';
-import CustomButton from '../Button/CustomButton';
+import CustomButton from '../button/CustomButton';
 import {onGoogleButtonPress} from '../../api/googleLogin/GoogleLoginApi';
 
 const GoogleLoginButton = () => {

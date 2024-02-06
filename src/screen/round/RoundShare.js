@@ -1,4 +1,4 @@
-import React, {useRoute} from 'react';
+import React from 'react';
 import {
   Text,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
 import Colors from '../../constants/Colors';
 import shareBtn from '../../assest/images/header/shareBtn.png';

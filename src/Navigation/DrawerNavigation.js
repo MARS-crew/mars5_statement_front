@@ -9,11 +9,12 @@ import { TextStyles } from '../constants/TextStyles';
 
 const Drawer = createDrawerNavigator();
 
-const DrawerNavigation = () => {
+
+const DrawerNavigation = ({DATA}) => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen
-        name="마스외전 5기"
+        name={DATA.teamName}
         component={TopTabNavigator}
         options={({route}) => ({
           headerShown: true,

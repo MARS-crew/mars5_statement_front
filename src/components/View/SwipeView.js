@@ -9,13 +9,13 @@ import HumanButton from '../Button/HumanButton';
 import RoundButton from '../Button/ChapterButton';
 
 
-const SwipeView = () => (
+const SwipeView = ({DATA}) => (
   <Swipelist
     data={[{}]}
     renderRightItem={() => (
       <View style={styles.container}>
-        <Text numberOfLines={1} ellipsizeMode='tail' style={[TextStyles.semiBold]}> 코드 리뷰 해보아요 </Text>
-        <Text style={[TextStyles.normal, TextStyles.placeholder]}> 2024-01-02 </Text>
+        <Text numberOfLines={1} ellipsizeMode='tail' style={[TextStyles.semiBold]}>{DATA.suggest}</Text>
+        <Text style={[TextStyles.normal, TextStyles.placeholder]}> {DATA.reg_dt} </Text>
       </View>
     )}
     renderHiddenItem={() => (

@@ -10,13 +10,13 @@ import {
   useWindowDimensions,
   TextInput,
 } from 'react-native';
-import Colors from '../../Constants/Colors';
+import Colors from '../../constants/Colors';
 import {useNavigation} from '@react-navigation/native';
-import back from '../../Assest/Images/header/back.png';
-import check from '../../Assest/Images/header/check.png';
-import {TextStyles} from '../../Constants/TextStyles';
+import back from '../../assest/images/header/back.png';
+import check from '../../assest/images/header/check.png';
+import {TextStyles} from '../../constants/TextStyles';
 
-const WriteView = ({route}) => {
+const ReviewPage = ({route}) => {
   const navigation = useNavigation();
   const [review, setReview] = useState('');
   const {title, text, selectedType, selectedButtons} = route.params;
@@ -85,7 +85,7 @@ const WriteView = ({route}) => {
   );
 };
 
-export default WriteView;
+export default ReviewPage;
 
 const styles = StyleSheet.create({
   container: {

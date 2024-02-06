@@ -8,11 +8,11 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import Colors from '../../Constants/Colors';
-import back from '../../Assest/Images/header/back.png';
-import check from '../../Assest/Images/header/check.png';
+import Colors from '../../constants/Colors';
+import back from '../../assest/images/header/back.png';
+import check from '../../assest/images/header/check.png';
 import {useNavigation} from '@react-navigation/native';
-import {TextStyles} from '../../Constants/TextStyles';
+import {TextStyles} from '../../constants/TextStyles';
 
 const WriteView = ({route}) => {
   const navigation = useNavigation();

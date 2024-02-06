@@ -9,7 +9,7 @@ const LogoTitle = ({teamName}) => (
   <View style={styles.container}>
     <Image
       style={styles.logo}
-      source={require('../../Assest/Images/image2.png')}
+      source={require('../../assest/images/image2.png')}
     />
     <Text style={[TextStyles.title]}>{teamName}</Text>
   </View>

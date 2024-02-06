@@ -5,7 +5,6 @@ import TopTabNavigator from './TopTabNavigation';
 import LogoTitle from '../components/text/LogoTitle';
 import Colors from '../constants/Colors';
 import { scale } from '../constants/Scale';
-import { TextStyles } from '../constants/TextStyles';
 
 const Drawer = createDrawerNavigator();
 

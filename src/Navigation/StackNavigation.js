@@ -4,7 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Share from '../screen/home/Share';
 import RoundSend from '../screen/round/RoundSend';
 import PersonSend from '../screen/person/PersonSendDetailPage';
-import NewTopicPage from '../screen/NewTopicPage';
+import NewTopicChooseMember from '../screen/newTopic/NewTopicChooseMember';
 import Send from '../screen/home/Send';
 import PersonSendDetailPage from '../screen/person/PersonSendDetailPage';
 import RoundSendDetailPage from '../screen/round/RoundSendDetailPage';
@@ -12,9 +12,13 @@ import Home from '../screen/home';
 import LogoTitle from '../components/text/LogoTitle';
 import RoundShare from '../screen/round/RoundShare';
 import Login from '../screen/login/login';
+import RoundShareDetailPage from '../screen/round/RoundShareDetailPage';
+import NewTopicPage from '../screen/NewTopicPage';
 import Colors from '../constants/Colors';
 import NewTopicTitle from '../screen/newTopic/NewtopicTitle';
-import RoundShareDetailPage from '../screen/round/RoundShareDetailPage';
+import NewTopicWrite from '../screen/newTopic/NewtopicWrite';
+import ReviewPage from '../screen/newTopic/ReviewPage';
+import WriteView from '../screen/newTopic/WriteView';
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {

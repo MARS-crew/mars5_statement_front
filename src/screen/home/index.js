@@ -19,7 +19,6 @@ const Home = () => {
   return (
     <>
       <DrawerNavigation DATA={DATA} />
-
       <FloatingButton onPress={handlePress} />
     </>
   );

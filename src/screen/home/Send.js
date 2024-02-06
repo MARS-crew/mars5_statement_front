@@ -61,8 +61,8 @@ const Send = () => {
     navigation.navigate('PersonSend');
   };
 
-  const handleRoundSend = () => {
-    navigation.navigate('RoundSend');
+  const handleRoundSend = data => {
+    navigation.navigate('RoundSend', {send_data: data});
   };
 
   return (
@@ -72,7 +72,7 @@ const Send = () => {
           <SwipeView
             key={data.suggest_id}
             DATA={data}
-            handleRoundSend={handleRoundSend}
+            handleRoundSend={() => handleRoundSend(data)}
             handlePersonSend={handlePersonSend}
           />
         ))}

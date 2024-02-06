@@ -58,7 +58,7 @@ const Share = () => {
   const navigation = useNavigation();
 
   const handlePersonShare = () => {
-    navigation.navigate('PersonSend');
+    navigation.navigate('PersonShare');
   };
 
   const handleRoundShare = () => {

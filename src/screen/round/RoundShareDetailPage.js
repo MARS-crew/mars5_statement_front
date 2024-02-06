@@ -31,7 +31,7 @@ const DATA = {
       member_id: 1,
       member_name: '백예나',
       location: '서대문구',
-      opinion: '자도자도 졸린 이유 저도 몰라요',
+      opinion: '자도자도 졸린 이유 저도 몰라요 아아아아악',
       is_like: false,
     },
   ],
@@ -49,7 +49,7 @@ const opinionList = ({item, shareData}) => (
   </View>
 );
 
-const RoundSendDetailPage = () => {
+const RoundShareDetailPage = () => {
   const navigation = useNavigation();
 
   const handleBack = () => {
@@ -65,7 +65,7 @@ const RoundSendDetailPage = () => {
             <TouchableOpacity onPress={handleBack}>
               <Image source={backBtn} style={styles.backBtn} />
             </TouchableOpacity>
-            <Text style={styles.title}>Share</Text>
+            <Text style={styles.title}>Send</Text>
           </View>
           {/* <Image source={shareBtn} style={styles.share} /> */}
         </View>
@@ -86,7 +86,7 @@ const RoundSendDetailPage = () => {
     </SafeAreaView>
   );
 };
-export default RoundSendDetailPage;
+
 const styles = StyleSheet.create({
   head: {
     alignItems: 'center',
@@ -180,3 +180,5 @@ const styles = StyleSheet.create({
     fontFamily: 'NotoSansKR',
   },
 });
+
+export default RoundShareDetailPage;

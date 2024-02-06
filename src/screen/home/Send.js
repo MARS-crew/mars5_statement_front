@@ -6,7 +6,7 @@ import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
 
 const DATA = {
-  SuggestList : [
+  SuggestList: [
     {
       suggest_id: 1,
       suggest: '코드리뷰 합시다',
@@ -25,8 +25,7 @@ const DATA = {
           member_id: 1,
           member_name: '이영현',
           reg_dt: '2024-01-05',
-          opinion:
-            '다른 좋은 라이브러리 있는데 그거 쓰죠',
+          opinion: '다른 좋은 라이브러리 있는데 그거 쓰죠',
         },
       ],
     },
@@ -48,8 +47,7 @@ const DATA = {
           member_id: 1,
           member_name: '한민규',
           reg_dt: '2024-01-05',
-          opinion:
-            '저는 김밥이요',
+          opinion: '저는 김밥이요',
         },
       ],
     },
@@ -63,18 +61,18 @@ const Send = () => {
     navigation.navigate('PersonSend');
   };
 
-  const handleRoundSend = () => {
-    navigation.navigate('RoundSend');
+  const handleRoundSend = data => {
+    navigation.navigate('RoundSend', {send_data: data});
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        {DATA.SuggestList.map((data) => (
-          <SwipeView 
-            key={ data.suggest_id }
-            DATA = { data }
-            handleRoundSend={handleRoundSend}
+        {DATA.SuggestList.map(data => (
+          <SwipeView
+            key={data.suggest_id}
+            DATA={data}
+            handleRoundSend={() => handleRoundSend(data)}
             handlePersonSend={handlePersonSend}
           />
         ))}

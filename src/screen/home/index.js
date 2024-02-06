@@ -12,12 +12,12 @@ const Home = () => {
     navigation.navigate('NewTopicPage');
   };
   const DATA = {
-    teamid : 1,
-    teamName : "마스외전 5기",
-  }
+    teamid: 1,
+    teamName: '마스외전 5기',
+  };
   return (
     <>
-      <DrawerNavigation DATA={DATA}/>
+      <DrawerNavigation DATA={DATA} />
       <FloatingButton onPress={handlePress} />
     </>
   );

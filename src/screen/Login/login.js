@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, StyleSheet, View, Dimensions } from 'react-native';
-import GoogleLoginButton from '../../Components/Login/GoogleLoginButton';
+import GoogleLoginButton from '../../components/login/GoogleLoginButton';
 import Colors from '../../constants/Colors';
 import { TextStyles } from '../../constants/TextStyles';
 import { scale, verticalScale, moderateScale } from '../../constants/Scale';
-import LocalImage from '../../Components/Image/LocalImage';
+import LocalImage from '../../components/image/LocalImage';
 
 const { width } = Dimensions.get('window');
 

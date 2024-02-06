@@ -19,6 +19,7 @@ import NewTopicTitle from '../screen/newTopic/NewtopicTitle';
 import NewTopicWrite from '../screen/newTopic/NewtopicWrite';
 import ReviewPage from '../screen/newTopic/ReviewPage';
 import WriteView from '../screen/newTopic/WriteView';
+import Login from '../screen/login/login';
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {

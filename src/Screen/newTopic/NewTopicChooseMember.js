@@ -10,11 +10,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import MemberChooseButton from '../../Components/Button/MemberChooseButton';
-import Colors from '../../Constants/Colors';
-import back from '../../Assest/Images/header/back.png';
-import check from '../../Assest/Images/header/check.png';
-import {TextStyles} from '../../Constants/TextStyles';
+import MemberChooseButton from '../../components/button/MemberChooseButton';
+import Colors from '../../constants/Colors';
+import back from '../../assest/images/header/back.png';
+import check from '../../assest/images/header/check.png';
+import {TextStyles} from '../../constants/TextStyles';
 
 const NewTopicChooseMember = ({route}) => {
   const {selectedType} = route.params;

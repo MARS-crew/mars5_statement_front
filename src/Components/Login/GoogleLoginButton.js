@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { onGoogleButtonPress } from '../../Api/GoogleLogin/GoogleLoginApi';
 import Colors from '../../constants/Colors';
 import { moderateScale } from '../../constants/Scale';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../Button/CustomButton';
+import {onGoogleButtonPress} from '../../api/googleLogin/GoogleLoginApi';
 
 const GoogleLoginButton = () => {
   const navigation = useNavigation();

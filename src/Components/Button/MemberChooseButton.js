@@ -1,7 +1,7 @@
 // ButtonComponent.js
 import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
-import Colors from '../../Constants/Colors';
+import Colors from '../../constants/Colors';
 
 const MemberChooseButton = ({text, onPress, selected}) => {
   return (

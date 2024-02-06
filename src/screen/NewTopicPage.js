@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Colors from '../Constants/Colors';
+import Colors from '../constants/Colors';
 
 const NewTopicPage = () => {
   const navigation = useNavigation();

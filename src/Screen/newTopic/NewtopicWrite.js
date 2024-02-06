@@ -10,10 +10,10 @@ import {
   TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Colors from '../../Constants/Colors';
-import back from '../../Assest/Images/header/back.png';
-import check from '../../Assest/Images/header/check.png';
-import {TextStyles} from '../../Constants/TextStyles';
+import Colors from '../../constants/Colors';
+import back from '../../assest/images/header/back.png';
+import check from '../../assest/images/header/check.png';
+import {TextStyles} from '../../constants/TextStyles';
 
 const NewTopicWrite = ({route}) => {
   const navigation = useNavigation();

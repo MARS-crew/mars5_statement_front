@@ -13,7 +13,7 @@ import LogoTitle from '../components/text/LogoTitle';
 import RoundShare from '../screen/round/RoundShare';
 import Login from '../screen/login/login';
 import RoundShareDetailPage from '../screen/round/RoundShareDetailPage';
-import NewTopicPage from '../screen/NewTopicPage';
+import NewTopicPage from '../screen/newTopic/NewTopicPage';
 import Colors from '../constants/Colors';
 import NewTopicTitle from '../screen/newTopic/NewtopicTitle';
 import NewTopicWrite from '../screen/newTopic/NewtopicWrite';
@@ -28,7 +28,7 @@ const StackNavigation = () => {
         name="Login"
         component={Login}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen

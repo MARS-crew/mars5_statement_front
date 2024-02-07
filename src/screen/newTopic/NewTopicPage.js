@@ -10,15 +10,9 @@ import {
   Button,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-<<<<<<< HEAD
 import Colors from '../../constants/Colors';
-import back from '../../Assest/Images/header/back.png';
+import back from '../../assest/images/header/back.png';
 import {TextStyles} from '../../constants/TextStyles';
-=======
-import Colors from '../../Constants/Colors';
-import back from '../../Assest/Images/header/back.png';
-import {TextStyles} from '../../Constants/TextStyles';
->>>>>>> 81a80828449939d2df1c30888900f50b9bdee3d8
 
 const NewTopicPage = () => {
   const navigation = useNavigation();

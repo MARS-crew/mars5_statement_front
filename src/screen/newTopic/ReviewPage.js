@@ -20,6 +20,8 @@ const ReviewPage = ({route}) => {
   const navigation = useNavigation();
   const [review, setReview] = useState('');
   const {title, text, selectedType, selectedButtons} = route.params;
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
 
   const onChangeText = inputText => {
     setReview(inputText);
@@ -30,9 +32,6 @@ const ReviewPage = ({route}) => {
       routes: [{name: 'TeamName'}],
     });
   };
-
-  const windowWidth = useWindowDimensions().width;
-  const windowHeight = useWindowDimensions().height;
 
   return (
     <SafeAreaView style={styles.container}>

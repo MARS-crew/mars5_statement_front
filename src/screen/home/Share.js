@@ -5,7 +5,7 @@ import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
 
 const DATA = {
-  SuggestList : [
+  SuggestList: [
     {
       suggest_id: 1,
       suggest: '왜 사람은 잠을 자야만 하는가',
@@ -47,8 +47,7 @@ const DATA = {
           member_id: 1,
           member_name: '한민규',
           reg_dt: '2024-01-05',
-          opinion:
-            '저는 김밥이요',
+          opinion: '저는 김밥이요',
         },
       ],
     },
@@ -69,10 +68,10 @@ const Share = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        {DATA.SuggestList.map((data) => (
-          <SwipeView 
-            key={ data.suggest_id }
-            DATA = { data }
+        {DATA.SuggestList.map(data => (
+          <SwipeView
+            key={data.suggest_id}
+            DATA={data}
             handleRoundSend={handleRoundShare}
             handlePersonSend={handlePersonShare}
           />
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
-    backgroundColor: Colors.lightgrey
+    backgroundColor: Colors.lightgrey,
   },
 });
 

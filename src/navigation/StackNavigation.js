@@ -19,6 +19,7 @@ import NewTopicTitle from '../screen/newTopic/NewtopicTitle';
 import NewTopicWrite from '../screen/newTopic/NewtopicWrite';
 import ReviewPage from '../screen/newTopic/ReviewPage';
 import WriteView from '../screen/newTopic/WriteView';
+import AddGroup from '../screen/home/AddGroup';
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
@@ -54,6 +55,13 @@ const StackNavigation = () => {
         component={Send}
         options={{
           headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="AddGroup"
+        component={AddGroup}
+        options={{
+          headerShown: false,
         }}
       />
       <Stack.Screen

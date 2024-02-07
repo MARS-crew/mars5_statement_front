@@ -1,5 +1,3 @@
-
-// 긁어서 갖다 쓰세요.
 import Colors from '../../constants/Colors';
 import React from 'react';
 import {

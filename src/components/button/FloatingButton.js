@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
-import { moderateScale } from '../../constants/Scale';
+import {moderateScale} from '../../constants/Scale';
 import NewPostSvg from '../../assest/images/list/NewPostSvg';
 
 const FloatingButton = ({onPress, title}) => {

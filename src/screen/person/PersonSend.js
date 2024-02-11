@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   StyleSheet,
@@ -42,6 +42,7 @@ const DATA = {
     {
       member_id: 2,
       member_name: '박지민',
+      summary: '이게 무슨 말이지..',
       // 나중에 url 로 들어올 것
       member_img: '../../assest/images/test/memberImage.png',
       opinion_List: [
@@ -64,9 +65,10 @@ const DATA = {
 
 const PersonSend = () => {
   const navigation = useNavigation();
+  const [selectedMember, setSelectedMember] = useState(DATA.memberList[0]);
 
-  const handlePress = () => {
-    navigation.navigate('PersonSendDetailPage');
+  const handlePress = ({item}) => {
+    setSelectedMember(item);
   };
 
   const handleBack = () => {
@@ -75,13 +77,33 @@ const PersonSend = () => {
 
   const memberList = ({item}) => (
     // 멤버 이미지 상대경로가 동적할당 X memberImage로 임의 할당
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => handlePress(item)}>
       <View style={styles.member}>
         <Image source={memberImage} style={styles.memberImage} />
         <Text style={styles.memberName}>{item.member_name}</Text>
       </View>
     </TouchableOpacity>
   );
+
+  const summaryList = ({item}) => (
+    <TouchableOpacity onPress={() => handlePress(item)}>
+      <View style={styles.summarybox}>
+        <View style={styles.summarybox2}>
+          <View style={styles.summarybox3}>
+            <Text style={styles.round}>{item.chapter_id}th</Text>
+            {/* <Text style={styles.user}>{item.member_name}</Text> */}
+          </View>
+          <Text style={styles.date}>{item.reg_dt}</Text>
+        </View>
+        <Text style={styles.summary}>{item.summary}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  useEffect(() => {
+    // 기본적으로 첫 번째 멤버 선택
+    setSelectedMember(DATA.memberList[0]);
+  }, []);
 
   return (
     <SafeAreaView>
@@ -109,6 +131,15 @@ const PersonSend = () => {
           renderItem={memberList}
           keyExtractor={item => item.member_id.toString()}
           style={styles.memberList}
+        />
+      </View>
+      {/* 써머리 목록 */}
+      <View style={styles.summaryContain}>
+        <FlatList
+          data={DATA.memberList}
+          renderItem={summaryList}
+          keyExtractor={item => item.member_id.toString()}
+          style={styles.summaryContain}
         />
       </View>
     </SafeAreaView>
@@ -185,6 +216,50 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     top: 4,
     color: Colors.black,
+  },
+  summaryContain: {
+    marginTop: 120,
+    borderColor: Colors.grey,
+    borderWidth: 0.8,
+  },
+  summarybox: {
+    width: '100%',
+    borderColor: Colors.grey,
+    borderWidth: 0.4,
+  },
+  summarybox2: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  round: {
+    fontSize: 14,
+    fontWeight: '500',
+    marginLeft: 20,
+    marginTop: 16,
+    color: Colors.black,
+    fontFamily: 'NotoSansKR',
+  },
+  user: {
+    fontSize: 12,
+    marginLeft: 20,
+    color: Colors.black,
+    fontFamily: 'NotoSansKR',
+  },
+  summary: {
+    fontSize: 14,
+    marginLeft: 20,
+    marginTop: 18,
+    marginBottom: 18,
+    marginRight: 20,
+    color: Colors.black,
+    fontFamily: 'NotoSansKR',
+  },
+  date: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: Colors.grey,
+    marginTop: 16,
+    marginRight: 20,
   },
 });
 

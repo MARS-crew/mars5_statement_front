@@ -1,5 +1,6 @@
 // Home.js
 import React from 'react';
+import {Text, View, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import LogoTitle from '../../components/text/LogoTitle';
 import DrawerNavigation from '../../navigation/DrawerNavigation';

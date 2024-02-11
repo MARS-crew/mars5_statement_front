@@ -73,6 +73,7 @@ const Share = () => {
       if (textType !== 'Share') {
         changeTextType();
       }
+      console.log(textType);
     }, [textType, changeTextType]),
   );
 

@@ -41,7 +41,7 @@ const DATA = {
 const RoundSend = () => {
   const route = useRoute();
   const {selectedItem} = route.params;
-  const data = route.params?.send_data;
+  const data = route.params?.data;
   const navigation = useNavigation();
 
   const handlePress = ({item}) => {

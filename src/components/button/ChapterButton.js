@@ -1,9 +1,10 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import Colors from '../../constants/Colors';
-import RoundSvg from '../../assest/images/list/RoundSvg'
+import RoundSvg from '../../assest/images/list/RoundSvg';
 import {useNavigation} from '@react-navigation/native';
 import {scale} from '../../constants/Scale';
+import {useTextType} from '../../context/TextTypeContext';
 
 const DATA = {
   suggest_id: 1,
@@ -30,29 +31,33 @@ const DATA = {
 };
 
 const RoundButton = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+  const {textType} = useTextType();
 
-    const handleRoundShare = () => {
+  const handleRound = () => {
+    if (textType === 'Share') {
+      navigation.navigate('RoundShare', {data: DATA});
+    } else if (textType === 'Send') {
+      navigation.navigate('RoundSend', {data: DATA});
+    }
+  };
 
-    navigation.navigate('RoundShare', {data: DATA});
-    };
-        
   return (
     <TouchableOpacity
-          style={[styles.rightAction, {backgroundColor: Colors.green}]}
-          onPress={handleRoundShare}>
-          <RoundSvg></RoundSvg>
-        </TouchableOpacity>
+      style={[styles.rightAction, {backgroundColor: Colors.green}]}
+      onPress={handleRound}>
+      <RoundSvg></RoundSvg>
+    </TouchableOpacity>
   );
 };
 const styles = {
-    rightAction: {
-      flex: 1,
-      height: scale(44),
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor : Colors.blue
-    },
-  };
+  rightAction: {
+    flex: 1,
+    height: scale(44),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.blue,
+  },
+};
 
 export default RoundButton;

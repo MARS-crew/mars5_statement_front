@@ -72,6 +72,7 @@ const Send = () => {
       if (textType !== 'Send') {
         changeTextType();
       }
+      console.log(textType);
     }, [textType, changeTextType]),
   );
 

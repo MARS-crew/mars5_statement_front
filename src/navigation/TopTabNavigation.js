@@ -7,6 +7,7 @@ import Colors from '../constants/Colors';
 import {moderateScale, scale} from '../constants/Scale';
 import {TextStyles} from '../constants/TextStyles';
 import {Dimensions} from 'react-native';
+import {useTextType} from '../../context/TextTypeContext';
 
 const Tab = createMaterialTopTabNavigator();
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
+import {useTextType} from '../../context/TextTypeContext';
 
 const DATA = {
   SuggestList: [
@@ -56,6 +58,7 @@ const DATA = {
 
 const Share = () => {
   const navigation = useNavigation();
+  const {changeTextType, textType} = useTextType();
 
   const handlePersonShare = () => {
     navigation.navigate('PersonShare');
@@ -64,6 +67,14 @@ const Share = () => {
   const handleRoundShare = () => {
     navigation.navigate('RoundShare', {data: DATA});
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (textType !== 'Share') {
+        changeTextType();
+      }
+    }, [textType, changeTextType]),
+  );
 
   return (
     <SafeAreaView style={styles.container}>

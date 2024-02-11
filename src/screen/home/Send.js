@@ -82,7 +82,7 @@ const Send = () => {
           <SwipeView
             key={data.suggest_id}
             DATA={data}
-            handleRoundSend={() => handleRoundSend(data)}
+            handleRoundSend={handleRoundSend}
             handlePersonSend={handlePersonSend}
           />
         ))}

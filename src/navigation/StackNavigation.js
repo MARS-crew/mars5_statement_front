@@ -3,7 +3,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Share from '../screen/home/Share';
 import RoundSend from '../screen/round/RoundSend';
-import PersonSend from '../screen/person/PersonSendDetailPage';
+import PersonSend from '../screen/person/PersonSend';
 import NewTopicChooseMember from '../screen/newTopic/NewTopicChooseMember';
 import Send from '../screen/home/Send';
 import PersonSendDetailPage from '../screen/person/PersonSendDetailPage';
@@ -20,6 +20,8 @@ import NewTopicWrite from '../screen/newTopic/NewtopicWrite';
 import ReviewPage from '../screen/newTopic/ReviewPage';
 import WriteView from '../screen/newTopic/WriteView';
 import AddGroup from '../screen/home/AddGroup';
+import PersonShare from '../screen/person/PersonShare';
+
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
@@ -149,6 +151,13 @@ const StackNavigation = () => {
       <Stack.Screen
         name="RoundShareDetailPage"
         component={RoundShareDetailPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PersonShare"
+        component={PersonShare}
         options={{
           headerShown: false,
         }}

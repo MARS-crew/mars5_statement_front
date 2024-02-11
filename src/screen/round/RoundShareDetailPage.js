@@ -65,7 +65,7 @@ const RoundShareDetailPage = () => {
             <TouchableOpacity onPress={handleBack}>
               <Image source={backBtn} style={styles.backBtn} />
             </TouchableOpacity>
-            <Text style={styles.title}>Send</Text>
+            <Text style={styles.title}>Share</Text>
           </View>
           {/* <Image source={shareBtn} style={styles.share} /> */}
         </View>

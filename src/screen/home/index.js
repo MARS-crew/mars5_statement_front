@@ -5,8 +5,11 @@ import LogoTitle from '../../components/text/LogoTitle';
 import DrawerNavigation from '../../navigation/DrawerNavigation';
 import FloatingButton from '../../components/button/FloatingButton';
 import GoogleLoginButton from '../../components/login/GoogleLoginButton';
+
 const Home = () => {
   const navigation = useNavigation();
+  // const {textType, toggleTextType} = useTextType();
+  // console.log(textType);
 
   const handlePress = () => {
     navigation.navigate('NewTopicPage');

@@ -1,29 +1,21 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, SafeAreaView, ScrollView, Dimensions} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useFocusEffect} from '@react-navigation/native';
+import React from 'react';
+import {StyleSheet, SafeAreaView, ScrollView, View, Text} from 'react-native';
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
 import {useTextType} from '../../context/TextTypeContext';
-import {getSuggest} from '../../api/GetData';
 import {useLogin} from '../../context/AuthContext';
 
 const Share = () => {
   const navigation = useNavigation();
+  const route = useRoute();
   const {changeTextType, textType} = useTextType();
-  const {isLogin} = useLogin();
-
-  const [suggest, setSuggest] = useState(null);
-  const suggestData = JSON.stringify(suggest, null, 2);
-  const groupId = 2; // 임의 그룹 아이디
-
-  const handlePersonShare = () => {
-    navigation.navigate('PersonShare');
-  };
-
-  const handleRoundShare = () => {
-    navigation.navigate('RoundShare', {data: suggest});
-  };
+  const {data} = useLogin();
+  const {shareData} = data;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -34,42 +26,22 @@ const Share = () => {
     }, [textType, changeTextType]),
   );
 
-  useEffect(() => {
-    if (isLogin) {
-      const loadData = async () => {
-        try {
-          const responseData = await getSuggest(groupId);
-          setSuggest(responseData.data.groupSuggests);
-          console.log(
-            'suggest:',
-            JSON.stringify(responseData.data.groupSuggests, null, 2),
-          );
-        } catch (error) {
-          console.error('데이터 조회 실패:', error);
-        }
-      };
-
-      loadData();
-    }
-  }, [isLogin, groupId]);
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        {suggest?.map(data => (
-          <SwipeView
-            key={data.suggestId.toString()}
-            DATA={data}
-            handleRoundSend={handleRoundShare}
-            handlePersonSend={handlePersonShare}
-          />
-        ))}
+        {shareData.length > 0 ? (
+          shareData.map(item => (
+            <SwipeView key={item.suggestId.toString()} DATA={item} />
+          ))
+        ) : (
+          <View style={styles.noData}>
+            <Text>No share data available</Text>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {

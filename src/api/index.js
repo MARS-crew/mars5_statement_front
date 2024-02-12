@@ -7,7 +7,7 @@ const client = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTcwNzcyMTQ2NSwiZXhwIjoxNzA4MzI2MjY1fQ.3bba3QjjXPcJKfKgynQ_NujEcY0_jiT60ai0Ob8uDZM`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMSIsImlhdCI6MTcwNzczNjA3OSwiZXhwIjoxNzA4MzQwODc5fQ.VwMrgAVFy-qleyaBgsUsBVCZIDqWujNz_glXRJkwXpM`,
   },
 });
 

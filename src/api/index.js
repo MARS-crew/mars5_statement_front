@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {BASE_URL} from '../utils/config';
+import {ACCESS_TOKEN} from '../utils/config';
 
 // Axios 객체
 const client = axios.create({

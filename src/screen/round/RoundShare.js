@@ -111,7 +111,7 @@ const RoundShare = () => {
       {/* 써머리 목록 */}
       <View style={styles.summaryContain}>
         <FlatList
-          data={data.SummaryList}
+          data={data}
           renderItem={summaryList}
           keyExtractor={item => item.summary_id.toString()}
         />

@@ -14,6 +14,9 @@ import {useNavigation} from '@react-navigation/native';
 import {getSuggest} from '../api/GetData';
 import {useLogin} from '../context/AuthContext';
 
+import {getSuggest} from '../api/GetData';
+import {useLogin} from '../context/AuthContext';
+
 const Tab = createMaterialTopTabNavigator();
 
 const TopTabNavigator = () => {
@@ -51,42 +54,40 @@ const TopTabNavigator = () => {
   // if (!isLogin) {
   //   return null;
   // }
+
   return (
-    <View style={{flex: 1}}>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-            // height: scale(44),
-            height: 60,
-          },
-          // tabBarLabelStyle: TextStyles.semiBold,
-          tabBarLabelStyle: {
-            fontSize: 14,
-            fontWeight: '500',
-            fontFamily: 'NotoSansEN',
-            color: Colors.black,
-          },
-          tabBarAndroidRipple: {borderless: false},
-          tabBarIndicatorStyle: {
-            borderBottomWidth: 2,
-            borderBottomColor: Colors.green,
-          },
-        }}>
-        <Tab.Screen
-          name="Share"
-          component={Share}
-          // initialParams={{data: shareData}} // Share 탭에 shareData 전달
-        />
-        <Tab.Screen
-          name="Send"
-          component={Send}
-          // initialParams={{data: sendData}} // Send 탭에 sendData 전달
-        />
-      </Tab.Navigator>
-      <FloatingButton onPress={handlePress} />
-    </View>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: Colors.white,
+          shadowColor: 'transparent',
+          // height: scale(44),
+          height: 60,
+        },
+        // tabBarLabelStyle: TextStyles.semiBold,
+        tabBarLabelStyle: {
+          fontSize: 14,
+          fontWeight: '500',
+          fontFamily: 'NotoSansEN',
+          color: Colors.black,
+        },
+        tabBarAndroidRipple: {borderless: false},
+        tabBarIndicatorStyle: {
+          borderBottomWidth: 2,
+          borderBottomColor: Colors.green,
+        },
+      }}>
+      <Tab.Screen
+        name="Share"
+        component={Share}
+        // initialParams={{data: shareData}} // Share 탭에 shareData 전달
+      />
+      <Tab.Screen
+        name="Send"
+        component={Send}
+        // initialParams={{data: sendData}} // Send 탭에 sendData 전달
+      />
+    </Tab.Navigator>
   );
 };
 

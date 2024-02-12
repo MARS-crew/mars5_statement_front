@@ -9,6 +9,8 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
+import axios from 'axios';
+import {BASE_URL} from '../../utils/config';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
 import back from '../../assest/images/header/back.png';
@@ -27,6 +29,34 @@ const NewTopicTitle = ({route}) => {
       selectedButtons,
     });
   };
+  const sendDataToBackend = async () => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/suggest`,
+        {
+          groupId: 6,
+          suggest: '한민규',
+          type: 'send',
+          constructorId: 10,
+          memberIds: [9],
+        },
+        {
+          headers: {
+            Authorization:
+              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTcwNzcyMTQ2NSwiZXhwIjoxNzA3NzIzMjY1fQ.5oLKsvF633tA-vaxvk4ALD_TxykGm6XAUGHdVm_9ZFA',
+          },
+        },
+      );
+      console.log('데이터 :', response.data);
+      navigation.navigate('NewTopicWrite', {
+        title: text,
+        selectedType,
+        selectedButtons,
+      });
+    } catch (error) {
+      console.error('에러 :', error);
+    }
+  };
 
   const onChangeText = inputText => {
     setText(inputText);
@@ -44,7 +74,7 @@ const NewTopicTitle = ({route}) => {
               <Text style={styles.title}>Add a Writing</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleNextPage}>
+          <TouchableOpacity onPress={sendDataToBackend}>
             <Image source={check} style={styles.share} />
           </TouchableOpacity>
         </View>

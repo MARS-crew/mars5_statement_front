@@ -10,17 +10,16 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
-import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
 import back from '../../assest/images/header/back.png';
-import {TextStyles} from '../../constants/TextStyles';
 import check from '../../assest/images/header/check.png';
 import {launchImageLibrary} from 'react-native-image-picker';
 import plusBtn from '../../assest/images/PlusBtn.png';
 import CustomModal from '../../components/CustomModal';
 import minusBtn from '../../assest/images/minusBtn.png';
-import {BASE_URL} from '../../utils/config';
+import {postCreateGroup} from '../../api/PostData';
+
 const AddGroup = () => {
   const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
@@ -30,17 +29,14 @@ const AddGroup = () => {
 
   const sendDataToBackend = async () => {
     try {
-      const response = await axios.post(
-        `${BASE_URL}api/v1/group/create`,
-        {name: groupName, img: imageSource, memberEmail: emails},
-        {
-          headers: {
-            Authorization:
-              ' Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNzA3NzEzNzI5LCJleHAiOjE3MDc3MTU1Mjl9.kvnZYiu6NWi5G38-R817W04WRTg66z3yqvcNzDqsexw',
-          },
-        },
-      );
-      console.log('백엔드 :', response.data);
+      const data = {
+        name: groupName,
+        img: imageSource.uri,
+        memberEmail: emails,
+      };
+      const response = await postCreateGroup(data);
+      console.log(emails);
+      console.log('데이터 :', response);
       navigation.goBack();
     } catch (error) {
       console.error('에러 :', error);
@@ -64,8 +60,8 @@ const AddGroup = () => {
     try {
       const response = await launchImageLibrary({mediaType: 'photo'});
       if (!response.didCancel && !response.error) {
-        const {uri} = response.assets[0];
-        setImageSource({uri});
+        const uri = response.assets[0];
+        setImageSource(uri);
       } else {
         console.log('이미지 업로드 취소');
       }

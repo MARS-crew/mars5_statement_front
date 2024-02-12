@@ -6,6 +6,7 @@ const client = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTcwNzcyMTQ2NSwiZXhwIjoxNzA4MzI2MjY1fQ.3bba3QjjXPcJKfKgynQ_NujEcY0_jiT60ai0Ob8uDZM`,
   },
 });
 
@@ -41,31 +42,17 @@ export const getFetchDataWithParam = async (endpoint, params = {}) => {
   }
 };
 
-{
-  /* 이전 코드 (by.min) */
-}
-
-// const client = axios.create({
-//   baseURL: BASE_URL,
-// });
-// client.interceptors.request.use(async config => {
-//   const token = '123123';
-//   //AsyncStorage로 토큰 저장후 가져오는게 좋을듯
-//   if (!token) {
-//     // 토큰 재발급
-//     // 로그아웃
-//   }
-
-//   if (token) {
-//     config.headers.Authorization = 'Bearer : ' + token;
-//   }
-// });
-
-// client.interceptors.response.use(res => {
-//   if (res.status === 401) {
-//     // 인증 실패
-//     // 토큰 재발급
-//   }
-// });
-
-// export default client;
+// POST 호출
+export const postFetchData = async (endpoint, data) => {
+  try {
+    const response = await client.post(endpoint, data);
+    if (response.data.code === 200 && response.data.status === 'OK') {
+      return response.data;
+    } else {
+      throw new Error(response.data.message || 'API 호출 실패');
+    }
+  } catch (error) {
+    console.error('API 호출 중 문제 :', error);
+    throw error;
+  }
+};

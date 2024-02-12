@@ -9,7 +9,10 @@ GoogleSignin.configure({
 export const onGoogleButtonPress = async () => {
   try {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-    const {idToken} = await GoogleSignin.signIn();
+    const {idToken, user} = await GoogleSignin.signIn();
+    //아래 console.log 지우지 마세요
+    console.log(idToken);
+    console.log(user);
     if (idToken) {
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(googleCredential);

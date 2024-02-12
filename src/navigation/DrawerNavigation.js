@@ -41,7 +41,6 @@ const DrawerNavigation = ({DATA}) => {
         name="AddGroupButton"
         component={AddGroupButton}
         options={{
-          title: 'Add Group',
           drawerLabel: ({color}) => (
             <TouchableOpacity onPress={handleAddGroupPress}>
               <Text style={{fontSize: 16, color}}>Add Group</Text>

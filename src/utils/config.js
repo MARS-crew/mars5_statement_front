@@ -1,1 +1,1 @@
-export const BASE_URL = '서버주소';
+export const BASE_URL = 'http://mars5-server.kro.kr:8000/';

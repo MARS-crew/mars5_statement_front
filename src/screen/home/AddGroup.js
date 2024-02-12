@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
+import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
 import back from '../../assest/images/header/back.png';
@@ -19,13 +20,32 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import plusBtn from '../../assest/images/PlusBtn.png';
 import CustomModal from '../../components/CustomModal';
 import minusBtn from '../../assest/images/minusBtn.png';
-
+import {BASE_URL} from '../../utils/config';
 const AddGroup = () => {
   const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
   const [imageSource, setImageSource] = useState(null);
   const [groupName, setGroupName] = useState('');
   const [emails, setEmails] = useState(['']);
+
+  const sendDataToBackend = async () => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}api/v1/group/create`,
+        {name: groupName, img: imageSource, memberEmail: emails},
+        {
+          headers: {
+            Authorization:
+              ' Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNzA3NzEzNzI5LCJleHAiOjE3MDc3MTU1Mjl9.kvnZYiu6NWi5G38-R817W04WRTg66z3yqvcNzDqsexw',
+          },
+        },
+      );
+      console.log('백엔드 :', response.data);
+      navigation.goBack();
+    } catch (error) {
+      console.error('에러 :', error);
+    }
+  };
 
   const handleGoBack = () => {
     setModalVisible(true);
@@ -45,7 +65,6 @@ const AddGroup = () => {
       const response = await launchImageLibrary({mediaType: 'photo'});
       if (!response.didCancel && !response.error) {
         const {uri} = response.assets[0];
-        console.log('Image URI:', uri);
         setImageSource({uri});
       } else {
         console.log('이미지 업로드 취소');
@@ -81,7 +100,7 @@ const AddGroup = () => {
               <Text style={styles.title}>Add a writing</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={sendDataToBackend}>
             <Image source={check} style={styles.share} />
           </TouchableOpacity>
         </View>
@@ -153,7 +172,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   header: {
     color: 'black',

@@ -1,30 +1,38 @@
-// Home.js
-import React from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import LogoTitle from '../../components/text/LogoTitle';
+import {Text} from 'react-native';
 import DrawerNavigation from '../../navigation/DrawerNavigation';
-import FloatingButton from '../../components/button/FloatingButton';
-import GoogleLoginButton from '../../components/login/GoogleLoginButton';
+import {useLogin} from '../../context/AuthContext';
 
 const Home = () => {
+  const {data} = useLogin();
   const navigation = useNavigation();
-  // const {textType, toggleTextType} = useTextType();
-  // console.log(textType);
+  const [DATA, setDATA] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handlePress = () => {
-    navigation.navigate('NewTopicPage');
-  };
-  const DATA = {
-    teamid: 1,
-    teamName: '마스외전 5기',
-  };
-  return (
-    <>
-      <DrawerNavigation DATA={DATA} />
-      <FloatingButton onPress={handlePress} />
-    </>
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      const {IdData, nameData, imgData} = await data;
+      if (IdData.length > 0) {
+        const newDATAsr = IdData.map((id, index) => ({
+          teamid: id,
+          teamName: nameData[index],
+          imageurl: imgData[index],
+        }));
+        setDATA(newDATAsr);
+        setLoading(false);
+        console.log(newDATAsr);
+      }
+    };
+
+    fetchData();
+  }, [data]);
+
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
+
+  return <DrawerNavigation DATA={DATA} />;
 };
 
 export default Home;

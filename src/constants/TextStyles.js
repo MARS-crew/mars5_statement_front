@@ -16,7 +16,7 @@ export const TextStyles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: 'bold',
     fontFamily: 'NotoSansEN',
     color: Colors.black,
   },

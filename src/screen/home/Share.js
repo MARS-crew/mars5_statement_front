@@ -6,60 +6,12 @@ import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
 import {useTextType} from '../../context/TextTypeContext';
 import {getSuggest} from '../../api/GetData';
-
-const DATA = {
-  SuggestList: [
-    {
-      suggest_id: 1,
-      suggest: '왜 사람은 잠을 자야만 하는가',
-      SummaryList: [
-        {
-          chapter_id: 2,
-          summary_id: 2,
-          member_id: 2,
-          member_name: '박지민',
-          reg_dt: '2024-01-01',
-          opinion: '다들 잠을 필요로 하는구나..',
-        },
-        {
-          chapter_id: 1,
-          summary_id: 1,
-          member_id: 1,
-          member_name: '백예나',
-          reg_dt: '2024-01-05',
-          opinion:
-            '생각을 아무리 해도 왜 잠이 계속 오는건지 해결책을 낼 수 없었다.',
-        },
-      ],
-    },
-    {
-      suggest_id: 2,
-      suggest: '오늘 밥 뭐 먹죠',
-      SummaryList: [
-        {
-          chapter_id: 2,
-          summary_id: 2,
-          member_id: 2,
-          member_name: '임동현',
-          reg_dt: '2024-01-01',
-          opinion: '아무거나 먹읍시다',
-        },
-        {
-          chapter_id: 1,
-          summary_id: 1,
-          member_id: 1,
-          member_name: '한민규',
-          reg_dt: '2024-01-05',
-          opinion: '저는 김밥이요',
-        },
-      ],
-    },
-  ],
-};
+import {useLogin} from '../../context/AuthContext';
 
 const Share = () => {
   const navigation = useNavigation();
   const {changeTextType, textType} = useTextType();
+  const {isLogin} = useLogin();
 
   const [suggest, setSuggest] = useState(null);
   const suggestData = JSON.stringify(suggest, null, 2);
@@ -70,7 +22,7 @@ const Share = () => {
   };
 
   const handleRoundShare = () => {
-    navigation.navigate('RoundShare', {data: DATA});
+    navigation.navigate('RoundShare', {data: suggest});
   };
 
   useFocusEffect(
@@ -83,26 +35,30 @@ const Share = () => {
   );
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const responseData = await getSuggest(groupId);
-        setSuggest(responseData.data.groupSuggests);
-        // console.log('suggest: ' + suggest);
-        console.log('suggest:', JSON.stringify(suggest, null, 2));
-      } catch (error) {
-        console.error('데이터 조회 실패:', error);
-      }
-    };
+    if (isLogin) {
+      const loadData = async () => {
+        try {
+          const responseData = await getSuggest(groupId);
+          setSuggest(responseData.data.groupSuggests);
+          console.log(
+            'suggest:',
+            JSON.stringify(responseData.data.groupSuggests, null, 2),
+          );
+        } catch (error) {
+          console.error('데이터 조회 실패:', error);
+        }
+      };
 
-    loadData();
-  }, []);
+      loadData();
+    }
+  }, [isLogin, groupId]);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        {DATA.SuggestList.map(data => (
+        {suggest?.map(data => (
           <SwipeView
-            key={data.suggest_id}
+            key={data.suggestId.toString()}
             DATA={data}
             handleRoundSend={handleRoundShare}
             handlePersonSend={handlePersonShare}

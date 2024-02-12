@@ -9,16 +9,15 @@ GoogleSignin.configure({
 export const onGoogleButtonPress = async () => {
   try {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-    const {idToken, user} = await GoogleSignin.signIn();
-    console.log(idToken);
-    console.log(user);
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    // console.log(googleCredential);
-    // console.log(
-    //   'res: ' + (await auth().signInWithCredential(googleCredential)),
-    // );
-    return await auth().signInWithCredential(googleCredential);
+    const {idToken} = await GoogleSignin.signIn();
+    if (idToken) {
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      await auth().signInWithCredential(googleCredential);
+      return true;
+    }
+    return false;
   } catch (error) {
     console.error(error);
+    return false;
   }
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   StyleSheet,
@@ -13,6 +13,7 @@ import {useRoute} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
 import Colors from '../../constants/Colors';
 import shareBtn from '../../assest/images/header/shareBtn.png';
+import getRoundShare from '../../api/GetData';
 
 const DATA = {
   suggest_id: 1,
@@ -43,6 +44,9 @@ const RoundShare = () => {
   const data = route.params?.data;
   const navigation = useNavigation();
 
+  const [summary, setSummary] = useState(null);
+  const suggestId = 2; // 예시 suggestId
+
   const handlePress = ({item}) => {
     navigation.navigate('RoundShareDetailPage');
   };
@@ -50,6 +54,20 @@ const RoundShare = () => {
   const handleBack = () => {
     navigation.goBack();
   };
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const responseData = await getRoundShare(suggestId);
+        setSummary(responseData);
+        console.log(summary);
+      } catch (error) {
+        console.error('데이터 조회 실패:', error);
+      }
+    };
+
+    loadData();
+  }, [suggestId, summary]);
 
   const summaryList = ({item, shareData}) => (
     <TouchableOpacity onPress={() => handlePress(data)}>

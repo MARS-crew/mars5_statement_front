@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
 import {useTextType} from '../../context/TextTypeContext';
+import {getSuggest} from '../../api/GetData';
 
 const DATA = {
   SuggestList: [
@@ -60,6 +61,10 @@ const Share = () => {
   const navigation = useNavigation();
   const {changeTextType, textType} = useTextType();
 
+  const [suggest, setSuggest] = useState(null);
+  const suggestData = JSON.stringify(suggest, null, 2);
+  const groupId = 2; // 임의 그룹 아이디
+
   const handlePersonShare = () => {
     navigation.navigate('PersonShare');
   };
@@ -76,6 +81,21 @@ const Share = () => {
       console.log(textType);
     }, [textType, changeTextType]),
   );
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const responseData = await getSuggest(groupId);
+        setSuggest(responseData.data.groupSuggests);
+        // console.log('suggest: ' + suggest);
+        console.log('suggest:', JSON.stringify(suggest, null, 2));
+      } catch (error) {
+        console.error('데이터 조회 실패:', error);
+      }
+    };
+
+    loadData();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

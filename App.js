@@ -2,12 +2,15 @@ import React from 'react';
 import RootNavigation from './src/navigation/RootNavigation';
 import 'react-native-gesture-handler';
 import {TextTypeProvider} from './src/context/TextTypeContext';
+import {AuthProvider} from './src/context/AuthContext';
 
 const App = () => {
   return (
-    <TextTypeProvider>
-      <RootNavigation />
-    </TextTypeProvider>
+    <AuthProvider>
+      <TextTypeProvider>
+        <RootNavigation />
+      </TextTypeProvider>
+    </AuthProvider>
   );
 };
 

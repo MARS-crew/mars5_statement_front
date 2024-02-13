@@ -27,8 +27,8 @@ const SwipeView = ({DATA}) => (
     )}
     renderHiddenItem={() => (
       <View style={{flexDirection: 'row'}}>
-        <RoundButton></RoundButton>
-        <HumanButton></HumanButton>
+        <RoundButton suggestId={DATA.suggestId} />
+        <HumanButton suggestId={DATA.suggestId} />
       </View>
     )}
     rightOpenValue={scale(88)}
@@ -46,6 +46,7 @@ const styles = {
     borderTopWidth: 1,
     borderColor: Colors.grey,
     flexDirection: 'row',
+    // eslint-disable-next-line no-dupe-keys
     justifyContent: 'space-between',
     alignItems: 'center',
   },

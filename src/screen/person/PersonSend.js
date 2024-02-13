@@ -63,8 +63,9 @@ const DATA = {
   ],
 };
 
-const PersonSend = () => {
+const PersonSend = ({route}) => {
   const navigation = useNavigation();
+  const {suggestId} = route.params;
   const [selectedMember, setSelectedMember] = useState(DATA.memberList[0]);
 
   const handlePress = ({item}) => {

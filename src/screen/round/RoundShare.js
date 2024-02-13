@@ -13,7 +13,7 @@ import {useRoute} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
 import Colors from '../../constants/Colors';
 import shareBtn from '../../assest/images/header/shareBtn.png';
-import getRoundShare from '../../api/GetData';
+import {getRoundShare} from '../../api/GetData';
 
 const DATA = {
   suggest_id: 1,
@@ -39,13 +39,11 @@ const DATA = {
   ],
 };
 
-const RoundShare = () => {
-  const route = useRoute();
-  const data = route.params?.data;
+const RoundShare = ({route}) => {
   const navigation = useNavigation();
+  const {suggestId} = route.params;
 
-  const [summary, setSummary] = useState(null);
-  const suggestId = 2; // 예시 suggestId
+  const [summary, setSummary] = useState([]);
 
   const handlePress = ({item}) => {
     navigation.navigate('RoundShareDetailPage');
@@ -70,7 +68,7 @@ const RoundShare = () => {
   }, [suggestId, summary]);
 
   const summaryList = ({item, shareData}) => (
-    <TouchableOpacity onPress={() => handlePress(data)}>
+    <TouchableOpacity onPress={() => handlePress(summary)}>
       <View style={styles.summarybox}>
         <View style={styles.summarybox2}>
           <View style={styles.summarybox3}>
@@ -100,7 +98,7 @@ const RoundShare = () => {
       </View>
       {/* 주제 */}
       <View style={styles.middle}>
-        <Text style={styles.suggest}>{data.suggest}</Text>
+        <Text style={styles.suggest}>{summary.suggest}</Text>
         {/* Round 추가 버튼 */}
         <TouchableOpacity>
           <View style={styles.btn}>
@@ -111,7 +109,7 @@ const RoundShare = () => {
       {/* 써머리 목록 */}
       <View style={styles.summaryContain}>
         <FlatList
-          data={data}
+          data={summary}
           renderItem={summaryList}
           keyExtractor={item => item.summary_id.toString()}
         />

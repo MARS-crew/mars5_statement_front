@@ -38,11 +38,9 @@ const DATA = {
   ],
 };
 
-const RoundSend = () => {
-  const route = useRoute();
-  const {selectedItem} = route.params;
-  const data = route.params?.data;
+const RoundSend = ({route}) => {
   const navigation = useNavigation();
+  const {suggestId} = route.params;
 
   const handlePress = ({item}) => {
     navigation.navigate('RoundSendDetailPage', {item: item});

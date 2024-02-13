@@ -63,9 +63,10 @@ const DATA = {
   ],
 };
 
-const PersonShare = () => {
+const PersonShare = ({route}) => {
   const navigation = useNavigation();
   const [selectedMember, setSelectedMember] = useState(DATA.memberList[0]);
+  const {suggestId} = route.params;
 
   const handlePress = ({item}) => {
     setSelectedMember(item);

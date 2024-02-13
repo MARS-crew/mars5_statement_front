@@ -16,6 +16,7 @@ const Share = () => {
   const {changeTextType, textType} = useTextType();
   const {data} = useLogin();
   const {shareData} = data;
+  console.log(shareData);
 
   useFocusEffect(
     React.useCallback(() => {

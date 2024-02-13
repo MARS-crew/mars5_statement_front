@@ -6,15 +6,15 @@ import {useNavigation} from '@react-navigation/native';
 import {scale} from '../../constants/Scale';
 import {useTextType} from '../../context/TextTypeContext';
 
-const HumanButton = () => {
+const HumanButton = ({suggestId}) => {
   const navigation = useNavigation();
   const {textType} = useTextType();
 
   const handlePerson = () => {
     if (textType === 'Share') {
-      navigation.navigate('PersonShare');
+      navigation.navigate('PersonShare', {suggestId: suggestId});
     } else if (textType === 'Send') {
-      navigation.navigate('PersonSend');
+      navigation.navigate('PersonSend', {suggestId: suggestId});
     }
   };
 

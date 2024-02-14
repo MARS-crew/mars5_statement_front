@@ -14,7 +14,7 @@ export const AuthProvider = ({children}) => {
     const loadData = async () => {
       if (isLogin) {
         try {
-          const groupId = 2; // 예시 그룹 ID
+          const groupId = 1; // 예시 그룹 ID
           const responseData = await getSuggest(groupId);
           const shareFiltered = responseData.data.groupSuggests.filter(
             item => item.type === 'share',

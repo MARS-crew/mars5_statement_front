@@ -1,5 +1,10 @@
-import auth from '@react-native-firebase/auth';
+import auth, { firebase } from '@react-native-firebase/auth';
+import messaging from '@react-native-firebase/messaging';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import axios from 'axios';
+import { BASE_URL } from '../../utils/config';
+import { postLogin } from '../PostData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 GoogleSignin.configure({
   webClientId:
@@ -10,9 +15,19 @@ export const onGoogleButtonPress = async () => {
   try {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
     const {idToken, user} = await GoogleSignin.signIn();
+    const fcmToken = await messaging().getToken()
     //아래 console.log 지우지 마세요
-    console.log(idToken);
-    console.log(user);
+    console.log("idToken :", idToken);
+    console.log("user :", user);
+    const data = {
+      uid : idToken,
+      email : user.email,
+      name : user.name,
+      picture : user.photo,
+      fcmToken : fcmToken
+    }
+    const response = await postLogin(data)
+    await AsyncStorage.setItem('accessToken', response.data.refreshToken)
     if (idToken) {
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(googleCredential);

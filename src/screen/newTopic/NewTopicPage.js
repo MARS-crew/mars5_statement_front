@@ -51,7 +51,7 @@ const NewTopicPage = () => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.Sharebutton}
-            onPress={() => handleChooseMember('Share')}>
+            onPress={() => handleChooseMember('share')}>
             <Text style={(styles.buttonText, TextStyles.titleWhite)}>
               Share
             </Text>

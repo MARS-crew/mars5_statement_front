@@ -16,7 +16,6 @@ const Send = () => {
   const {changeTextType, textType} = useTextType();
   const {data} = useLogin();
   const {sendData} = data;
-
   useFocusEffect(
     React.useCallback(() => {
       if (textType !== 'Send') {

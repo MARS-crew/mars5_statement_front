@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   StyleSheet,
@@ -15,38 +15,49 @@ import Colors from '../../constants/Colors';
 import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
+import {getSuggest} from '../../api/GetData';
 
 const NewTopicChooseMember = ({route}) => {
   const {selectedType} = route.params;
   const navigation = useNavigation();
-  const buttons = [
-    '호호빵 ',
-    '이세진',
-    '임동현',
-    '한민규',
-    '백예나',
-    '박지민',
-    '이영현',
-    '김인후',
-    '문쿼카',
-    '루이바오',
-    '후이바오',
-    '어쩌라구',
-    '푸파옹',
-  ];
+
+  const [memberIdArray, setMemberIdArray] = useState([]);
+  const [memberNameArray, setMemberNameArray] = useState([]);
+  const [memberIMGArray, setMemberIMGArray] = useState([]);
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const [selectedButtons, setSelectedButtons] = useState(
-    new Array(buttons.length).fill(false),
+    new Array(memberIdArray.length).fill(false),
   );
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const groupId = 1;
+        const data = await getSuggest(groupId);
+
+        setMemberIdArray(
+          data.data.groupMembers.map(member => member.groupMemberId),
+        );
+        setMemberNameArray(data.data.groupMembers.map(member => member.name));
+        setMemberIMGArray(data.data.groupMembers.map(member => member.img));
+        console.log('Member IDs:', memberNameArray);
+        console.log('Member Names:', memberIdArray);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   const handleCheck = () => {
-    const selectedButtonsNames = buttons.filter(
-      (button, index) => selectedButtons[index],
+    const selectedMemberIds = memberIdArray.filter(
+      (_, index) => selectedButtons[index],
     );
     navigation.navigate('NewTopicTitle', {
       selectedType,
-      selectedButtons: selectedButtonsNames,
+      selectedButtons: selectedMemberIds,
     });
   };
 
@@ -82,12 +93,13 @@ const NewTopicChooseMember = ({route}) => {
         ]}>
         <ScrollView contentContainerStyle={styles.buttonContent}>
           <View style={styles.buttonRow}>
-            {buttons.map((button, index) => (
+            {memberNameArray.map((button, index) => (
               <View key={index} style={styles.buttonWrapper}>
                 <MemberChooseButton
                   text={button}
                   onPress={() => toggleButton(index)}
                   selected={selectedButtons[index]}
+                  backgroundImage={memberIMGArray[index]}
                 />
               </View>
             ))}

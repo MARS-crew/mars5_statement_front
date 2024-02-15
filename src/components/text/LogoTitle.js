@@ -2,8 +2,8 @@
 import React from 'react';
 import {View, Image, StyleSheet, Text} from 'react-native';
 import Colors from '../../constants/Colors';
-import { TextStyles } from '../../constants/TextStyles';
-import { moderateScale } from '../../constants/Scale';
+import {TextStyles} from '../../constants/TextStyles';
+import {moderateScale} from '../../constants/Scale';
 
 const LogoTitle = ({teamName}) => (
   <View style={styles.container}>
@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
   logo: {
     width: moderateScale(44),
     height: moderateScale(44),
-    marginRight: 10
+    marginRight: 10,
   },
 });

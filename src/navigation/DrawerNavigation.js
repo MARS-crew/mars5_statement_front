@@ -11,7 +11,7 @@ import {scale} from '../constants/Scale';
 import CustomDrawer from './CustomDrawer';
 
 const Drawer = createDrawerNavigator();
-const DrawerNavigation = ({DATA}) => {
+const DrawerNavigation = ({groups}) => {
   const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate('NewTopicPage');
@@ -27,8 +27,8 @@ const DrawerNavigation = ({DATA}) => {
       drawerContent={props => <CustomDrawer {...props} />}>
       {DATA.map(team => (
         <Drawer.Screen
-          key={team.teamid}
-          name={team.teamName}
+          key={team.groupId}
+          name={team.name}
           component={TopTabNavigator}
           options={({route}) => ({
             title: route.name,

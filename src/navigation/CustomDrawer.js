@@ -10,12 +10,13 @@ import {TextStyles} from '../constants/TextStyles';
 import AddSvg from '../assest/images/svg/AddSvg';
 import RemoteImage from '../components/image/RemoteImage';
 import GroupImage from '../components/image/GroupImage';
+import { useLogin } from '../context/AuthContext';
 
 const CustomDrawer = props => {
+  const {setGroupId} = useLogin();
   const {state, descriptors, navigation} = props;
   //현재 그룹 이름
   const activeRouteName = state.routes[state.index].name;
-
   return (
     <View style={styles.container}>
       <View style={[styles.view, styles.header]}>
@@ -31,6 +32,7 @@ const CustomDrawer = props => {
               key={route.key}
               onPress={() => {
                 navigation.navigate(route.name);
+                setGroupId(props.groups[index].teamid)
               }}>
               <GroupImage
                 url={options.groupImageURL}

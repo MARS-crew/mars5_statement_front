@@ -9,7 +9,6 @@ const Home = () => {
   const navigation = useNavigation();
   const [DATA, setDATA] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchData = async () => {
       const {IdData, nameData, imgData} = await data;
@@ -19,9 +18,9 @@ const Home = () => {
           teamName: nameData[index],
           imageurl: imgData[index],
         }));
+        // console.log(newDATAsr)
         setDATA(newDATAsr);
         setLoading(false);
-        console.log(newDATAsr);
       }
     };
 

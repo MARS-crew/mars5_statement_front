@@ -10,14 +10,14 @@ import { getSuggest } from '../../api/GetData';
 
 const GoogleLoginButton = () => {
   const navigation = useNavigation();
-  const {setIsLogin} = useLogin();
+  const {setIsLogin, setGroupId} = useLogin();
 
   const handleGoogleSignIn = async () => {
     const userInfo = await onGoogleLogin();
-    console.log(userInfo.data.lastGroupId)
     if (userInfo.code == 200) {
       console.log('Signed in with Google!');
       const response = await getSuggest(userInfo.data.lastGroupId)
+      setGroupId(userInfo.data.lastGroupId)
       setIsLogin(true);
       navigation.navigate('TeamName', response.data);
     } else {

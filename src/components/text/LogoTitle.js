@@ -5,13 +5,13 @@ import Colors from '../../constants/Colors';
 import {TextStyles} from '../../constants/TextStyles';
 import {moderateScale} from '../../constants/Scale';
 
-const LogoTitle = ({teamName}) => (
+const LogoTitle = ({team}) => (
   <View style={styles.container}>
     <Image
       style={styles.logo}
-      source={require('../../assest/images/image2.png')}
+      source={team.img ? {uri: team.img} : require('../../assest/images/image2.png')}
     />
-    <Text style={[TextStyles.title]}>{teamName}</Text>
+    <Text style={[TextStyles.title]}>{team.name}</Text>
   </View>
 );
 

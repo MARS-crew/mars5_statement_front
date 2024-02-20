@@ -20,6 +20,7 @@ import CustomModal from '../../components/CustomModal';
 import minusBtn from '../../assest/images/minusBtn.png';
 import {postCreateGroup} from '../../api/PostData';
 import storage from '@react-native-firebase/storage';
+import LoadingModal from '../../components/LoadingModal';
 
 const AddGroup = () => {
   const navigation = useNavigation();
@@ -27,32 +28,38 @@ const AddGroup = () => {
   const [imageSource, setImageSource] = useState(null);
   const [groupName, setGroupName] = useState('');
   const [emails, setEmails] = useState(['']);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const uploadImage = async () => {
+    if (imageSource) {
+      const reference = storage().ref(`group_images/${groupName}`);
+      const task = reference.putFile(imageSource.uri);
+      await task;
+      const imageUrl = await reference.getDownloadURL();
+      return imageUrl;
+    }
+    return null;
+  };
 
   const sendDataToBackend = async () => {
     try {
-      let imageUrl = null;
-      if (imageSource) {
-        const reference = storage().ref(`group_images/${groupName}`);
-        const task = reference.putFile(imageSource.uri);
-        await task;
-        imageUrl = await reference.getDownloadURL();
-        console.log(imageUrl);
-      }
+      const imageUrl = await uploadImage();
       const data = {
         name: groupName,
         img: imageUrl,
         memberEmail: emails,
       };
       const response = await postCreateGroup(data);
-      console.log(emails);
-      console.log('데이터 :', response);
+
       navigation.goBack();
     } catch (error) {
       console.error('에러 :', error);
     }
   };
-  const handleCheckButtonPress = () => {
-    sendDataToBackend();
+  const handleCheckButtonPress = async () => {
+    setIsLoading(true); // 로딩 상태 시작
+    await sendDataToBackend(); // 데이터 전송 함수 호출
+    setIsLoading(false); // 로딩 상태 종료
   };
 
   const handleGoBack = () => {
@@ -70,7 +77,12 @@ const AddGroup = () => {
 
   const onSelectImage = async () => {
     try {
-      const response = await launchImageLibrary({mediaType: 'photo'});
+      const options = {
+        mediaType: 'photo',
+        maxWidth: 500,
+        maxHeight: 500,
+      };
+      const response = await launchImageLibrary(options);
       if (!response.didCancel && !response.error) {
         const uri = response.assets[0];
         setImageSource(uri);
@@ -163,6 +175,7 @@ const AddGroup = () => {
         onConfirm={handleConfirm}
         onClose={() => setModalVisible(false)}
       />
+      <LoadingModal isVisible={isLoading} />
     </SafeAreaView>
   );
 };

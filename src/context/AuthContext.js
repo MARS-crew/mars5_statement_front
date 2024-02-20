@@ -13,7 +13,7 @@ export const AuthProvider = ({children}) => {
     IdData: [],
     imgData: [],
     nameData: [],
-    activeGroup : [],
+    activeGroup: [],
   });
 
   useEffect(() => {
@@ -33,15 +33,17 @@ export const AuthProvider = ({children}) => {
           const imgs = responseData.data.myGroups.map(item => item.img);
           const names = responseData.data.myGroups.map(item => item.name);
 
-          const activeGroup = responseData.data.myGroups.filter(item => item.groupId === groupId);
-          
+          const activeGroup = responseData.data.myGroups.filter(
+            item => item.groupId === groupId,
+          );
+
           setData({
             shareData: shareFiltered,
             sendData: sendFiltered,
             IdData: groupIds,
             imgData: imgs,
             nameData: names,
-            activeGroup : activeGroup
+            activeGroup: activeGroup,
           });
         } catch (error) {
           console.error('데이터 조회 실패:', error);

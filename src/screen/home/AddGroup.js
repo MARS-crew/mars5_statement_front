@@ -19,6 +19,7 @@ import plusBtn from '../../assest/images/PlusBtn.png';
 import CustomModal from '../../components/CustomModal';
 import minusBtn from '../../assest/images/minusBtn.png';
 import {postCreateGroup} from '../../api/PostData';
+import storage from '@react-native-firebase/storage';
 
 const AddGroup = () => {
   const navigation = useNavigation();
@@ -29,9 +30,17 @@ const AddGroup = () => {
 
   const sendDataToBackend = async () => {
     try {
+      let imageUrl = null;
+      if (imageSource) {
+        const reference = storage().ref(`group_images/${groupName}`);
+        const task = reference.putFile(imageSource.uri);
+        await task;
+        imageUrl = await reference.getDownloadURL();
+        console.log(imageUrl);
+      }
       const data = {
         name: groupName,
-        img: imageSource.uri,
+        img: imageUrl,
         memberEmail: emails,
       };
       const response = await postCreateGroup(data);
@@ -41,6 +50,9 @@ const AddGroup = () => {
     } catch (error) {
       console.error('에러 :', error);
     }
+  };
+  const handleCheckButtonPress = () => {
+    sendDataToBackend();
   };
 
   const handleGoBack = () => {
@@ -96,7 +108,7 @@ const AddGroup = () => {
               <Text style={styles.title}>Add a writing</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={sendDataToBackend}>
+          <TouchableOpacity onPress={handleCheckButtonPress}>
             <Image source={check} style={styles.share} />
           </TouchableOpacity>
         </View>

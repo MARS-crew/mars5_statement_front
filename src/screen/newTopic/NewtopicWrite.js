@@ -14,19 +14,26 @@ import Colors from '../../constants/Colors';
 import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
+import {getLocation} from '../../api/naverApi/naverGeocodingApi';
 
 const NewTopicWrite = ({route}) => {
   const navigation = useNavigation();
   const [text, setText] = useState('');
   const {title, selectedType, selectedButtons} = route.params;
 
-  const handleChooseMember = () => {
-    navigation.navigate('WriteView', {
-      title,
-      text,
-      selectedType,
-      selectedButtons,
-    });
+  const handleChooseMember = async () => {
+    const location = await getLocation();
+    if (location != '' || location != undefined) {
+      console.log(location);
+      navigation.navigate('WriteView', {
+        title,
+        text,
+        selectedType,
+        selectedButtons,
+      });
+    } else {
+      console.error('위치 찾기 실패');
+    }
   };
 
   const onChangeText = inputText => {

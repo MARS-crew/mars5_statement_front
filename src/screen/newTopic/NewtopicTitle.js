@@ -30,7 +30,7 @@ const NewTopicTitle = ({route}) => {
         type: selectedType,
         memberIds: selectedButtons,
       };
-      const response = await postFetchData('/api/v1/suggest', data);
+      const response = await postFetchData('/api/v1/suggest/create', data);
       console.log('데이터:', response);
       navigation.navigate('NewTopicWrite', {
         title: text,

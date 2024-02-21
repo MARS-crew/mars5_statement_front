@@ -57,9 +57,9 @@ const AddGroup = () => {
     }
   };
   const handleCheckButtonPress = async () => {
-    setIsLoading(true); // 로딩 상태 시작
-    await sendDataToBackend(); // 데이터 전송 함수 호출
-    setIsLoading(false); // 로딩 상태 종료
+    setIsLoading(true);
+    await sendDataToBackend();
+    setIsLoading(false);
   };
 
   const handleGoBack = () => {

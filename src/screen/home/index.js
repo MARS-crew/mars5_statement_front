@@ -18,7 +18,6 @@ const Home = () => {
           teamName: nameData[index],
           imageurl: imgData[index],
         }));
-        // console.log(newDATAsr)
         setDATA(newDATAsr);
         setLoading(false);
       }

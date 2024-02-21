@@ -31,8 +31,8 @@ const RoundShare = ({route}) => {
     return `${year}-${month}-${day}`;
   };
 
-  const handlePress = ({item}) => {
-    navigation.navigate('RoundShareDetailPage');
+  const handlePress = ({chapterId}) => {
+    navigation.navigate('RoundShareDetailPage', {chapterId: chapterId});
   };
 
   const handleBack = () => {
@@ -45,7 +45,8 @@ const RoundShare = ({route}) => {
         const responseData = await getRoundShare(suggestId);
         setSummary(responseData.data.summaryList);
         setSuggest(responseData.data.suggest);
-        console.log(responseData);
+        console.log(suggest);
+        console.log(summary);
       } catch (error) {
         console.error('데이터 조회 실패:', error);
       }
@@ -55,7 +56,7 @@ const RoundShare = ({route}) => {
   }, [suggestId]);
 
   const summaryList = ({item}) => (
-    <TouchableOpacity onPress={() => handlePress(summary)}>
+    <TouchableOpacity onPress={() => handlePress({chapterId: item.chapterId})}>
       <View style={styles.summarybox}>
         <View style={styles.summarybox2}>
           <View style={styles.summarybox3}>

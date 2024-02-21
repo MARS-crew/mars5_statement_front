@@ -2,20 +2,27 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Swipelist from 'react-native-swipeable-list-view';
-import {scale,verticalScale,moderateScale} from '../../constants/Scale'
-import Colors from '../../constants/Colors'
-import {TextStyles} from '../../constants/TextStyles'
+import {scale, verticalScale, moderateScale} from '../../constants/Scale';
+import Colors from '../../constants/Colors';
+import {TextStyles} from '../../constants/TextStyles';
 import HumanButton from '../button/HumanButton';
 import RoundButton from '../button/ChapterButton';
-
 
 const SwipeView = ({DATA}) => (
   <Swipelist
     data={[{}]}
     renderRightItem={() => (
       <View style={styles.container}>
-        <Text numberOfLines={1} ellipsizeMode='tail' style={[TextStyles.semiBold]}>{DATA.suggest}</Text>
-        <Text style={[TextStyles.normal, TextStyles.placeholder]}> {DATA.reg_dt} </Text>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={[TextStyles.semiBold]}>
+          {DATA.suggest}
+        </Text>
+        <Text style={[TextStyles.normal, TextStyles.placeholder]}>
+          {' '}
+          {DATA.reg_dt}{' '}
+        </Text>
       </View>
     )}
     renderHiddenItem={() => (
@@ -40,7 +47,7 @@ const styles = {
     borderColor: Colors.grey,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems : 'center'
+    alignItems: 'center',
   },
 
   rightAction: {

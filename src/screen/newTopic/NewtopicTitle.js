@@ -16,45 +16,29 @@ import Colors from '../../constants/Colors';
 import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
-
+import {postFetchData} from '../../api';
 const NewTopicTitle = ({route}) => {
   const navigation = useNavigation();
   const {selectedType, selectedButtons} = route.params;
   const [text, setText] = useState('');
 
-  const handleNextPage = () => {
-    navigation.navigate('NewTopicWrite', {
-      title: text,
-      selectedType,
-      selectedButtons,
-    });
-  };
-  const sendDataToBackend = async () => {
+  const sendData = async () => {
     try {
-      const response = await axios.post(
-        `${BASE_URL}/api/v1/suggest`,
-        {
-          groupId: 6,
-          suggest: '한민규',
-          type: 'send',
-          constructorId: 10,
-          memberIds: [9],
-        },
-        {
-          headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTcwNzcyMTQ2NSwiZXhwIjoxNzA3NzIzMjY1fQ.5oLKsvF633tA-vaxvk4ALD_TxykGm6XAUGHdVm_9ZFA',
-          },
-        },
-      );
-      console.log('데이터 :', response.data);
+      const data = {
+        groupId: 1,
+        suggest: text,
+        type: selectedType,
+        memberIds: selectedButtons,
+      };
+      const response = await postFetchData('/api/v1/suggest/create', data);
+      console.log('데이터:', response);
       navigation.navigate('NewTopicWrite', {
         title: text,
         selectedType,
         selectedButtons,
       });
     } catch (error) {
-      console.error('에러 :', error);
+      console.error('에러:', error);
     }
   };
 
@@ -74,7 +58,7 @@ const NewTopicTitle = ({route}) => {
               <Text style={styles.title}>Add a Writing</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={sendDataToBackend}>
+          <TouchableOpacity onPress={sendData}>
             <Image source={check} style={styles.share} />
           </TouchableOpacity>
         </View>

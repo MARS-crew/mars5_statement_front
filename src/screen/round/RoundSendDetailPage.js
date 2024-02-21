@@ -1,5 +1,5 @@
 import Colors from '../../constants/Colors';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   StyleSheet,
@@ -12,49 +12,44 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
 import heart from '../../assest/images/share/heart.png';
+import {getRoundSendDetail} from '../../api/GetData';
 
-const DATA = {
-  chapter_id: 1,
-  summary: '다들 잠을 필요로 하는구나..',
-  reg_dt: '2024-01-01',
-  memberData: [
-    {
-      opinion_id: 1,
-      member_id: 2,
-      member_name: '박지민',
-      location: '구일',
-      opinion: '죽지 못해서..',
-      is_like: true,
-    },
-    {
-      opinion_id: 2,
-      member_id: 1,
-      member_name: '백예나',
-      location: '서대문구',
-      opinion: '자도자도 졸린 이유 저도 몰라요',
-      is_like: false,
-    },
-  ],
-};
-
-const opinionList = ({item, shareData}) => (
-  <View style={styles.opinionbox}>
-    <View style={styles.opinionbox2}>
-      <Text style={styles.user}>{item.member_name}</Text>
-      <Image source={heart} style={styles.heart} />
-    </View>
-    <View style={styles.opMargin}>
-      <Text style={styles.opinion}>{item.opinion}</Text>
-    </View>
-  </View>
-);
-
-const RoundSendDetailPage = () => {
+const RoundSendDetailPage = ({route}) => {
   const navigation = useNavigation();
+  const {chapterId} = route.params;
+
+  const [opinion, setOpinion] = useState([]);
+  const [summary, setSummary] = useState();
 
   const handleBack = () => {
     navigation.goBack();
   };
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const responseData = await getRoundSendDetail(chapterId);
+        setOpinion(responseData.data.memberDetailList);
+        setSummary(responseData.data.summary);
+      } catch (error) {
+        console.error('데이터 조회 실패:', error);
+      }
+    };
+
+    loadData();
+  }, [chapterId]);
+
+  const opinionList = ({item, shareData}) => (
+    <View style={styles.opinionbox}>
+      <View style={styles.opinionbox2}>
+        <Text style={styles.user}>{item.memberName}</Text>
+        <Image source={heart} style={styles.heart} />
+      </View>
+      <View style={styles.opMargin}>
+        <Text style={styles.opinion}>{item.opinion}</Text>
+      </View>
+    </View>
+  );
 
   return (
     <SafeAreaView>
@@ -72,13 +67,13 @@ const RoundSendDetailPage = () => {
       </View>
       {/* 써머리 */}
       <View style={styles.middle}>
-        <Text style={styles.suggest}>{DATA.summary}</Text>
-        <Text style={styles.date}>{DATA.reg_dt}</Text>
+        <Text style={styles.suggest}>{summary}</Text>
+        {/* <Text style={styles.date}>{DATA.reg_dt}</Text> */}
       </View>
       {/* 개인 의견 목록 */}
       <View style={styles.opinionContain}>
         <FlatList
-          data={DATA.memberData}
+          data={opinion}
           renderItem={opinionList}
           keyExtractor={item => item.opinion_id.toString()}
         />

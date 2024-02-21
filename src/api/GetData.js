@@ -18,6 +18,12 @@ export const getRoundSend = async suggestId => {
   return getFetchDataWithParam(endpoint);
 };
 
+//공유 회차별 조회 상세
+export const getRoundSendDetail = async chapterId => {
+  const endpoint = '/api/v1/send/detail/' + chapterId;
+  return getFetchDataWithParam(endpoint);
+};
+
 //메인페이지 조회
 export const getSuggest = async groupId => {
   const endpoint = '/api/v1/group/' + groupId;

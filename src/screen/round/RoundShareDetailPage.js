@@ -31,8 +31,7 @@ const RoundShareDetailPage = ({route}) => {
         const responseData = await getRoundShareDetail(chapterId);
         setOpinion(responseData.data.memberDetailList);
         setSummary(responseData.data.summary);
-        console.log(summary);
-        console.log('뭐가오나: ' + responseData.data.memberDetailList);
+        console.log(responseData);
       } catch (error) {
         console.error('데이터 조회 실패:', error);
       }

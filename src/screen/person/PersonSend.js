@@ -14,6 +14,7 @@ import backBtn from '../../assest/images/header/back.png';
 import shareBtn from '../../assest/images/header/shareBtn.png';
 import memberImage from '../../assest/images/test/memberImage.png';
 import {FlatList} from 'react-native-gesture-handler';
+import { TextStyles } from '../../constants/TextStyles';
 
 const DATA = {
   suggest_id: 4,
@@ -91,7 +92,7 @@ const PersonSend = ({route}) => {
       <View style={styles.summarybox}>
         <View style={styles.summarybox2}>
           <View style={styles.summarybox3}>
-            <Text style={styles.round}>{item.chapter_id}th</Text>
+            <Text style={styles.round}>{item.chapter_id}</Text>
             {/* <Text style={styles.user}>{item.member_name}</Text> */}
           </View>
           <Text style={styles.date}>{item.reg_dt}</Text>
@@ -122,7 +123,7 @@ const PersonSend = ({route}) => {
       </View>
       {/* 주제 */}
       <View style={styles.middle}>
-        <Text style={styles.suggest}>{DATA.suggest}</Text>
+        <Text style={TextStyles.normal}>{DATA.suggest}</Text>
       </View>
       {/* 멤버 이미지 */}
       <View style={styles.memberContain}>

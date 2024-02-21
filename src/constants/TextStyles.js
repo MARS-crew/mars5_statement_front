@@ -38,4 +38,7 @@ export const TextStyles = StyleSheet.create({
     fontFamily: 'NotoSansEN',
     color: Colors.white,
   },
+  placeholder : {
+    color : Colors.grey
+  }
 });

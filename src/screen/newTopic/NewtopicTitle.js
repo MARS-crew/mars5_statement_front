@@ -44,7 +44,6 @@ const NewTopicTitle = ({route}) => {
         memberIds: selectedButtons,
       };
       const response = await postFetchData('/api/v1/suggest/create', data);
-
       const intervalId = setInterval(async () => {
         const response1 = await getFetchData(
           `/api/v1/${selectedType}/join/${response.data}`,
@@ -55,6 +54,7 @@ const NewTopicTitle = ({route}) => {
         setMemberCnt(response1.data.memberCnt);
         if (response1.data.joinCnt === response1.data.memberCnt) {
           clearInterval(intervalId);
+          ``;
           setLoading(false);
           console.log('전부입장완료');
           navigation.navigate('NewTopicWrite', {

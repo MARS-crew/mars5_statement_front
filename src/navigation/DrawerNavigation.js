@@ -9,7 +9,6 @@ import Colors from '../constants/Colors';
 import {scale} from '../constants/Scale';
 import {TextStyles} from '../constants/TextStyles';
 import CustomDrawer from './CustomDrawer';
-import FloatingButton from '../components/button/FloatingButton';
 import {useLogin} from '../context/AuthContext';
 
 const Drawer = createDrawerNavigator();

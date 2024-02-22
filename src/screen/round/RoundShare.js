@@ -13,42 +13,26 @@ import {useRoute} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
 import Colors from '../../constants/Colors';
 import shareBtn from '../../assest/images/header/shareBtn.png';
-import getRoundShare from '../../api/GetData';
+import {getRoundShare} from '../../api/GetData';
 
-const DATA = {
-  suggest_id: 1,
-  suggest: '왜 사람은 잠을 자야만 하는가',
-  SummaryList: [
-    {
-      chapter_id: 1,
-      summary_id: 1,
-      member_id: 2,
-      member_name: '박지민',
-      reg_dt: '2024-01-01',
-      opinion: '다들 잠을 필요로 하는구나..',
-    },
-    {
-      chapter_id: 2,
-      summary_id: 2,
-      member_id: 1,
-      member_name: '백예나',
-      reg_dt: '2024-01-05',
-      opinion:
-        '생각을 아무리 해도 왜 잠이 계속 오는건지 해결책을 낼 수 없었다.',
-    },
-  ],
-};
-
-const RoundShare = () => {
-  const route = useRoute();
-  const data = route.params?.data;
+const RoundShare = ({route}) => {
   const navigation = useNavigation();
+  const {suggestId} = route.params;
 
-  const [summary, setSummary] = useState(null);
-  const suggestId = 2; // 예시 suggestId
+  const [summary, setSummary] = useState([]);
+  const [suggest, setSuggest] = useState();
 
-  const handlePress = ({item}) => {
-    navigation.navigate('RoundShareDetailPage');
+  const formatDate = dateString => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  };
+
+  const handlePress = ({chapterId}) => {
+    navigation.navigate('RoundShareDetailPage', {chapterId: chapterId});
   };
 
   const handleBack = () => {
@@ -59,7 +43,9 @@ const RoundShare = () => {
     const loadData = async () => {
       try {
         const responseData = await getRoundShare(suggestId);
-        setSummary(responseData);
+        setSummary(responseData.data.summaryList);
+        setSuggest(responseData.data.suggest);
+        console.log(suggest);
         console.log(summary);
       } catch (error) {
         console.error('데이터 조회 실패:', error);
@@ -67,19 +53,19 @@ const RoundShare = () => {
     };
 
     loadData();
-  }, [suggestId, summary]);
+  }, [suggestId]);
 
-  const summaryList = ({item, shareData}) => (
-    <TouchableOpacity onPress={() => handlePress(data)}>
+  const summaryList = ({item}) => (
+    <TouchableOpacity onPress={() => handlePress({chapterId: item.chapterId})}>
       <View style={styles.summarybox}>
         <View style={styles.summarybox2}>
           <View style={styles.summarybox3}>
-            <Text style={styles.round}>{item.chapter_id}th</Text>
-            <Text style={styles.user}>{item.member_name}</Text>
+            <Text style={styles.round}>{item.chapterId}th</Text>
+            <Text style={styles.user}>{item.memberName}</Text>
           </View>
-          <Text style={styles.date}>{item.reg_dt}</Text>
+          <Text style={styles.date}>{formatDate(item.regDt)}</Text>
         </View>
-        <Text style={styles.summary}>{item.opinion}</Text>
+        <Text style={styles.summary}>{item.summary}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -100,7 +86,7 @@ const RoundShare = () => {
       </View>
       {/* 주제 */}
       <View style={styles.middle}>
-        <Text style={styles.suggest}>{data.suggest}</Text>
+        <Text style={styles.suggest}>{suggest}</Text>
         {/* Round 추가 버튼 */}
         <TouchableOpacity>
           <View style={styles.btn}>
@@ -111,9 +97,9 @@ const RoundShare = () => {
       {/* 써머리 목록 */}
       <View style={styles.summaryContain}>
         <FlatList
-          data={data}
+          data={summary}
           renderItem={summaryList}
-          keyExtractor={item => item.summary_id.toString()}
+          keyExtractor={item => item.chapterId}
         />
       </View>
     </SafeAreaView>
@@ -198,7 +184,7 @@ const styles = StyleSheet.create({
   },
   round: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '700',
     marginLeft: 20,
     marginTop: 16,
     color: Colors.black,

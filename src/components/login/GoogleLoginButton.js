@@ -6,7 +6,7 @@ import {moderateScale} from '../../constants/Scale';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../button/CustomButton';
 import {useLogin} from '../../context/AuthContext';
-import { getSuggest } from '../../api/GetData';
+import {getSuggest} from '../../api/GetData';
 
 const GoogleLoginButton = () => {
   const navigation = useNavigation();
@@ -16,8 +16,8 @@ const GoogleLoginButton = () => {
     const userInfo = await onGoogleLogin();
     if (userInfo.code == 200) {
       console.log('Signed in with Google!');
-      const response = await getSuggest(userInfo.data.lastGroupId)
-      setGroupId(userInfo.data.lastGroupId)
+      const response = await getSuggest(userInfo.data.lastGroupId);
+      setGroupId(userInfo.data.lastGroupId);
       setIsLogin(true);
       navigation.navigate('TeamName', response.data);
     } else {

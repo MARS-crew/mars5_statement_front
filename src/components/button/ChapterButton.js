@@ -30,15 +30,15 @@ const DATA = {
   ],
 };
 
-const RoundButton = () => {
+const RoundButton = ({suggestId}) => {
   const navigation = useNavigation();
   const {textType} = useTextType();
 
   const handleRound = () => {
     if (textType === 'Share') {
-      navigation.navigate('RoundShare', {data: DATA});
+      navigation.navigate('RoundShare', {suggestId: suggestId});
     } else if (textType === 'Send') {
-      navigation.navigate('RoundSend', {data: DATA});
+      navigation.navigate('RoundSend', {suggestId: suggestId});
     }
   };
 

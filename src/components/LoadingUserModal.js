@@ -12,6 +12,7 @@ const LoadingUserModal = ({isVisible, joinCnt, memberCnt}) => {
             잠시만 기다려 주세요..
           </Text>
         </View>
+        ``
       </View>
     </Modal>
   );

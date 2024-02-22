@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   StyleSheet,
@@ -9,34 +9,59 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
-import axios from 'axios';
-import {BASE_URL} from '../../utils/config';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
 import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
-import {postFetchData} from '../../api';
+import {getFetchData, postFetchData} from '../../api';
+import LoadingUserModal from '../../components/LoadingUserModal';
+import {useLogin} from '../../context/AuthContext';
+
 const NewTopicTitle = ({route}) => {
   const navigation = useNavigation();
   const {selectedType, selectedButtons} = route.params;
   const [text, setText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [joinCnt, setJoinCnt] = useState('');
+  const [memberCnt, setMemberCnt] = useState('');
+  const [groupnum, setGroupnum] = useState();
+  const {data} = useLogin();
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
+
+  useEffect(() => {
+    setGroupnum(data.activeGroup[0].groupId);
+  }, [data.activeGroup]);
 
   const sendData = async () => {
     try {
+      setLoading(true);
       const data = {
-        groupId: 1,
+        groupId: groupnum,
         suggest: text,
         type: selectedType,
         memberIds: selectedButtons,
       };
       const response = await postFetchData('/api/v1/suggest/create', data);
-      console.log('데이터:', response);
-      navigation.navigate('NewTopicWrite', {
-        title: text,
-        selectedType,
-        selectedButtons,
-      });
+      const intervalId = setInterval(async () => {
+        const response1 = await getFetchData(
+          `/api/v1/${selectedType}/join/${response.data}`,
+        );
+        setJoinCnt(response1.data.joinCnt);
+        setMemberCnt(response1.data.memberCnt);
+        console.log(response1);
+        if (response1.data.joinCnt === response1.data.memberCnt) {
+          clearInterval(intervalId);
+          setLoading(false);
+          console.log('전부입장완료');
+          navigation.navigate('NewTopicWrite', {
+            title: text,
+            selectedType,
+            selectedButtons,
+          });
+        }
+      }, 3000);
     } catch (error) {
       console.error('에러:', error);
     }
@@ -45,8 +70,6 @@ const NewTopicTitle = ({route}) => {
   const onChangeText = inputText => {
     setText(inputText);
   };
-  const windowWidth = useWindowDimensions().width;
-  const windowHeight = useWindowDimensions().height;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -78,6 +101,11 @@ const NewTopicTitle = ({route}) => {
           placeholderTextColor="#D3D6D3"
         />
       </View>
+      <LoadingUserModal
+        isVisible={loading}
+        joinCnt={joinCnt}
+        memberCnt={memberCnt}
+      />
     </SafeAreaView>
   );
 };
@@ -118,7 +146,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginTop: 20,
   },
-
   head: {
     alignItems: 'center',
     top: 20,

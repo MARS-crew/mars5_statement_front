@@ -9,12 +9,12 @@ import Colors from '../constants/Colors';
 import {scale} from '../constants/Scale';
 
 import CustomDrawer from './CustomDrawer';
-import { useLogin } from '../context/AuthContext';
+import {useLogin} from '../context/AuthContext';
 
 const Drawer = createDrawerNavigator();
 const DrawerNavigation = ({DATA}) => {
   const navigation = useNavigation();
-  const {data} = useLogin()
+  const {data} = useLogin();
   const handlePress = () => {
     navigation.navigate('NewTopicPage');
   };
@@ -26,7 +26,7 @@ const DrawerNavigation = ({DATA}) => {
         },
       }}
       initialRouteName={data.activeGroup[0].name}
-      drawerContent={props => <CustomDrawer {...props} groups={DATA}/>}>
+      drawerContent={props => <CustomDrawer {...props} groups={DATA} />}>
       {DATA.map(team => (
         <Drawer.Screen
           key={team.teamid}

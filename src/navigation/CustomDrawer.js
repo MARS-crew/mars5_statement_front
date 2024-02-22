@@ -10,7 +10,7 @@ import {TextStyles} from '../constants/TextStyles';
 import AddSvg from '../assest/images/svg/AddSvg';
 import RemoteImage from '../components/image/RemoteImage';
 import GroupImage from '../components/image/GroupImage';
-import { useLogin } from '../context/AuthContext';
+import {useLogin} from '../context/AuthContext';
 
 const CustomDrawer = props => {
   const {setGroupId} = useLogin();
@@ -32,7 +32,7 @@ const CustomDrawer = props => {
               key={route.key}
               onPress={() => {
                 navigation.navigate(route.name);
-                setGroupId(props.groups[index].teamid)
+                setGroupId(props.groups[index].teamid);
               }}>
               <GroupImage
                 url={options.groupImageURL}

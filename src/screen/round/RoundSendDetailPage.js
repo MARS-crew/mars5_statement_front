@@ -12,8 +12,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
 import book from '../../assest/images/send/book.png';
-import nonBook from '../../assest/images/send/book.png';
-import heart from '../../assest/images/share/heart.png';
+import nonBook from '../../assest/images/send/nonBook.png';
 import {getRoundSendDetail} from '../../api/GetData';
 import {postBookmark} from '../../api/PostData';
 
@@ -23,6 +22,16 @@ const RoundSendDetailPage = ({route}) => {
 
   const [opinion, setOpinion] = useState([]);
   const [summary, setSummary] = useState();
+  const [regDt, setRegDt] = useState();
+
+  const formatDate = dateString => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  };
 
   const handleBack = () => {
     navigation.goBack();
@@ -40,7 +49,8 @@ const RoundSendDetailPage = ({route}) => {
         );
         setOpinion(responseData.data.memberDetailList);
         setSummary(responseData.data.summary);
-        console.log(responseData.data.memberDetailList);
+        setRegDt(responseData.data.regDt);
+        console.log(responseData);
       } catch (error) {
         console.error('데이터 조회 실패:', error);
       }
@@ -51,11 +61,16 @@ const RoundSendDetailPage = ({route}) => {
 
   const toggleBookmark = async sendId => {
     try {
-      const data = {
-        sendId: sendId,
-      };
-      const response = await postBookmark(data);
-      console.log(response);
+      setOpinion(currentOpinions =>
+        currentOpinions.map(opinion => {
+          if (opinion.sendId === sendId) {
+            const data = {sendId: sendId};
+            postBookmark(data);
+            return {...opinion, bookmark_yn: !opinion.bookmark_yn};
+          }
+          return opinion;
+        }),
+      );
     } catch (error) {
       console.error('에러 :', error);
     }
@@ -95,13 +110,14 @@ const RoundSendDetailPage = ({route}) => {
       {/* 써머리 */}
       <View style={styles.middle}>
         <Text style={styles.suggest}>{summary}</Text>
-        {/* <Text style={styles.date}>{DATA.reg_dt}</Text> */}
+        <Text style={styles.date}>{formatDate(regDt)}</Text>
       </View>
       {/* 개인 의견 목록 */}
       <View style={styles.opinionContain}>
         <FlatList
           data={opinion}
           renderItem={opinionList}
+          extraData={opinion}
           // keyExtractor={item => item.opinion_id.toString()}
         />
       </View>

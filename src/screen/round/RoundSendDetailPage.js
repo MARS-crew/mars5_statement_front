@@ -11,8 +11,11 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
+import book from '../../assest/images/send/book.png';
+import nonBook from '../../assest/images/send/book.png';
 import heart from '../../assest/images/share/heart.png';
 import {getRoundSendDetail} from '../../api/GetData';
+import {postBookmark} from '../../api/PostData';
 
 const RoundSendDetailPage = ({route}) => {
   const navigation = useNavigation();
@@ -29,8 +32,15 @@ const RoundSendDetailPage = ({route}) => {
     const loadData = async () => {
       try {
         const responseData = await getRoundSendDetail(chapterId);
+        const updatedOpinions = responseData.data.memberDetailList.map(
+          item => ({
+            ...item,
+            bookmark_yn: item.bookmark_yn === true,
+          }),
+        );
         setOpinion(responseData.data.memberDetailList);
         setSummary(responseData.data.summary);
+        console.log(responseData.data.memberDetailList);
       } catch (error) {
         console.error('데이터 조회 실패:', error);
       }
@@ -39,14 +49,31 @@ const RoundSendDetailPage = ({route}) => {
     loadData();
   }, [chapterId]);
 
+  const toggleBookmark = async sendId => {
+    try {
+      const data = {
+        sendId: sendId,
+      };
+      const response = await postBookmark(data);
+      console.log(response);
+    } catch (error) {
+      console.error('에러 :', error);
+    }
+  };
+
   const opinionList = ({item, shareData}) => (
     <View style={styles.opinionbox}>
       <View style={styles.opinionbox2}>
         <Text style={styles.user}>{item.memberName}</Text>
-        <Image source={heart} style={styles.heart} />
+        <TouchableOpacity onPress={() => toggleBookmark(item.sendId)}>
+          <Image
+            source={item.bookmark_yn ? book : nonBook}
+            style={styles.heart}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.opMargin}>
-        <Text style={styles.opinion}>{item.opinion}</Text>
+        <Text style={styles.opinion}>{item.message}</Text>
       </View>
     </View>
   );
@@ -75,7 +102,7 @@ const RoundSendDetailPage = ({route}) => {
         <FlatList
           data={opinion}
           renderItem={opinionList}
-          keyExtractor={item => item.opinion_id.toString()}
+          // keyExtractor={item => item.opinion_id.toString()}
         />
       </View>
     </SafeAreaView>

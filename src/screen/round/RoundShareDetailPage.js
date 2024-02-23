@@ -31,7 +31,7 @@ const RoundShareDetailPage = ({route}) => {
         const responseData = await getRoundShareDetail(chapterId);
         setOpinion(responseData.data.memberDetailList);
         setSummary(responseData.data.summary);
-        console.log(responseData);
+        console.log(opinion);
       } catch (error) {
         console.error('데이터 조회 실패:', error);
       }
@@ -69,7 +69,7 @@ const RoundShareDetailPage = ({route}) => {
       {/* 써머리 */}
       <View style={styles.middle}>
         <Text style={styles.suggest}>{summary}</Text>
-        {/* <Text style={styles.date}>{DATA.reg_dt}</Text> */}
+        <Text style={styles.date}>{opinion.regDt}</Text>
       </View>
       {/* 개인 의견 목록 */}
       <View style={styles.opinionContain}>

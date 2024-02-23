@@ -12,7 +12,9 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
 import heart from '../../assest/images/share/heart.png';
+import nonHeart from '../../assest/images/share/nonHeart.png';
 import {getRoundShareDetail} from '../../api/GetData';
+import {postHeart} from '../../api/PostData';
 
 const RoundShareDetailPage = ({route}) => {
   const navigation = useNavigation();
@@ -20,6 +22,16 @@ const RoundShareDetailPage = ({route}) => {
 
   const [opinion, setOpinion] = useState([]);
   const [summary, setSummary] = useState();
+  const [regDt, setRegDt] = useState();
+
+  const formatDate = dateString => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}년 ${month}월 ${day}일`;
+  };
 
   const handleBack = () => {
     navigation.goBack();
@@ -31,7 +43,9 @@ const RoundShareDetailPage = ({route}) => {
         const responseData = await getRoundShareDetail(chapterId);
         setOpinion(responseData.data.memberDetailList);
         setSummary(responseData.data.summary);
-        console.log(opinion);
+        setRegDt(responseData.data.regDt);
+        console.log(responseData);
+        console.log(responseData.data.memberDetailList);
       } catch (error) {
         console.error('데이터 조회 실패:', error);
       }
@@ -40,11 +54,32 @@ const RoundShareDetailPage = ({route}) => {
     loadData();
   }, [chapterId]);
 
+  const toggleHeart = async (chapterId, opinionId) => {
+    try {
+      console.log(chapterId + '똑바로 안해?' + opinionId);
+
+      await postHeart(chapterId, opinionId);
+      setOpinion(currentOpinions =>
+        currentOpinions.map(opinion => {
+          if (opinion.opinionId === opinionId) {
+            return {...opinion, like: !opinion.like};
+          }
+          return opinion;
+        }),
+      );
+    } catch (error) {
+      console.error('에러 :', error);
+    }
+  };
+
   const opinionList = ({item, shareData}) => (
     <View style={styles.opinionbox}>
       <View style={styles.opinionbox2}>
         <Text style={styles.user}>{item.memberName}</Text>
-        <Image source={heart} style={styles.heart} />
+        <TouchableOpacity
+          onPress={() => toggleHeart(chapterId, item.opinionId)}>
+          <Image source={item.like ? heart : nonHeart} style={styles.heart} />
+        </TouchableOpacity>
       </View>
       <View style={styles.opMargin}>
         <Text style={styles.opinion}>{item.opinion}</Text>
@@ -69,7 +104,7 @@ const RoundShareDetailPage = ({route}) => {
       {/* 써머리 */}
       <View style={styles.middle}>
         <Text style={styles.suggest}>{summary}</Text>
-        <Text style={styles.date}>{opinion.regDt}</Text>
+        <Text style={styles.date}>{formatDate(regDt)}</Text>
       </View>
       {/* 개인 의견 목록 */}
       <View style={styles.opinionContain}>

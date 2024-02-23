@@ -22,3 +22,11 @@ export const postBookmark = async data => {
   const endpoint = '/api/v1/send/bookmark';
   return postFetchData(endpoint, data);
 };
+
+//share 상세조회 하트
+export const postHeart = async (chapterId, opinionId) => {
+  const endpoint = `/api/v1/share/detail/${chapterId}`;
+  const data = {shareId: opinionId};
+  console.log(endpoint);
+  return postFetchData(endpoint, data);
+};

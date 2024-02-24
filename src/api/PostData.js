@@ -29,6 +29,4 @@ export const postHeart = async (chapterId, opinionId) => {
   const data = {shareId: opinionId};
   console.log(endpoint);
   return postFetchData(endpoint, data);
-
-
-
+};

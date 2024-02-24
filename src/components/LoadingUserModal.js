@@ -3,16 +3,12 @@ import {Modal, ActivityIndicator, StyleSheet, View, Text} from 'react-native';
 
 const LoadingUserModal = ({isVisible, joinCnt, memberCnt}) => {
   return (
-    <Modal visible={isVisible} transparent>
+    <Modal visible={isVisible} transparent={true}>
       <View style={styles.container}>
         <View style={styles.modal}>
           <ActivityIndicator size="large" color="#0000ff" />
-          <Text style={styles.loadingText}>
-            {/* 총 {memberCnt}명 중 {joinCnt}명 참여... */}
-            잠시만 기다려 주세요..
-          </Text>
+          <Text style={styles.loadingText}>잠시만 기다려 주세요..</Text>
         </View>
-        ``
       </View>
     </Modal>
   );

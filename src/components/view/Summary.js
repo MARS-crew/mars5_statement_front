@@ -7,22 +7,19 @@ import {
 import Colors from '../../constants/Colors';
 import { TextStyles } from '../../constants/TextStyles';
 const Summary = ({item}) => {
-    const handlePress = ({item}) => {
-        setSelectedMember(item);
-    };
+    const date = new Date(item.regDt)
+    const formattedDate = date.toISOString().split('T')[0];
 
     return (
-        <TouchableOpacity onPress={() => handlePress(item)}>
-            <View style={styles.summarybox}>
-                <View style={styles.round}>
-                    <Text style={[TextStyles.title]}>{item.chapter_id}th</Text>
-                    <Text style={[TextStyles.normal, TextStyles.placeholder]}>{item.reg_dt}</Text>
-                </View>
-                <View style = { styles.summary }>
-                    <Text style={[TextStyles.normal]}>{item.opinion}</Text>
-                </View>
+        <View style={styles.summarybox}>
+            <View style={styles.round}>
+                <Text style={[TextStyles.title]}>{item.chapterId}th</Text>
+                <Text style={[TextStyles.normal, TextStyles.placeholder]}>{formattedDate}</Text>
             </View>
-        </TouchableOpacity>
+            <View style = { styles.summary }>
+                <Text style={[TextStyles.normal]}>{item.opinion}</Text>
+            </View>
+        </View>
     );
 }
 const styles = StyleSheet.create({

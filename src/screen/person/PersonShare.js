@@ -15,110 +15,83 @@ import Summary from '../../components/view/Summary';
 import {moderateScale, scale} from '../../constants/Scale';
 import MainHeader from '../../components/header/MainHeader';
 import CircleImage from '../../components/image/CircleImage';
-
-const DATA = {
-  suggest_id: 4,
-  suggest: '칭찬해주기였나',
-  memberList: [
-    {
-      member_id: 1,
-      member_name: '백예나',
-      // 나중에 url 로 들어올 것
-      member_img: 'https://health.chosun.com/site/data/img_dir/2023/07/17/2023071701753_0.jpg',
-      opinion_List: [
-        {
-          chapter_id: 1,
-          reg_dt: '2024-01-01',
-          opinion: '착해요 진짜',
-          location: '서대문구',
-        },
-        {
-          chapter_id: 2,
-          reg_dt: '2024-01-05',
-          opinion: '착하다 진짜로',
-          location: '봉천',
-        },
-      ],
-    },
-    {
-      member_id: 2,
-      member_name: '박지민',
-      summary: '이게 무슨 말이지..',
-      // 나중에 url 로 들어올 것
-      member_img: '',
-      opinion_List: [
-        {
-          chapter_id: 3,
-          reg_dt: '2024-01-01',
-          opinion: '필요해서',
-          location: '구일',
-        },
-        {
-          chapter_id: 4,
-          reg_dt: '2024-01-05',
-          opinion: '건강을 위해',
-          location: '봉천',
-        },
-      ],
-    },
-  ],
-};
+import { getPersonShare } from '../../api/GetData';
 
 const PersonShare = ({route}) => {
   const navigation = useNavigation();
-  const [selectedMember, setSelectedMember] = useState(DATA.memberList[0]);
-  const {suggestId} = route.params;
+  const [selectedMember, setSelectedMember] = useState();
+  const [personalShareData, setPersonalShareData] = useState();
+  const [loading, setLoading] = useState(true);
 
   const handlePress = (item) => {
     setSelectedMember(item);
   };
 
-  
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await getPersonShare(route.params.suggestId)
+
+        setPersonalShareData(response.data)
+
+      } catch (error) {
+        console.error('데이터 조회 실패:', error);
+      }
+    };
+
+    loadData();
+  }, [route.params.suggestId]);
+
+  useEffect(()=>{
+    if(personalShareData){
+      setSelectedMember(personalShareData.opinionList[0]);
+      setLoading(false)
+    }
+  }, [personalShareData])
 
   const memberList = ({item}) => (
     // 멤버 이미지 상대경로가 동적할당 X memberImage로 임의 할당
     <TouchableOpacity onPress={() => handlePress(item)}>
       <View style={styles.member}>
-        <CircleImage url={item.member_img} isSelected={selectedMember.member_id === item.member_id}></CircleImage>
-        <Text style={TextStyles.semiBold}>{item.member_name}</Text>
+        <CircleImage url={item.memberImg} isSelected={selectedMember.memberId === item.memberId}></CircleImage>
+        <Text style={TextStyles.semiBold}>{item.memberName}</Text>
       </View>
     </TouchableOpacity>
   );
 
   const summaryList = ({item}) => (
     <>
-    {item.member_id == selectedMember.member_id && item.opinion_List.map((data, index) => (
+    {item.memberId == selectedMember.memberId && item.opinionList.map((data, index) => (
       <Summary key={index} item = {data}></Summary>
     ))}
     </>
   );
 
-  useEffect(() => {
-    // 기본적으로 첫 번째 멤버 선택
-    setSelectedMember(DATA.memberList[0]);
-  }, []);
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex : 1}}>
       {/* 헤더 */}
       <MainHeader navigation={navigation} ></MainHeader>
       {/* 주제 및 멤버 */}
       <View style={styles.middle}>
-        <Text style={TextStyles.title}>{DATA.suggest}</Text>
+        <Text style={TextStyles.title}>{personalShareData.suggest}</Text>
         <FlatList
-          data={DATA.memberList}
+          data={personalShareData.opinionList}
           horizontal={true}
           renderItem={memberList}
-          keyExtractor={item => item.member_id.toString()}
+          keyExtractor={item => item.memberId.toString()}
           style = {styles.flatlist}
         />
       </View>
       {/* 써머리 목록 */}
-      <View>
+      <View style={{flex : 1}}>
         <FlatList
-          data={DATA.memberList}
+          data={personalShareData.opinionList}
           renderItem={summaryList}
-          keyExtractor={item => item.member_id.toString()}
+          keyExtractor={item => item.memberId.toString()}
         />
       </View>
     </SafeAreaView>

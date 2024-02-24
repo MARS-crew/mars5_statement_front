@@ -9,7 +9,6 @@ import {useTextType} from '../../context/TextTypeContext';
 const HumanButton = ({suggestId}) => {
   const navigation = useNavigation();
   const {textType} = useTextType();
-
   const handlePerson = () => {
     if (textType === 'Share') {
       navigation.navigate('PersonShare', {suggestId: suggestId});

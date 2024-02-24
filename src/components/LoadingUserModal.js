@@ -8,7 +8,8 @@ const LoadingUserModal = ({isVisible, joinCnt, memberCnt}) => {
         <View style={styles.modal}>
           <ActivityIndicator size="large" color="#0000ff" />
           <Text style={styles.loadingText}>
-            총 {memberCnt}명 중 {joinCnt} 참여...
+            {/* 총 {memberCnt}명 중 {joinCnt}명 참여... */}
+            잠시만 기다려 주세요..
           </Text>
         </View>
       </View>

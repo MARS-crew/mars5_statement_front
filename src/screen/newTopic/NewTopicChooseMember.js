@@ -41,8 +41,6 @@ const NewTopicChooseMember = ({route}) => {
         );
         setMemberNameArray(data.data.groupMembers.map(member => member.name));
         setMemberIMGArray(data.data.groupMembers.map(member => member.img));
-        console.log('Member IDs:', memberNameArray);
-        console.log('Member Names:', memberIdArray);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -55,9 +53,14 @@ const NewTopicChooseMember = ({route}) => {
     const selectedMemberIds = memberIdArray.filter(
       (_, index) => selectedButtons[index],
     );
+    const selectedMemberName = memberNameArray.filter(
+      (_, index) => selectedButtons[index],
+    );
+
     navigation.navigate('NewTopicTitle', {
       selectedType,
       selectedButtons: selectedMemberIds,
+      selectedMemberName,
     });
   };
 

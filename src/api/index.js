@@ -66,3 +66,19 @@ export const postFetchData = async (endpoint, data) => {
     throw error;
   }
 };
+// Post 호출
+// 파라메타 없는 경우
+export const postFetchNoneData = async endpoint => {
+  try {
+    const client = await createClient();
+    const response = await client.post(endpoint);
+    if (response.data.code === 200 && response.data.status === 'OK') {
+      return response.data;
+    } else {
+      throw new Error(response.data.message || 'API 호출 실패');
+    }
+  } catch (error) {
+    console.error('API 호출 중 문제 :', error);
+    throw error; // 오류를 다시 던져서 호출자가 처리
+  }
+};

@@ -17,14 +17,24 @@ import {TextStyles} from '../../constants/TextStyles';
 const WriteView = ({route}) => {
   const navigation = useNavigation();
 
-  const {title, text, selectedType, selectedButtons} = route.params;
-
+  const {
+    title,
+    text,
+    selectedType,
+    selectedButtons,
+    member,
+    ChapterId,
+    opinions,
+  } = route.params;
+  console.log(selectedButtons, member);
   const handleChooseMember = () => {
     navigation.navigate('ReviewPage', {
       title,
       text,
       selectedType,
       selectedButtons,
+      member,
+      ChapterId,
     });
   };
 
@@ -46,14 +56,19 @@ const WriteView = ({route}) => {
       <Text style={styles.centeredText}>{title}</Text>
 
       <ScrollView style={styles.scrollView}>
-        {selectedButtons.map((button, index) => (
-          <View
-            key={index}
-            style={[styles.box, index === 0 && styles.firstBox]}>
-            <Text style={[TextStyles.title, styles.textUser]}>{button}</Text>
-            <Text style={[TextStyles.normal, styles.text]}>{text}</Text>
-          </View>
-        ))}
+        {member &&
+          member.map((memberName, index) => (
+            <View
+              key={index}
+              style={[styles.box, index === 0 && styles.firstBox]}>
+              <Text style={[TextStyles.title, styles.textUser]}>
+                {memberName}
+              </Text>
+              <Text style={[TextStyles.normal, styles.text]}>
+                {opinions[index]}
+              </Text>
+            </View>
+          ))}
       </ScrollView>
     </SafeAreaView>
   );

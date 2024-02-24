@@ -44,6 +44,7 @@ const NewTopicTitle = ({route}) => {
         memberIds: selectedButtons,
       };
       const response = await postFetchData('/api/v1/suggest/create', data);
+
       const intervalId = setInterval(async () => {
         const response1 = await getFetchData(
           `/api/v1/${selectedType}/join/${response.data}`,

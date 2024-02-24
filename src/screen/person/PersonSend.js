@@ -14,7 +14,7 @@ import backBtn from '../../assest/images/header/back.png';
 import shareBtn from '../../assest/images/header/shareBtn.png';
 import memberImage from '../../assest/images/test/memberImage.png';
 import {FlatList} from 'react-native-gesture-handler';
-import { TextStyles } from '../../constants/TextStyles';
+import {TextStyles} from '../../constants/TextStyles';
 
 const DATA = {
   suggest_id: 4,

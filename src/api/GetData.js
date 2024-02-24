@@ -34,3 +34,15 @@ export const getSuggest = async groupId => {
   // return getFetchDataWithParam(endpoint, {groupId});
   return getFetchDataWithParam(endpoint);
 };
+//share 입장
+export const getShareIn = async chapterId => {
+  const endpoint = '/api/v1/share/join/' + chapterId;
+
+  return getFetchData(endpoint);
+};
+//send 입장
+export const getSendIn = async chapterId => {
+  const endpoint = '/api/v1/send/join/' + chapterId;
+
+  return getFetchData(endpoint);
+};

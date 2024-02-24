@@ -20,7 +20,7 @@ import {useLogin} from '../../context/AuthContext';
 
 const NewTopicTitle = ({route}) => {
   const navigation = useNavigation();
-  const {selectedType, selectedButtons} = route.params;
+  const {selectedType, selectedButtons, selectedMemberName} = route.params;
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
   const [joinCnt, setJoinCnt] = useState('');
@@ -44,13 +44,15 @@ const NewTopicTitle = ({route}) => {
         memberIds: selectedButtons,
       };
       const response = await postFetchData('/api/v1/suggest/create', data);
+
       const intervalId = setInterval(async () => {
         const response1 = await getFetchData(
           `/api/v1/${selectedType}/join/${response.data}`,
         );
+        const ChapterId = response.data;
+
         setJoinCnt(response1.data.joinCnt);
         setMemberCnt(response1.data.memberCnt);
-        console.log(response1);
         if (response1.data.joinCnt === response1.data.memberCnt) {
           clearInterval(intervalId);
           setLoading(false);
@@ -59,9 +61,11 @@ const NewTopicTitle = ({route}) => {
             title: text,
             selectedType,
             selectedButtons,
+            member: selectedMemberName,
+            ChapterId,
           });
         }
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.error('에러:', error);
     }

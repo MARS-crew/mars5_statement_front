@@ -15,18 +15,25 @@ import {useNavigation} from '@react-navigation/native';
 import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
+import {postFetchData} from '../../api';
 
 const ReviewPage = ({route}) => {
   const navigation = useNavigation();
   const [review, setReview] = useState('');
-  const {title, text, selectedType, selectedButtons} = route.params;
+
+  const {title, text, selectedType, selectedButtons, member, ChapterId} =
+    route.params;
+
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
-
   const onChangeText = inputText => {
     setReview(inputText);
   };
-  const handleChooseMember = () => {
+  const handleChooseMember = async () => {
+    const response = await postFetchData(`/api/v1/share/summary/${ChapterId}`, {
+      summary: review,
+    });
+    console.log(response);
     navigation.reset({
       index: 0,
       routes: [{name: 'TeamName'}],
@@ -58,9 +65,9 @@ const ReviewPage = ({route}) => {
           {height: windowHeight / 5, width: windowWidth / 1.125},
         ]}>
         <ScrollView style={styles.scrollView}>
-          {selectedButtons.map((button, index) => (
+          {member.map((name, index) => (
             <View key={index} style={styles.box}>
-              <Text style={[TextStyles.normal, styles.textUser]}>{button}</Text>
+              <Text style={[TextStyles.normal, styles.textUser]}>{name}</Text>
               <Text style={[TextStyles.semiBold, styles.text]}>{text}</Text>
             </View>
           ))}

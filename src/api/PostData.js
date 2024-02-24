@@ -1,4 +1,4 @@
-import {postFetchData} from '.';
+import {postFetchData, postFetchNoneData} from '.';
 
 //공유 회차별 조회
 export const postCreateGroup = async data => {

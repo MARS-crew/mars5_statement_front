@@ -15,24 +15,71 @@ import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
 import {getLocation} from '../../api/naverApi/naverGeocodingApi';
-
+import {getFetchData, postFetchData} from '../../api';
+import LoadingUserModal from '../../components/LoadingUserModal';
 const NewTopicWrite = ({route}) => {
   const navigation = useNavigation();
   const [text, setText] = useState('');
-  const {title, selectedType, selectedButtons} = route.params;
+  const {title, selectedType, selectedButtons, member, ChapterId} =
+    route.params;
+
+  const [writeCnt, setWriteCnt] = useState('');
+  const [memberCnt, setMemberCnt] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChooseMember = async () => {
-    const location = await getLocation();
-    if (location != '' || location != undefined) {
-      console.log(location);
-      navigation.navigate('WriteView', {
-        title,
-        text,
-        selectedType,
-        selectedButtons,
-      });
+    var location = '중구가 시키드나?';
+    //location = await getLocation();
+
+    if (location != '' || location != undefined || location != false) {
+      handleClick(location);
     } else {
       console.error('위치 찾기 실패');
+    }
+  };
+
+  const handleClick = async location => {
+    try {
+      setLoading(true);
+
+      const response = await postFetchData(
+        `/api/v1/${selectedType}/write/${ChapterId}`,
+        {opinion: text, location: location},
+      );
+
+      const intervalId = setInterval(async () => {
+        const response2 = await getFetchData(
+          `/api/v1/${selectedType}/write/${ChapterId}`,
+        );
+
+        setWriteCnt(response2.data.writeCnt);
+        setMemberCnt(response2.data.memberCnt);
+
+        if (response2.data.writeCnt === response2.data.memberCnt) {
+          const memberWriteResponse = await getFetchData(
+            `/api/v1/${selectedType}/write/after/${ChapterId}`,
+          );
+
+          const opinions = memberWriteResponse.data.opinions.map(
+            member => member.opinion,
+          );
+
+          clearInterval(intervalId);
+          setLoading(false);
+
+          navigation.navigate('WriteView', {
+            title,
+            text,
+            selectedType,
+            selectedButtons,
+            member,
+            ChapterId,
+            opinions,
+          });
+        }
+      }, 2000);
+    } catch (error) {
+      console.error('에러 발생:', error);
     }
   };
 
@@ -73,6 +120,11 @@ const NewTopicWrite = ({route}) => {
           placeholderTextColor="#D3D6D3"
         />
       </View>
+      <LoadingUserModal
+        isVisible={loading}
+        joinCnt={writeCnt}
+        memberCnt={memberCnt}
+      />
     </SafeAreaView>
   );
 };

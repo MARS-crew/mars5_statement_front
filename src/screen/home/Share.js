@@ -29,15 +29,6 @@ const Share = () => {
   const [memberCnt, setMemberCnt] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      if (textType !== 'Share') {
-        changeTextType();
-      }
-      console.log(textType);
-    }, [textType, changeTextType]),
-  );
-
   const handleClick = async suggestId => {
     try {
       setLoading(true);

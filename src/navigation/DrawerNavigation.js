@@ -32,7 +32,6 @@ const DrawerNavigation = ({DATA}) => {
         <Drawer.Screen
           key={team.teamid}
           name={team.teamName}
-          component={TopTabNavigator}
           options={({route}) => ({
             title: route.name,
             groupImageURL: team.imageurl,
@@ -48,8 +47,9 @@ const DrawerNavigation = ({DATA}) => {
             headerTitleContainerStyle: {
               marginRight: 20,
             },
-          })}
-        />
+          })}>
+          {props => <TopTabNavigator {...props} DATA={DATA} />}
+        </Drawer.Screen>
       ))}
     </Drawer.Navigator>
   );

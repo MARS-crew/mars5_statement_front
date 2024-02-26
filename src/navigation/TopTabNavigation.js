@@ -6,12 +6,19 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import Share from '../screen/home/Share';
 import Send from '../screen/home/Send';
 import Colors from '../constants/Colors';
+import FloatingButton from '../components/button/FloatingButton';
 
 const TopTabNavigator = () => {
+  const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState('Share');
+
+  const handlePress = () => {
+    navigation.navigate('NewTopicPage');
+  };
 
   const renderComponent = () => {
     switch (activeTab) {
@@ -50,6 +57,7 @@ const TopTabNavigator = () => {
         </TouchableOpacity>
       </View>
       {renderComponent()}
+      <FloatingButton onPress={handlePress} />
     </SafeAreaView>
   );
 };

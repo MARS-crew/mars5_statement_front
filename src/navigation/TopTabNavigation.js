@@ -1,104 +1,103 @@
-// TopTabNavigator.js
 import React, {useState, useEffect} from 'react';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Send from '../screen/home/Send';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import Share from '../screen/home/Share';
+import Send from '../screen/home/Send';
 import Colors from '../constants/Colors';
-import {scale} from '../constants/Scale';
-import {TextStyles} from '../constants/TextStyles';
-import {Dimensions, View} from 'react-native';
-import {useTextType} from '../../context/TextTypeContext';
 import FloatingButton from '../components/button/FloatingButton';
-import {useNavigation, useFocusEffect} from '@react-navigation/native';
-
-import {getSuggest} from '../api/GetData';
-import {useLogin} from '../context/AuthContext';
-
-const Tab = createMaterialTopTabNavigator();
 
 const TopTabNavigator = () => {
-  const totalWidth = Dimensions.get('screen').width;
   const navigation = useNavigation();
+  const [activeTab, setActiveTab] = useState('Share');
+
   const handlePress = () => {
     navigation.navigate('NewTopicPage');
   };
-  useFocusEffect(() => {
-    const onBackPress = () => {
-      return true;
-    };
 
-    navigation.addListener('beforeRemove', onBackPress);
+  const renderComponent = () => {
+    switch (activeTab) {
+      case 'Share':
+        return <Share />;
+      case 'Send':
+        return <Send />;
+      default:
+        return null;
+    }
+  };
 
-    return () => {
-      navigation.removeListener('beforeRemove', onBackPress);
-    };
-  });
-  // const {isLogin} = useLogin();
-  // const groupId = 2; // 임의 그룹 아이디 설정
-  // const [shareData, setShareData] = useState([]);
-  // const [sendData, setSendData] = useState([]);
-
-  // useEffect(() => {
-  //   if (isLogin) {
-  //     const loadData = async () => {
-  //       try {
-  //         const responseData = await getSuggest(groupId);
-  //         const shareFiltered = responseData.data.groupSuggests.filter(
-  //           item => item.type === 'share',
-  //         );
-  //         const sendFiltered = responseData.data.groupSuggests.filter(
-  //           item => item.type === 'send',
-  //         );
-  //         setShareData(shareFiltered);
-  //         setSendData(sendFiltered);
-  //       } catch (error) {
-  //         console.error('데이터 조회 실패:', error);
-  //       }
-  //     };
-  //     loadData();
-  //   }
-  // }, [isLogin, groupId]);
-
-  // if (!isLogin) {
-  //   return null;
-  // }
   return (
-    <View style={{flex: 1}}>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-            // height: scale(44),
-            height: 60,
-          },
-          // tabBarLabelStyle: TextStyles.semiBold,
-          tabBarLabelStyle: {
-            fontSize: 14,
-            fontWeight: '500',
-            fontFamily: 'NotoSansEN',
-            color: Colors.black,
-          },
-          tabBarAndroidRipple: {borderless: false},
-          tabBarIndicatorStyle: {
-            borderBottomWidth: 2,
-            borderBottomColor: Colors.green,
-          },
-        }}>
-        <Tab.Screen
-          name="Share"
-          component={Share}
-          // initialParams={{data: shareData}} // Share 탭에 shareData 전달
-        />
-        <Tab.Screen
-          name="Send"
-          component={Send}
-          // initialParams={{data: sendData}} // Send 탭에 sendData 전달
-        />
-      </Tab.Navigator>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.tabContainer}>
+        <TouchableOpacity
+          style={styles.tabButton}
+          onPress={() => {
+            setActiveTab('Share');
+            console.log('Share');
+          }}>
+          <View style={styles.tabContentContainer}>
+            <Text style={styles.tabText}>Share</Text>
+            {activeTab === 'Share' && (
+              <View style={styles.activeTabIndicator} />
+            )}
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.tabButton}
+          onPress={() => setActiveTab('Send')}>
+          <View style={styles.tabContentContainer}>
+            <Text style={styles.tabText}>Send</Text>
+            {activeTab === 'Send' && <View style={styles.activeTabIndicator} />}
+          </View>
+        </TouchableOpacity>
+      </View>
+      {renderComponent()}
       <FloatingButton onPress={handlePress} />
-    </View>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.white,
+  },
+  tabContainer: {
+    flexDirection: 'row',
+    borderBottomColor: Colors.grey,
+  },
+  tabContentContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  activeTabIndicator: {
+    position: 'absolute',
+    height: 3,
+    width: '80%',
+    backgroundColor: Colors.green,
+    bottom: 0,
+    top: 36,
+  },
+  tabButton: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 15,
+  },
+  activeTab: {
+    borderBottomWidth: 3,
+    borderBottomColor: Colors.green,
+  },
+  tabText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: Colors.black,
+    textAlign: 'center',
+  },
+});
 
 export default TopTabNavigator;

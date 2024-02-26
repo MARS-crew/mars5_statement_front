@@ -14,29 +14,17 @@ import {
 } from '@react-navigation/native';
 import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
-import {useTextType} from '../../context/TextTypeContext';
 import {useLogin} from '../../context/AuthContext';
 import {getFetchData, postFetchData} from '../../api';
 import LoadingUserModal from '../../components/modal/LoadingUserModal';
 
 const Send = () => {
   const navigation = useNavigation();
-  const route = useRoute();
-  const {changeTextType, textType} = useTextType();
   const {data} = useLogin();
   const {sendData} = data;
   const [joinCnt, setJoinCnt] = useState('');
   const [memberCnt, setMemberCnt] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      if (textType !== 'Send') {
-        changeTextType();
-      }
-      console.log(textType);
-    }, [textType, changeTextType]),
-  );
 
   const handleClick = async suggestId => {
     try {
@@ -83,7 +71,10 @@ const Send = () => {
           sendData.map(item => (
             <TouchableOpacity
               key={item.suggestId.toString()}
-              onPress={() => handleClick(item.suggestId)}>
+              onPress={() => {
+                handleClick(item.suggestId);
+                console.log('Send');
+              }}>
               <SwipeView DATA={item} />
             </TouchableOpacity>
           ))

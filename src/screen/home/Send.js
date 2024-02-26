@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -16,7 +16,7 @@ import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
 import {useLogin} from '../../context/AuthContext';
 import {getFetchData, postFetchData} from '../../api';
-import LoadingUserModal from '../../components/LoadingUserModal';
+import LoadingUserModal from '../../components/modal/LoadingUserModal';
 
 const Send = () => {
   const navigation = useNavigation();
@@ -35,6 +35,7 @@ const Send = () => {
         const response1 = await postFetchData(
           `/api/v1/send/join/${response.data.summaryList[0].chapterId}`,
         );
+        console.log(response1);
         const member = response1.data.map(member => member.name);
         const memberId = response1.data.map(member => member.userId);
         const ChapterId = response.data.summaryList[0].chapterId;

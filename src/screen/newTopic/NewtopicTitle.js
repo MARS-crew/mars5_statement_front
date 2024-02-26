@@ -15,7 +15,7 @@ import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
 import {getFetchData, postFetchData} from '../../api';
-import LoadingUserModal from '../../components/LoadingUserModal';
+import LoadingUserModal from '../../components/modal/LoadingUserModal';
 import {useLogin} from '../../context/AuthContext';
 
 const NewTopicTitle = ({route}) => {
@@ -49,22 +49,33 @@ const NewTopicTitle = ({route}) => {
         const response1 = await getFetchData(
           `/api/v1/${selectedType}/join/${response.data}`,
         );
+        console.log('무슨데이터?', response1);
         const ChapterId = response.data;
 
         setJoinCnt(response1.data.joinCnt);
         setMemberCnt(response1.data.memberCnt);
         if (response1.data.joinCnt === response1.data.memberCnt) {
           clearInterval(intervalId);
-          ``;
+
           setLoading(false);
-          console.log('전부입장완료');
-          navigation.navigate('NewTopicWrite', {
-            title: text,
-            selectedType,
-            selectedButtons,
-            member: selectedMemberName,
-            ChapterId,
-          });
+
+          if (selectedType === 'send') {
+            navigation.navigate('NewTopicWriteSend', {
+              title: text,
+              selectedType,
+              selectedButtons,
+              member: selectedMemberName,
+              ChapterId,
+            });
+          } else {
+            navigation.navigate('NewTopicWrite', {
+              title: text,
+              selectedType,
+              selectedButtons,
+              member: selectedMemberName,
+              ChapterId,
+            });
+          }
         }
       }, 2000);
     } catch (error) {

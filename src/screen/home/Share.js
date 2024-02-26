@@ -17,7 +17,7 @@ import Colors from '../../constants/Colors';
 import {useTextType} from '../../context/TextTypeContext';
 import {useLogin} from '../../context/AuthContext';
 import {getFetchData, postFetchData} from '../../api';
-import LoadingUserModal from '../../components/LoadingUserModal';
+import LoadingUserModal from '../../components/modal/LoadingUserModal';
 
 const Share = () => {
   const navigation = useNavigation();
@@ -46,6 +46,7 @@ const Share = () => {
           const response2 = await getFetchData(
             `/api/v1/share/join/${response.data.summaryList[0].chapterId}`,
           );
+          console.log(response2);
           setJoinCnt(response2.data.joinCnt);
           setMemberCnt(response2.data.memberCnt);
           if (response2.data.joinCnt === response2.data.memberCnt) {

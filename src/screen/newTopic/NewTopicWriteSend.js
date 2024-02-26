@@ -12,25 +12,25 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
 import back from '../../assest/images/header/back.png';
+import nextWriteButton from '../../assest/images/send/nextWriteButton.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
 import {getLocation} from '../../api/naverApi/naverGeocodingApi';
 import {getFetchData, postFetchData} from '../../api';
 import LoadingUserModal from '../../components/modal/LoadingUserModal';
-const NewTopicWrite = ({route}) => {
+
+const NewTopicWriteSend = ({route}) => {
   const navigation = useNavigation();
   const [text, setText] = useState('');
   const {title, selectedType, selectedButtons, member, ChapterId} =
     route.params;
 
-  const [writeCnt, setWriteCnt] = useState('');
-  const [memberCnt, setMemberCnt] = useState('');
   const [loading, setLoading] = useState(false);
+  const [currentMemberIndex, setCurrentMemberIndex] = useState(0);
 
   const handleChooseMember = async () => {
-    var location = '중구가 시키드나?';
-    //location = await getLocation();
-
+    const location = await getLocation();
+    console.log(location);
     if (location != '' || location != undefined || location != false) {
       handleClick(location);
     } else {
@@ -42,18 +42,10 @@ const NewTopicWrite = ({route}) => {
     try {
       setLoading(true);
 
-      const response = await postFetchData(
-        `/api/v1/${selectedType}/write/${ChapterId}`,
-        {opinion: text, location: location},
-      );
-
       const intervalId = setInterval(async () => {
         const response2 = await getFetchData(
           `/api/v1/${selectedType}/write/${ChapterId}`,
         );
-
-        setWriteCnt(response2.data.writeCnt);
-        setMemberCnt(response2.data.memberCnt);
 
         if (response2.data.writeCnt === response2.data.memberCnt) {
           const memberWriteResponse = await getFetchData(
@@ -86,6 +78,35 @@ const NewTopicWrite = ({route}) => {
   const onChangeText = inputText => {
     setText(inputText);
   };
+  const handleNextMember = async () => {
+    setCurrentMemberIndex(async prevIndex => {
+      const currentMemberId = selectedButtons[prevIndex];
+
+      try {
+        console.log(currentMemberId, title, ChapterId);
+        const response = await postFetchData(
+          `/api/v1/send/write/${ChapterId}`,
+          [
+            {
+              to_id: currentMemberId,
+              message: title,
+            },
+          ],
+        );
+        console.log('Response:', response);
+      } catch (error) {
+        console.error('에러 발생:', error);
+      }
+
+      const nextIndex = prevIndex + 1;
+      if (nextIndex < member.length) {
+        return nextIndex;
+      } else {
+        await handleChooseMember();
+        return prevIndex;
+      }
+    });
+  };
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
@@ -100,12 +121,17 @@ const NewTopicWrite = ({route}) => {
               <Text style={styles.title}>Add a Writing</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleChooseMember}>
-            <Image source={check} style={styles.share} />
+          <TouchableOpacity onPress={handleNextMember}>
+            <Image source={nextWriteButton} style={styles.share} />
           </TouchableOpacity>
         </View>
       </View>
       <Text style={styles.centeredText}>{title}</Text>
+      <View style={styles.selectedTextContainer}>
+        <Text style={[TextStyles.semiBold, styles.send]}>
+          {member[currentMemberIndex]}에게..
+        </Text>
+      </View>
       <View
         style={[
           styles.buttonContainer,
@@ -120,16 +146,10 @@ const NewTopicWrite = ({route}) => {
           placeholderTextColor="#D3D6D3"
         />
       </View>
-      <LoadingUserModal
-        isVisible={loading}
-        joinCnt={writeCnt}
-        memberCnt={memberCnt}
-      />
     </SafeAreaView>
   );
 };
-export default NewTopicWrite;
-
+export default NewTopicWriteSend;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -147,12 +167,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 20,
-    marginRight: 20,
-    alignSelf: 'flex-end',
+    marginLeft: 20,
+    alignSelf: 'flex-start',
   },
 
   buttonContainer: {
-    marginTop: 40,
+    marginTop: 10,
     backgroundColor: Colors.lightgrey,
     paddingHorizontal: 10,
     borderRadius: 10,
@@ -193,7 +213,10 @@ const styles = StyleSheet.create({
     left: 20,
   },
   share: {
-    width: 40,
-    height: 32,
+    width: 35,
+    height: 35,
+  },
+  send: {
+    fontWeight: 'bold',
   },
 });

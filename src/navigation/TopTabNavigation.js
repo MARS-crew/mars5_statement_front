@@ -9,7 +9,7 @@ import {TextStyles} from '../constants/TextStyles';
 import {Dimensions, View} from 'react-native';
 import {useTextType} from '../../context/TextTypeContext';
 import FloatingButton from '../components/button/FloatingButton';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 
 import {getSuggest} from '../api/GetData';
 import {useLogin} from '../context/AuthContext';
@@ -22,6 +22,17 @@ const TopTabNavigator = () => {
   const handlePress = () => {
     navigation.navigate('NewTopicPage');
   };
+  useFocusEffect(() => {
+    const onBackPress = () => {
+      return true;
+    };
+
+    navigation.addListener('beforeRemove', onBackPress);
+
+    return () => {
+      navigation.removeListener('beforeRemove', onBackPress);
+    };
+  });
   // const {isLogin} = useLogin();
   // const groupId = 2; // 임의 그룹 아이디 설정
   // const [shareData, setShareData] = useState([]);

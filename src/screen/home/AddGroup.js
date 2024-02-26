@@ -16,11 +16,11 @@ import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {launchImageLibrary} from 'react-native-image-picker';
 import plusBtn from '../../assest/images/PlusBtn.png';
-import CustomModal from '../../components/CustomModal';
+import CustomModal from '../../components/modal/CustomModal';
 import minusBtn from '../../assest/images/minusBtn.png';
 import {postCreateGroup} from '../../api/PostData';
 import storage from '@react-native-firebase/storage';
-import LoadingModal from '../../components/LoadingModal';
+import LoadingModal from '../../components/modal/LoadingModal';
 
 const AddGroup = () => {
   const navigation = useNavigation();

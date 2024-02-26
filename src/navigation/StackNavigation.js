@@ -21,6 +21,7 @@ import ReviewPage from '../screen/newTopic/ReviewPage';
 import WriteView from '../screen/newTopic/WriteView';
 import AddGroup from '../screen/home/AddGroup';
 import PersonShare from '../screen/person/PersonShare';
+import NewTopicWriteSend from '../screen/newTopic/NewTopicWriteSend';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ const StackNavigation = () => {
         options={{
           headerShown: false,
           headerTitle: props => <LogoTitle {...props} />,
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen
@@ -50,6 +52,7 @@ const StackNavigation = () => {
           headerStyle: {
             backgroundColor: '#F2F2F2',
           },
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen
@@ -57,6 +60,7 @@ const StackNavigation = () => {
         component={Send}
         options={{
           headerShown: true,
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen
@@ -109,6 +113,13 @@ const StackNavigation = () => {
       <Stack.Screen
         name="NewTopicWrite"
         component={NewTopicWrite}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="NewTopicWriteSend"
+        component={NewTopicWriteSend}
         options={{
           headerShown: false,
         }}

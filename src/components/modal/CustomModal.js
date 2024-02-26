@@ -9,8 +9,8 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import Colors from '../constants/Colors';
-import {TextStyles} from '../constants/TextStyles';
+import Colors from '../../constants/Colors';
+import {TextStyles} from '../../constants/TextStyles';
 
 const CustomModal = ({isVisible, onConfirm, onClose}) => {
   return (

@@ -22,6 +22,7 @@ import WriteView from '../screen/newTopic/WriteView';
 import AddGroup from '../screen/home/AddGroup';
 import PersonShare from '../screen/person/PersonShare';
 import NewTopicWriteSend from '../screen/newTopic/NewTopicWriteSend';
+import AddGroupGuide from '../screen/home/AddGroupGuide';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,13 @@ const StackNavigation = () => {
       <Stack.Screen
         name="Login"
         component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddGroupGuide"
+        component={AddGroupGuide}
         options={{
           headerShown: false,
         }}

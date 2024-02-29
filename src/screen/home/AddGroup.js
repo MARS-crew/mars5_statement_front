@@ -68,7 +68,7 @@ const AddGroup = () => {
 
   const handleConfirm = () => {
     setModalVisible(false);
-    navigation.goBack();
+    navigation.navigate("TeamName");
   };
 
   const handleCancel = () => {

@@ -16,12 +16,20 @@ export const AuthProvider = ({children}) => {
     activeGroup: [],
   });
 
+
   useEffect(() => {
     const loadData = async () => {
       if (isLogin) {
         try {
           const responseData = await getSuggest(groupId);
 
+          console.log(responseData)
+          if(responseData.message == "속해있는 그룹이 없습니다."){
+            setData({
+              activeGroup : 0
+            })
+            return
+          }
           const shareFiltered = responseData.data.groupSuggests.filter(
             item => item.type === 'share',
           );

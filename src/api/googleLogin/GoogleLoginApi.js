@@ -29,7 +29,7 @@ export const onGoogleLogin = async () => {
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     await auth().signInWithCredential(googleCredential);
     const response = await postLogin(data);
-    await AsyncStorage.setItem('accessToken', response.data.refreshToken);
+    await AsyncStorage.setItem('user', JSON.stringify(data));
 
     return response;
   } catch (error) {

@@ -16,10 +16,15 @@ const GoogleLoginButton = () => {
     const userInfo = await onGoogleLogin();
     if (userInfo.code == 200) {
       console.log('Signed in with Google!');
+      console.log(userInfo)
       const response = await getSuggest(userInfo.data.lastGroupId);
       setGroupId(userInfo.data.lastGroupId);
       setIsLogin(true);
-      navigation.navigate('TeamName', response.data);
+      if(userInfo.data.lastGroupId == 0){
+        navigation.navigate("AddGroupGuide")
+      }else{
+        navigation.navigate('TeamName', response.data);
+      }
     } else {
       console.error('Google 로그인 실패');
       setIsLogin(false);

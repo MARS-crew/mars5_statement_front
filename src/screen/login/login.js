@@ -6,8 +6,6 @@ import {TextStyles} from '../../constants/TextStyles';
 import {scale, verticalScale, moderateScale} from '../../constants/Scale';
 import LocalImage from '../../components/image/LocalImage';
 
-const {width} = Dimensions.get('window');
-
 const Login = () => {
   return (
     <View style={styles.container}>

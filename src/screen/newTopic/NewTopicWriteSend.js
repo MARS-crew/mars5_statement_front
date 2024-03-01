@@ -41,6 +41,10 @@ const NewTopicWriteSend = ({route}) => {
   const handleClick = async location => {
     try {
       setLoading(true);
+      const response = await postFetchData(
+        `/api/v1/${selectedType}/write/${ChapterId}`,
+        {opinion: text, location: location},
+      );
 
       const intervalId = setInterval(async () => {
         const response2 = await getFetchData(
@@ -78,6 +82,7 @@ const NewTopicWriteSend = ({route}) => {
   const onChangeText = inputText => {
     setText(inputText);
   };
+
   const handleNextMember = async () => {
     setCurrentMemberIndex(async prevIndex => {
       const currentMemberId = selectedButtons[prevIndex];
@@ -93,7 +98,6 @@ const NewTopicWriteSend = ({route}) => {
             },
           ],
         );
-        console.log('Response:', response);
       } catch (error) {
         console.error('에러 발생:', error);
       }

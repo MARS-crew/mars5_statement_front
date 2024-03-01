@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "506348598249",
+    "firebase_url": "https://comit-3037b-default-rtdb.firebaseio.com",
     "project_id": "comit-3037b",
     "storage_bucket": "comit-3037b.appspot.com"
   },
@@ -14,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "506348598249-il41t6ijo8vddqo30uud630v3vk01pje.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "10106df75b8a306bfecf786a9211fab630b284ae"
+          }
+        },
+        {
           "client_id": "506348598249-odm4tlmrn278m9lktaiss1d97ho6s2jh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.statement_project",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "506348598249-u0mq8vu7q3rn75kqa4r4fcos84ldg8jb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "bb597b9757482a1d43488b46958a61ca71f4ab00"
           }
         },
         {

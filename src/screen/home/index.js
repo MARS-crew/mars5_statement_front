@@ -36,6 +36,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       const {IdData, nameData, imgData} = await data;
+
       if (IdData.length > 0) {
         const newDATAsr = IdData.map((id, index) => ({
           teamid: id,

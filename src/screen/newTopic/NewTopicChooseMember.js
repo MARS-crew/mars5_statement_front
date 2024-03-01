@@ -18,7 +18,7 @@ import {TextStyles} from '../../constants/TextStyles';
 import {getSuggest} from '../../api/GetData';
 
 const NewTopicChooseMember = ({route}) => {
-  const {selectedType} = route.params;
+  const {selectedType, groupnum} = route.params;
   const navigation = useNavigation();
 
   const [memberIdArray, setMemberIdArray] = useState([]);
@@ -33,9 +33,7 @@ const NewTopicChooseMember = ({route}) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const groupId = 1;
-        const data = await getSuggest(groupId);
-
+        const data = await getSuggest(groupnum);
         setMemberIdArray(
           data.data.groupMembers.map(member => member.groupMemberId),
         );
@@ -56,7 +54,7 @@ const NewTopicChooseMember = ({route}) => {
     const selectedMemberName = memberNameArray.filter(
       (_, index) => selectedButtons[index],
     );
-
+    console.log('selectedMemberIds:', selectedMemberIds);
     navigation.navigate('NewTopicTitle', {
       selectedType,
       selectedButtons: selectedMemberIds,

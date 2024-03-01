@@ -29,17 +29,18 @@ const Send = () => {
   const handleClick = async suggestId => {
     try {
       setLoading(true);
+
       const response = await getFetchData(`/api/v1/send/chapter/${suggestId}`);
 
       if (response.data.summaryList[0].summary == null) {
         const response1 = await postFetchData(
           `/api/v1/send/join/${response.data.summaryList[0].chapterId}`,
         );
-        console.log(response1);
+
         const member = response1.data.map(member => member.name);
         const memberId = response1.data.map(member => member.userId);
         const ChapterId = response.data.summaryList[0].chapterId;
-
+        console.log(memberId, 'memberId');
         const intervalId = setInterval(async () => {
           const response2 = await getFetchData(
             `/api/v1/send/join/${response.data.summaryList[0].chapterId}`,
@@ -49,7 +50,8 @@ const Send = () => {
           if (response2.data.joinCnt === response2.data.memberCnt) {
             clearInterval(intervalId);
             setLoading(false);
-            navigation.navigate('NewTopicWrite', {
+            console.log('send', memberId);
+            navigation.navigate('NewTopicWriteSend', {
               title: response.data.suggest,
               selectedType: 'send',
               selectedButtons: memberId,

@@ -13,13 +13,18 @@ import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
 import back from '../../assest/images/header/back.png';
 import {TextStyles} from '../../constants/TextStyles';
-
+import {useLogin} from '../../context/AuthContext';
 const NewTopicPage = () => {
   const navigation = useNavigation();
-  const [isModalVisible, setModalVisible] = useState(false);
+  const {data} = useLogin();
 
+  const [isModalVisible, setModalVisible] = useState(false);
+  console.log('data', data);
   const handleChooseMember = selectedType => {
-    navigation.navigate('NewTopicChooseMember', {selectedType});
+    navigation.navigate('NewTopicChooseMember', {
+      selectedType,
+      groupnum: data.activeGroup[0].groupId,
+    });
   };
   const handleGoBack = () => {
     setModalVisible(true);

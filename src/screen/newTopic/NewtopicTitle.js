@@ -49,17 +49,19 @@ const NewTopicTitle = ({route}) => {
         const response1 = await getFetchData(
           `/api/v1/${selectedType}/join/${response.data}`,
         );
-        console.log('무슨데이터?', response1);
+
         const ChapterId = response.data;
 
         setJoinCnt(response1.data.joinCnt);
         setMemberCnt(response1.data.memberCnt);
+
         if (response1.data.joinCnt === response1.data.memberCnt) {
           clearInterval(intervalId);
 
           setLoading(false);
 
           if (selectedType === 'send') {
+            console.log(response1.data, 'data');
             navigation.navigate('NewTopicWriteSend', {
               title: text,
               selectedType,

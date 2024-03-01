@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useNavigation, useFocusEffect} from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {Text, BackHandler, View, TouchableOpacity, Modal} from 'react-native';
 import DrawerNavigation from '../../navigation/DrawerNavigation';
 import {useLogin} from '../../context/AuthContext';
@@ -7,22 +7,31 @@ import ExitModal from '../../components/modal/ExitModal';
 const Home = () => {
   const {data} = useLogin();
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+
   const [DATA, setDATA] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => {
-        // 뒤로가기 버튼 클릭 시 모달 표시
+    const backHandler = () => {
+      if (isFocused) {
         setShowModal(true);
-        return true; // 뒤로가기 동작 막음
-      },
-    );
+        return true;
+      }
+    };
 
-    return () => backHandler.remove();
-  }, []);
+    const subscription = navigation.addListener('beforeRemove', e => {
+      if (!isFocused) {
+        return;
+      }
+
+      e.preventDefault();
+      backHandler();
+    });
+
+    return () => subscription();
+  }, [navigation, isFocused]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,12 +52,10 @@ const Home = () => {
   }, [data]);
 
   const handleExit = () => {
-    // 종료 확인 시 앱 종료
     BackHandler.exitApp();
   };
 
   const handleCancel = () => {
-    // 종료 취소 시 모달 닫기
     setShowModal(false);
   };
 

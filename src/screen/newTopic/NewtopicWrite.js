@@ -30,8 +30,7 @@ const NewTopicWrite = ({route}) => {
   const [loading, setLoading] = useState(false);
 
   const handleChooseMember = async () => {
-    var location = '중구가 시키드나?';
-    //location = await getLocation();
+    const location = await getLocation();
 
     if (location != '' || location != undefined || location != false) {
       handleClick(location);

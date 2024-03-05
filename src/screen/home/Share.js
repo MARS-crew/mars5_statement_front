@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -6,6 +6,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  BackHandler,
 } from 'react-native';
 import {
   useFocusEffect,
@@ -29,6 +30,27 @@ const Share = () => {
   const [memberCnt, setMemberCnt] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const backHandler = () => {
+      if (loading) {
+        setLoading(false);
+        return true;
+      }
+      return false;
+    };
+
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backHandler,
+    );
+
+    return () => subscription.remove();
+  }, [loading]);
+
+  const handleCloseModal = () => {
+    setLoading(false);
+  };
+
   const handleClick = async suggestId => {
     try {
       setLoading(true);
@@ -46,13 +68,13 @@ const Share = () => {
           const response2 = await getFetchData(
             `/api/v1/share/join/${response.data.summaryList[0].chapterId}`,
           );
-          console.log(response2);
+
           setJoinCnt(response2.data.joinCnt);
           setMemberCnt(response2.data.memberCnt);
           if (response2.data.joinCnt === response2.data.memberCnt) {
             clearInterval(intervalId);
             setLoading(false);
-            console.log(memberId, member);
+
             navigation.navigate('NewTopicWrite', {
               title: response.data.suggest,
               selectedType: 'share',
@@ -91,6 +113,7 @@ const Share = () => {
         isVisible={loading}
         joinCnt={joinCnt}
         memberCnt={memberCnt}
+        onClose={handleCloseModal}
       />
     </SafeAreaView>
   );

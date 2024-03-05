@@ -19,7 +19,7 @@ const NewTopicPage = () => {
   const {data} = useLogin();
 
   const [isModalVisible, setModalVisible] = useState(false);
-  console.log('data', data);
+
   const handleChooseMember = selectedType => {
     navigation.navigate('NewTopicChooseMember', {
       selectedType,

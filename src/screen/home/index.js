@@ -4,28 +4,27 @@ import {Text, BackHandler, View, TouchableOpacity, Modal} from 'react-native';
 import DrawerNavigation from '../../navigation/DrawerNavigation';
 import {useLogin} from '../../context/AuthContext';
 import ExitModal from '../../components/modal/ExitModal';
+import LoadingModal from '../../components/modal/LoadingModal';
+
 const Home = () => {
   const {data} = useLogin();
   const navigation = useNavigation();
-  const isFocused = useIsFocused();
-
   const [DATA, setDATA] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const backHandler = () => {
       if (isFocused) {
-        setShowModal(true);
+        BackHandler.exitApp();
         return true;
       }
     };
-
     const subscription = navigation.addListener('beforeRemove', e => {
       if (!isFocused) {
         return;
       }
-
       e.preventDefault();
       backHandler();
     });
@@ -60,7 +59,7 @@ const Home = () => {
   };
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <LoadingModal />;
   }
 
   return (

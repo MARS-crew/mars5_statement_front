@@ -37,6 +37,7 @@ const NewTopicTitle = ({route}) => {
   const sendData = async () => {
     try {
       setLoading(true);
+
       const data = {
         groupId: groupnum,
         suggest: text,
@@ -44,14 +45,16 @@ const NewTopicTitle = ({route}) => {
         memberIds: selectedButtons,
       };
       const response = await postFetchData('/api/v1/suggest/create', data);
+      const userIdArray = response.data.chapterJoinDto.map(
+        member => member.userId,
+      );
 
       const intervalId = setInterval(async () => {
+        const ChapterId = response.data.chapterId;
         const response1 = await getFetchData(
-          `/api/v1/${selectedType}/join/${response.data}`,
+          `/api/v1/${selectedType}/join/${ChapterId}`,
         );
-
-        const ChapterId = response.data;
-
+        console.log('response1', response1.data);
         setJoinCnt(response1.data.joinCnt);
         setMemberCnt(response1.data.memberCnt);
 
@@ -65,7 +68,7 @@ const NewTopicTitle = ({route}) => {
             navigation.navigate('NewTopicWriteSend', {
               title: text,
               selectedType,
-              selectedButtons,
+              selectedButtons: userIdArray,
               member: selectedMemberName,
               ChapterId,
             });
@@ -73,7 +76,7 @@ const NewTopicTitle = ({route}) => {
             navigation.navigate('NewTopicWrite', {
               title: text,
               selectedType,
-              selectedButtons,
+              selectedButtons: userIdArray,
               member: selectedMemberName,
               ChapterId,
             });

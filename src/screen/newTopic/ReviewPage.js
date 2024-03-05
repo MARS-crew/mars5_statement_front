@@ -21,8 +21,15 @@ const ReviewPage = ({route}) => {
   const navigation = useNavigation();
   const [review, setReview] = useState('');
 
-  const {title, text, selectedType, selectedButtons, member, ChapterId} =
-    route.params;
+  const {
+    title,
+    text,
+    selectedType,
+    selectedButtons,
+    member,
+    ChapterId,
+    opinions,
+  } = route.params;
 
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
@@ -68,7 +75,9 @@ const ReviewPage = ({route}) => {
           {member.map((name, index) => (
             <View key={index} style={styles.box}>
               <Text style={[TextStyles.normal, styles.textUser]}>{name}</Text>
-              <Text style={[TextStyles.semiBold, styles.text]}>{text}</Text>
+              <Text style={[TextStyles.semiBold, styles.text]}>
+                {opinions[index]}
+              </Text>
             </View>
           ))}
         </ScrollView>

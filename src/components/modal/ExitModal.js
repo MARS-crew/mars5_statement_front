@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, Modal, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {TextStyles} from '../../constants/TextStyles';
-
+import Colors from '../../constants/Colors';
 const ExitModal = ({visible, onConfirm, onCancel}) => {
   return (
     <Modal
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   confirmButton: {
-    backgroundColor: 'red',
+    backgroundColor: Colors.green,
     paddingVertical: 10,
     paddingHorizontal: 30,
     borderRadius: 5,

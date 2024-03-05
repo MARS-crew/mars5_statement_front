@@ -16,6 +16,7 @@ import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
 import {getSuggest} from '../../api/GetData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NewTopicChooseMember = ({route}) => {
   const {selectedType, groupnum} = route.params;
@@ -24,6 +25,8 @@ const NewTopicChooseMember = ({route}) => {
   const [memberIdArray, setMemberIdArray] = useState([]);
   const [memberNameArray, setMemberNameArray] = useState([]);
   const [memberIMGArray, setMemberIMGArray] = useState([]);
+  const [selectedCount, setSelectedCount] = useState(0);
+  const [userImg, setUserImg] = useState(null);
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const [selectedButtons, setSelectedButtons] = useState(
@@ -31,19 +34,30 @@ const NewTopicChooseMember = ({route}) => {
   );
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getSuggest(groupnum);
-        setMemberIdArray(
-          data.data.groupMembers.map(member => member.groupMemberId),
-        );
-        setMemberNameArray(data.data.groupMembers.map(member => member.name));
-        setMemberIMGArray(data.data.groupMembers.map(member => member.img));
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
+    const count = selectedButtons.filter(btn => btn).length;
+    setSelectedCount(count);
+  }, [selectedButtons]);
 
+  useEffect(() => {
+    setSelectedButtons(new Array(memberIdArray.length).fill(true));
+  }, [memberIdArray]);
+
+  const fetchData = async () => {
+    try {
+      const myImg = await AsyncStorage.getItem('userImg');
+      setUserImg(myImg);
+      const data = await getSuggest(groupnum);
+      setMemberIdArray(
+        data.data.groupMembers.map(member => member.groupMemberId),
+      );
+      setMemberNameArray(data.data.groupMembers.map(member => member.name));
+      setMemberIMGArray(data.data.groupMembers.map(member => member.img));
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -54,7 +68,7 @@ const NewTopicChooseMember = ({route}) => {
     const selectedMemberName = memberNameArray.filter(
       (_, index) => selectedButtons[index],
     );
-    console.log('selectedMemberIds:', selectedMemberIds);
+
     navigation.navigate('NewTopicTitle', {
       selectedType,
       selectedButtons: selectedMemberIds,
@@ -62,10 +76,12 @@ const NewTopicChooseMember = ({route}) => {
     });
   };
 
-  const toggleButton = index => {
-    const newSelectedButtons = [...selectedButtons];
-    newSelectedButtons[index] = !newSelectedButtons[index];
-    setSelectedButtons(newSelectedButtons);
+  const toggleButton = async index => {
+    if (memberIMGArray[index] !== userImg) {
+      const newSelectedButtons = [...selectedButtons];
+      newSelectedButtons[index] = !newSelectedButtons[index];
+      setSelectedButtons(newSelectedButtons);
+    }
   };
 
   return (
@@ -85,7 +101,7 @@ const NewTopicChooseMember = ({route}) => {
       </View>
       <Text style={styles.centeredText}>Select Member</Text>
       <View style={styles.selectedTextContainer}>
-        <Text style={TextStyles.semiBold}>1명 선택</Text>
+        <Text style={TextStyles.semiBold}>{selectedCount}명 선택</Text>
       </View>
       <View
         style={[

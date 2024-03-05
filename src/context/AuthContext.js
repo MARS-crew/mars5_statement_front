@@ -4,7 +4,6 @@ import {getSuggest} from '../api/GetData';
 const Context = createContext({});
 
 export const AuthProvider = ({children}) => {
-  console.log('groupId:', groupId);
   const [isLogin, setIsLogin] = useState(false);
   const [groupId, setGroupId] = useState(null);
   const [group, setGroup] = useState(null);
@@ -23,7 +22,6 @@ export const AuthProvider = ({children}) => {
         try {
           const responseData = await getSuggest(groupId);
 
-          console.log(responseData);
           if (responseData.message == '속해있는 그룹이 없습니다.') {
             setData({
               activeGroup: 0,

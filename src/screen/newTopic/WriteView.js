@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   StyleSheet,
@@ -13,10 +13,10 @@ import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {useNavigation} from '@react-navigation/native';
 import {TextStyles} from '../../constants/TextStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WriteView = ({route}) => {
   const navigation = useNavigation();
-
   const {
     title,
     text,
@@ -25,17 +25,34 @@ const WriteView = ({route}) => {
     member,
     ChapterId,
     opinions,
+    constructorId,
   } = route.params;
-  console.log(selectedButtons, member);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const myId = await AsyncStorage.getItem('userId');
+      const parsedId = JSON.parse(myId);
+      setUserId(parsedId);
+    };
+    fetchUserId();
+  }, []);
+
   const handleChooseMember = () => {
-    navigation.navigate('ReviewPage', {
-      title,
-      text,
-      selectedType,
-      selectedButtons,
-      member,
-      ChapterId,
-    });
+    console.log('');
+    if (userId === constructorId) {
+      navigation.navigate('ReviewPage', {
+        title,
+        text,
+        selectedType,
+        selectedButtons,
+        member,
+        ChapterId,
+        opinions,
+      });
+    } else {
+      navigation.reset({index: 0, routes: [{name: 'TeamName'}]});
+    }
   };
 
   return (

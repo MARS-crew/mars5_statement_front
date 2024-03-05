@@ -19,6 +19,7 @@ export const onGoogleLogin = async () => {
     //아래 console.log 지우지 마세요
     console.log(idToken);
     console.log(user);
+
     const data = {
       uid: idToken,
       email: user.email,
@@ -31,6 +32,7 @@ export const onGoogleLogin = async () => {
     const response = await postLogin(data);
     await AsyncStorage.setItem('user', JSON.stringify(data));
     await AsyncStorage.setItem('accessToken', response.data.refreshToken);
+    await AsyncStorage.setItem('userImg', user.photo);
 
     return response;
   } catch (error) {

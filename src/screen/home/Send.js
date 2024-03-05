@@ -6,6 +6,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  BackHandler,
 } from 'react-native';
 import {
   useFocusEffect,
@@ -26,6 +27,27 @@ const Send = () => {
   const [memberCnt, setMemberCnt] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const backHandler = () => {
+      if (loading) {
+        setLoading(false);
+        return true;
+      }
+      return false;
+    };
+
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backHandler,
+    );
+
+    return () => subscription.remove();
+  }, [loading]);
+
+  const handleCloseModal = () => {
+    setLoading(false);
+  };
+
   const handleClick = async suggestId => {
     try {
       setLoading(true);
@@ -40,7 +62,6 @@ const Send = () => {
         const member = response1.data.map(member => member.name);
         const memberId = response1.data.map(member => member.userId);
         const ChapterId = response.data.summaryList[0].chapterId;
-        console.log(memberId, 'memberId');
         const intervalId = setInterval(async () => {
           const response2 = await getFetchData(
             `/api/v1/send/join/${response.data.summaryList[0].chapterId}`,
@@ -50,7 +71,6 @@ const Send = () => {
           if (response2.data.joinCnt === response2.data.memberCnt) {
             clearInterval(intervalId);
             setLoading(false);
-            console.log('send', memberId);
             navigation.navigate('NewTopicWriteSend', {
               title: response.data.suggest,
               selectedType: 'send',
@@ -90,6 +110,7 @@ const Send = () => {
         isVisible={loading}
         joinCnt={joinCnt}
         memberCnt={memberCnt}
+        onClose={handleCloseModal}
       />
     </SafeAreaView>
   );

@@ -17,6 +17,8 @@ import {TextStyles} from '../../constants/TextStyles';
 import {getLocation} from '../../api/naverApi/naverGeocodingApi';
 import {getFetchData, postFetchData} from '../../api';
 import LoadingUserModal from '../../components/modal/LoadingUserModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const NewTopicWrite = ({route}) => {
   const navigation = useNavigation();
   const [text, setText] = useState('');
@@ -59,10 +61,12 @@ const NewTopicWrite = ({route}) => {
           const memberWriteResponse = await getFetchData(
             `/api/v1/${selectedType}/write/after/${ChapterId}`,
           );
-
+          const constructorId = memberWriteResponse.data.constructorId;
+          console.log('constructorId:', constructorId);
           const opinions = memberWriteResponse.data.opinions.map(
             member => member.opinion,
           );
+          console.log('opinions:', opinions);
 
           clearInterval(intervalId);
           setLoading(false);
@@ -75,6 +79,7 @@ const NewTopicWrite = ({route}) => {
             member,
             ChapterId,
             opinions,
+            constructorId,
           });
         }
       }, 2000);

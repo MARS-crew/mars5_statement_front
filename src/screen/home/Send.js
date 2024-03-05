@@ -18,11 +18,13 @@ import Colors from '../../constants/Colors';
 import {useLogin} from '../../context/AuthContext';
 import {getFetchData, postFetchData} from '../../api';
 import LoadingUserModal from '../../components/modal/LoadingUserModal';
+import { useTextType } from '../../context/TextTypeContext';
 
 const Send = () => {
   const navigation = useNavigation();
   const {data} = useLogin();
   const {sendData} = data;
+  const {changeTextType, textType} = useTextType();
   const [joinCnt, setJoinCnt] = useState('');
   const [memberCnt, setMemberCnt] = useState('');
   const [loading, setLoading] = useState(false);

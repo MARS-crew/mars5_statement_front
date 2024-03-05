@@ -28,9 +28,9 @@ const SwipeView = ({DATA}) => (
     renderHiddenItem={() => (
       <View style={{flexDirection: 'row'}}>
         <RoundButton suggestId={DATA.suggestId} />
-        <HumanButton suggestId={DATA.suggestId} />
+        <HumanButton suggestId={DATA.suggestId} texttype={DATA.type} />
       </View>
-    )}
+    )}  
     rightOpenValue={scale(88)}
     closeOnRowPress={true}
   />

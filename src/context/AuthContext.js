@@ -4,7 +4,6 @@ import {getSuggest} from '../api/GetData';
 const Context = createContext({});
 
 export const AuthProvider = ({children}) => {
-  console.log('groupId:', groupId);
   const [isLogin, setIsLogin] = useState(false);
   const [groupId, setGroupId] = useState(null);
   const [group, setGroup] = useState(null);

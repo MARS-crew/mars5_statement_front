@@ -21,7 +21,11 @@ export const getRoundSend = async suggestId => {
   const endpoint = '/api/v1/send/chapter/' + suggestId;
   return getFetchDataWithParam(endpoint);
 };
-
+//전달 인물별 조회
+export const getPersonSend = async suggestId => {
+  const endpoint = '/api/v1/send/personal/' + suggestId;
+  return getFetchDataWithParam(endpoint);
+};
 //전달 회차별 조회 상세
 export const getRoundSendDetail = async chapterId => {
   const endpoint = '/api/v1/send/detail/' + chapterId;

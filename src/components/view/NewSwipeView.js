@@ -10,40 +10,16 @@ import { scale } from '../../constants/Scale';
 import { TextStyles } from '../../constants/TextStyles';
 
 const ListSwipeRef = React.createRef();
-const DATA = {
-    suggest_id: 1,
-    suggest: '왜 사람은 잠을 자야만 하는가',
-    SummaryList: [
-      {
-        chapter_id: 2,
-        summary_id: 2,
-        member_id: 2,
-        member_name: '박지민',
-        reg_dt: '2024-01-01',
-        opinion: '다들 잠을 필요로 하는구나..',
-      },
-      {
-        chapter_id: 1,
-        summary_id: 1,
-        member_id: 1,
-        member_name: '백예나',
-        reg_dt: '2024-01-05',
-        opinion:
-          '생각을 아무리 해도 왜 잠이 계속 오는건지 해결책을 낼 수 없었다.',
-      },
-    ],
-  };
 
-const ItemLeft = () => {
+const ItemLeft = ({item}) => {
   return <View style={{flexDirection: 'row', width: scale(88)}}>
-        <RoundButton></RoundButton>
-        <HumanButton></HumanButton>
+        <RoundButton suggestId={item.suggestId} ></RoundButton>
+        <HumanButton suggestId={item.suggestId} texttype={item.type} ></HumanButton>
     </View>;
 };
 
 const Item = ({item, index}) => {
   const ref = useRef();
-  const color = index % 2 === 0 ? '#BBB' : '#EEE';
 
   return (
     <Swipeable
@@ -51,7 +27,7 @@ const Item = ({item, index}) => {
       leftThreshold={0} 
       rightThreshold={100}
       overshootRight={false}
-      renderRightActions={() => <ItemLeft />}
+      renderRightActions={() => <ItemLeft item={item}/>}
       onSwipeableOpen={direction => {
         switch (direction) {
           case 'right':

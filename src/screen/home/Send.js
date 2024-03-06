@@ -19,6 +19,7 @@ import {useLogin} from '../../context/AuthContext';
 import {getFetchData, postFetchData} from '../../api';
 import LoadingUserModal from '../../components/modal/LoadingUserModal';
 import { useTextType } from '../../context/TextTypeContext';
+import SwipeAbleList from '../../components/view/NewSwipeView';
 
 const Send = () => {
   const navigation = useNavigation();
@@ -90,24 +91,7 @@ const Send = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        {sendData.length > 0 ? (
-          sendData.map(item => (
-            <TouchableOpacity
-              key={item.suggestId.toString()}
-              onPress={() => {
-                handleClick(item.suggestId);
-                console.log('Send');
-              }}>
-              <SwipeView DATA={item} />
-            </TouchableOpacity>
-          ))
-        ) : (
-          <View style={styles.noData}>
-            <Text>No send data available</Text>
-          </View>
-        )}
-      </ScrollView>
+      <SwipeAbleList sendData={sendData}></SwipeAbleList>
       <LoadingUserModal
         isVisible={loading}
         joinCnt={joinCnt}

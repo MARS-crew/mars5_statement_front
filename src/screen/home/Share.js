@@ -19,6 +19,7 @@ import {useTextType} from '../../context/TextTypeContext';
 import {useLogin} from '../../context/AuthContext';
 import {getFetchData, postFetchData} from '../../api';
 import LoadingUserModal from '../../components/modal/LoadingUserModal';
+import SwipeAbleList from '../../components/view/NewSwipeView';
 
 const Share = () => {
   const navigation = useNavigation();
@@ -94,21 +95,7 @@ const Share = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        {shareData.length > 0 ? (
-          shareData.map(item => (
-            <TouchableOpacity
-              key={item.suggestId.toString()}
-              onPress={() => handleClick(item.suggestId)}>
-              <SwipeView DATA={item} />
-            </TouchableOpacity>
-          ))
-        ) : (
-          <View style={styles.noData}>
-            <Text>No share data available</Text>
-          </View>
-        )}
-      </ScrollView>
+      <SwipeAbleList sendData={shareData}></SwipeAbleList>
       <LoadingUserModal
         isVisible={loading}
         joinCnt={joinCnt}

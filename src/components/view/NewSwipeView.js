@@ -8,6 +8,7 @@ import HumanButton from '../button/HumanButton';
 import HumanSvg from '../../assest/images/list/HumanSvg';
 import { scale } from '../../constants/Scale';
 import { TextStyles } from '../../constants/TextStyles';
+import EmptyDataView from './EmptyDataView';
 
 const ListSwipeRef = React.createRef();
 
@@ -63,7 +64,7 @@ const Item = ({item, index}) => {
     </Swipeable>
   );
 };
-const renderEmpty = () => <Text>헤헤</Text>;
+const renderEmpty = () => <EmptyDataView />;
 
 const SwipeAbleList = ({sendData}) => {
   return (
@@ -74,7 +75,7 @@ const SwipeAbleList = ({sendData}) => {
       renderItem={({item, index}) => <Item item={item} index={index} />}
       renderEmpty={renderEmpty}
       placeholder={true}
-      data={sendData}
+      data={[]}
     />
   );
 };

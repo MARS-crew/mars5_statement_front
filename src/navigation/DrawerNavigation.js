@@ -13,7 +13,7 @@ import CustomDrawer from './CustomDrawer';
 import {useLogin} from '../context/AuthContext';
 
 const Drawer = createDrawerNavigator();
-const DrawerNavigation = ({DATA}) => {
+const DrawerNavigation = ({DATA, groupMembers}) => {
   const navigation = useNavigation();
   const {data} = useLogin();
   const handlePress = () => {
@@ -41,7 +41,10 @@ const DrawerNavigation = ({DATA}) => {
               backgroundColor: Colors.white,
             },
             headerTitle: props => (
-              <LogoTitle {...props} team={data.activeGroup[0]} />
+              <LogoTitle
+                {...props}
+                team={[data.activeGroup[0], groupMembers]}
+              />
             ),
             headerLeft: false,
             headerTitleContainerStyle: {

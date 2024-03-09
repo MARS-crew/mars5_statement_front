@@ -68,7 +68,7 @@ const AddGroup = () => {
 
   const handleConfirm = () => {
     setModalVisible(false);
-    navigation.navigate("TeamName");
+    navigation.navigate('TeamName');
   };
 
   const handleCancel = () => {
@@ -125,57 +125,58 @@ const AddGroup = () => {
           </TouchableOpacity>
         </View>
       </View>
-
-      <TouchableOpacity
-        style={styles.selectImageButton}
-        onPress={onSelectImage}>
-        {imageSource ? (
-          <Image source={imageSource} style={styles.selectedImage} />
-        ) : (
-          <View style={styles.imageButtonContainer}>
-            <Text style={styles.plusIcon}>+</Text>
-          </View>
-        )}
-      </TouchableOpacity>
-
-      <Text style={styles.label}>Group Name</Text>
-      <TextInput
-        placeholder="Write Group Name"
-        placeholderTextColor="#D3D6D3"
-        style={styles.input}
-        onChangeText={setGroupName}
-        value={groupName}
-      />
-
-      <View style={styles.labelContainer}>
-        <Text style={styles.labelAdd}>Add Member</Text>
-        <TouchableOpacity onPress={handleAddEmail}>
-          <Image source={plusBtn} style={styles.plusBtn} />
+      <ScrollView>
+        <TouchableOpacity
+          style={styles.selectImageButton}
+          onPress={onSelectImage}>
+          {imageSource ? (
+            <Image source={imageSource} style={styles.selectedImage} />
+          ) : (
+            <View style={styles.imageButtonContainer}>
+              <Text style={styles.plusIcon}>+</Text>
+            </View>
+          )}
         </TouchableOpacity>
-      </View>
-      <ScrollView style={styles.scrollView}>
-        {emails.map((email, index) => (
-          <View key={index} style={styles.emailContainer}>
-            <TextInput
-              style={styles.emailInput}
-              placeholder="Enter Email"
-              placeholderTextColor="#D3D6D3"
-              value={email}
-              onChangeText={text => handleEmailChange(text, index)}
-            />
-            <TouchableOpacity onPress={() => handleRemoveEmail(index)}>
-              <Image source={minusBtn} style={styles.minusBtn} />
-            </TouchableOpacity>
-          </View>
-        ))}
-      </ScrollView>
 
-      <CustomModal
-        isVisible={isModalVisible}
-        onConfirm={handleConfirm}
-        onClose={() => setModalVisible(false)}
-      />
-      <LoadingModal isVisible={isLoading} />
+        <Text style={styles.label}>Group Name</Text>
+        <TextInput
+          placeholder="Write Group Name"
+          placeholderTextColor="#D3D6D3"
+          style={styles.input}
+          onChangeText={setGroupName}
+          value={groupName}
+        />
+
+        <View style={styles.labelContainer}>
+          <Text style={styles.labelAdd}>Add Member</Text>
+          <TouchableOpacity onPress={handleAddEmail}>
+            <Image source={plusBtn} style={styles.plusBtn} />
+          </TouchableOpacity>
+        </View>
+        <ScrollView style={styles.scrollView}>
+          {emails.map((email, index) => (
+            <View key={index} style={styles.emailContainer}>
+              <TextInput
+                style={styles.emailInput}
+                placeholder="Enter Email"
+                placeholderTextColor="#D3D6D3"
+                value={email}
+                onChangeText={text => handleEmailChange(text, index)}
+              />
+              <TouchableOpacity onPress={() => handleRemoveEmail(index)}>
+                <Image source={minusBtn} style={styles.minusBtn} />
+              </TouchableOpacity>
+            </View>
+          ))}
+        </ScrollView>
+
+        <CustomModal
+          isVisible={isModalVisible}
+          onConfirm={handleConfirm}
+          onClose={() => setModalVisible(false)}
+        />
+        <LoadingModal isVisible={isLoading} />
+      </ScrollView>
     </SafeAreaView>
   );
 };

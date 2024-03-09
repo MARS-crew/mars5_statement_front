@@ -75,7 +75,7 @@ const SwipeAbleList = ({sendData}) => {
       renderItem={({item, index}) => <Item item={item} index={index} />}
       renderEmpty={renderEmpty}
       placeholder={true}
-      data={[]}
+      data={sendData}
     />
   );
 };

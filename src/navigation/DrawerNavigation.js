@@ -13,12 +13,13 @@ import CustomDrawer from './CustomDrawer';
 import {useLogin} from '../context/AuthContext';
 
 const Drawer = createDrawerNavigator();
-const DrawerNavigation = ({DATA, groupMembers}) => {
+const DrawerNavigation = ({DATA}) => {
   const navigation = useNavigation();
   const {data} = useLogin();
   const handlePress = () => {
     navigation.navigate('NewTopicPage');
   };
+  console.log(DATA);
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -43,7 +44,7 @@ const DrawerNavigation = ({DATA, groupMembers}) => {
             headerTitle: props => (
               <LogoTitle
                 {...props}
-                team={[data.activeGroup[0], groupMembers]}
+                team={[data.activeGroup[0], data.groupMemberData]}
               />
             ),
             headerLeft: false,

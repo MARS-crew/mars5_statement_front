@@ -41,6 +41,7 @@ export const AuthProvider = ({children}) => {
           const activeGroup = responseData.data.myGroups.filter(
             item => item.groupId === groupId,
           );
+          const groupMembers = responseData.data.groupMembers;
 
           setData({
             shareData: shareFiltered,
@@ -49,6 +50,7 @@ export const AuthProvider = ({children}) => {
             imgData: imgs,
             nameData: names,
             activeGroup: activeGroup,
+            groupMemberData: groupMembers,
           });
         } catch (error) {
           console.error('데이터 조회 실패:', error);

@@ -30,8 +30,6 @@ const Home = () => {
       e.preventDefault();
       backHandler();
     });
-    const responseData = route.params ? route.params : null;
-    setGroupMembers(responseData.groupMembers);
     return () => subscription();
   }, [navigation, isFocused]);
 
@@ -66,7 +64,7 @@ const Home = () => {
 
   return (
     <>
-      <DrawerNavigation DATA={DATA} groupMembers={groupMembers} />
+      <DrawerNavigation DATA={DATA} />
       <ExitModal
         visible={showModal}
         onConfirm={handleExit}

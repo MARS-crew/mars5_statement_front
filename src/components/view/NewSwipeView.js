@@ -6,17 +6,21 @@ import Colors from '../../constants/Colors';
 import RoundButton from '../button/ChapterButton';
 import HumanButton from '../button/HumanButton';
 import HumanSvg from '../../assest/images/list/HumanSvg';
-import { scale } from '../../constants/Scale';
-import { TextStyles } from '../../constants/TextStyles';
+import {scale} from '../../constants/Scale';
+import {TextStyles} from '../../constants/TextStyles';
 import EmptyDataView from './EmptyDataView';
 
 const ListSwipeRef = React.createRef();
 
 const ItemLeft = ({item}) => {
-  return <View style={{flexDirection: 'row', width: scale(88)}}>
-        <RoundButton suggestId={item.suggestId} ></RoundButton>
-        <HumanButton suggestId={item.suggestId} texttype={item.type} ></HumanButton>
-    </View>;
+  return (
+    <View style={{flexDirection: 'row', width: scale(88)}}>
+      <RoundButton suggestId={item.suggestId}></RoundButton>
+      <HumanButton
+        suggestId={item.suggestId}
+        texttype={item.type}></HumanButton>
+    </View>
+  );
 };
 
 const Item = ({item, index}) => {
@@ -25,10 +29,10 @@ const Item = ({item, index}) => {
   return (
     <Swipeable
       ref={ref}
-      leftThreshold={0} 
+      leftThreshold={0}
       rightThreshold={100}
       overshootRight={false}
-      renderRightActions={() => <ItemLeft item={item}/>}
+      renderRightActions={() => <ItemLeft item={item} />}
       onSwipeableOpen={direction => {
         switch (direction) {
           case 'right':
@@ -81,26 +85,26 @@ const SwipeAbleList = ({sendData}) => {
 };
 
 const styles = {
-    container: {
-      width: '100%',
-      height: scale(44),
-      backgroundColor: Colors.white,
-      justifyContent: 'center',
-      paddingHorizontal: 20,
-      borderTopWidth: 1,
-      borderColor: Colors.grey,
-      flexDirection: 'row',
-      // eslint-disable-next-line no-dupe-keys
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-  
-    rightAction: {
-      flex: 1,
-      height: scale(44),
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  };
+  container: {
+    width: '100%',
+    height: scale(44),
+    backgroundColor: Colors.white,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    borderTopWidth: 1,
+    borderColor: Colors.grey,
+    flexDirection: 'row',
+    // eslint-disable-next-line no-dupe-keys
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  rightAction: {
+    flex: 1,
+    height: scale(44),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+};
 
 export default SwipeAbleList;

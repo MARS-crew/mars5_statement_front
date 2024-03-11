@@ -18,7 +18,7 @@ import Colors from '../../constants/Colors';
 import {useLogin} from '../../context/AuthContext';
 import {getFetchData, postFetchData} from '../../api';
 import LoadingUserModal from '../../components/modal/LoadingUserModal';
-import { useTextType } from '../../context/TextTypeContext';
+import {useTextType} from '../../context/TextTypeContext';
 import SwipeAbleList from '../../components/view/NewSwipeView';
 
 const Send = () => {
@@ -29,7 +29,14 @@ const Send = () => {
   const [joinCnt, setJoinCnt] = useState('');
   const [memberCnt, setMemberCnt] = useState('');
   const [loading, setLoading] = useState(false);
-
+  console.log(textType);
+  useFocusEffect(
+    React.useCallback(() => {
+      if (textType !== 'Send') {
+        changeTextType();
+      }
+    }, [textType, changeTextType]),
+  );
   useEffect(() => {
     const backHandler = () => {
       if (loading) {
@@ -49,44 +56,6 @@ const Send = () => {
 
   const handleCloseModal = () => {
     setLoading(false);
-  };
-
-  const handleClick = async suggestId => {
-    try {
-      setLoading(true);
-
-      const response = await getFetchData(`/api/v1/send/chapter/${suggestId}`);
-
-      if (response.data.summaryList[0].summary == null) {
-        const response1 = await postFetchData(
-          `/api/v1/send/join/${response.data.summaryList[0].chapterId}`,
-        );
-
-        const member = response1.data.map(member => member.name);
-        const memberId = response1.data.map(member => member.userId);
-        const ChapterId = response.data.summaryList[0].chapterId;
-        const intervalId = setInterval(async () => {
-          const response2 = await getFetchData(
-            `/api/v1/send/join/${response.data.summaryList[0].chapterId}`,
-          );
-          setJoinCnt(response2.data.joinCnt);
-          setMemberCnt(response2.data.memberCnt);
-          if (response2.data.joinCnt === response2.data.memberCnt) {
-            clearInterval(intervalId);
-            setLoading(false);
-            navigation.navigate('NewTopicWriteSend', {
-              title: response.data.suggest,
-              selectedType: 'send',
-              selectedButtons: memberId,
-              member,
-              ChapterId,
-            });
-          }
-        }, 2000);
-      }
-    } catch (error) {
-      console.error('에러 발생:', error);
-    }
   };
 
   return (

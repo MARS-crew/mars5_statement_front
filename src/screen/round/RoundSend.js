@@ -8,8 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import backBtn from '../../assest/images/header/back.png';
 import Colors from '../../constants/Colors';
 import shareBtn from '../../assest/images/header/shareBtn.png';
@@ -45,7 +44,6 @@ const RoundSend = ({route}) => {
         const responseData = await getRoundSend(suggestId);
         setSummary(responseData.data.summaryList);
         setSuggest(responseData.data.suggest);
-        // console.log(responseData.data.summaryList);
       } catch (error) {
         console.error('데이터 조회 실패:', error);
       }

@@ -19,7 +19,6 @@ const DrawerNavigation = ({DATA}) => {
   const handlePress = () => {
     navigation.navigate('NewTopicPage');
   };
-  console.log(DATA);
   return (
     <Drawer.Navigator
       screenOptions={{

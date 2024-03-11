@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     top: 70,
-    left: 80,
+    left: 20,
     alignItems: 'flex-start',
   },
   modalContent: {

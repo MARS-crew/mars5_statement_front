@@ -5,33 +5,42 @@ import {TextTypeProvider} from './src/context/TextTypeContext';
 import {AuthProvider} from './src/context/AuthContext';
 import {requestPermission} from './src/api/naverApi/requestPermission';
 import usePushNotification from './src/api/push/usePushNotification';
+import {requestPushPermission} from './src/api/push/usePushNotification';
 const App = () => {
   const {
-    requestUserPermission,
     listenToForegroundNotifications,
     listentoBackgroundNotifications,
     onNotificationOpenedAppFromBackground,
     onNotificationOpenedAppFromQuit,
   } = usePushNotification();
+
   useEffect(() => {
-    // 위치 권한 요청
-    const requestLocationPermission = async () => {
-      let result = await requestPermission();
+    const requestPermissions = async () => {
+      // 위치 권한 요청
+      let locationResult = await requestPermission();
 
       // denied 일 경우 다시 권한 요청
-      if (result === 'denied') {
-        result = await requestPermission();
+      if (locationResult === 'denied') {
+        locationResult = await requestPermission();
       }
 
-      console.log('Location Permission Result: ', result);
+      console.log('Location Permission Result: ', locationResult);
+
+      // 알림 권한 요청
+      let notificationResult = await requestPushPermission();
+
+      if (notificationResult === 'denied') {
+        notificationResult = await requestPushPermission();
+      }
+      console.log('Notification Permission Result: ', notificationResult);
     };
-    requestLocationPermission();
+
+    requestPermissions();
   }, []);
 
   useEffect(() => {
     const listenToNotifications = () => {
       try {
-        requestUserPermission();
         onNotificationOpenedAppFromQuit();
         listentoBackgroundNotifications();
         listenToForegroundNotifications();

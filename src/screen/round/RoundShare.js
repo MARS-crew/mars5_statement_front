@@ -60,7 +60,7 @@ const RoundShare = ({route}) => {
       <View style={styles.summarybox}>
         <View style={styles.summarybox2}>
           <View style={styles.summarybox3}>
-            <Text style={styles.round}>{item.chapterId}th</Text>
+            <Text style={styles.round}>{item.seq}th</Text>
             <Text style={styles.user}>{item.memberName}</Text>
           </View>
           <Text style={styles.date}>{formatDate(item.regDt)}</Text>

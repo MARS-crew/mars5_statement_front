@@ -1,7 +1,7 @@
 export const naverApiInit = () => {
   const naverApiConfig = {
     client_id: 'xehpem1fza',
-    client_secret: 'U9P5H440l8RhmLyyb41d0CTzgnyX73H4XAwhDRYX',
+    client_secret: 'wQf75yPex2wcfb0Ll8LXF4bnT8tqehxfT07kysPN',
   };
 
   return naverApiConfig;

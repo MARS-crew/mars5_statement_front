@@ -8,10 +8,7 @@ const Sendsummary = ({item}) => {
   return (
     <View style={styles.summarybox}>
       <View style={styles.round}>
-        <View style={styles.top}>
-          <Text style={[TextStyles.title]}>{item.seq}th</Text>
-          <Text style={[TextStyles.location]}>{item.location}</Text>
-        </View>
+        <Text style={[TextStyles.title]}>{item.seq}th</Text>
         <Text style={[TextStyles.normal, TextStyles.placeholder]}>
           {formattedDate}
         </Text>
@@ -38,10 +35,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.white,
   },
+<<<<<<< HEAD
   top: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+=======
+>>>>>>> 86dd072 (send 회차값 수정)
 });
 
 export default Sendsummary;

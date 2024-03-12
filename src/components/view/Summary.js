@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderColor: Colors.grey,
     borderTopWidth: 1,
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.white,
     gap: 24,
     paddingHorizontal: 20,
     paddingVertical: 16,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.white,
   },
   top: {
     flexDirection: 'row',

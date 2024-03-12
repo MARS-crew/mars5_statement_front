@@ -1,48 +1,40 @@
 import React from 'react';
 import messaging from '@react-native-firebase/messaging';
 import {NativeModules, PermissionsAndroid, Platform} from 'react-native';
+import {Notifications} from 'react-native-notifications';
 
-const usePushNotification = () => {
-  const requestUserPermission = async () => {
+export async function requestPushPermission() {
+  try {
     if (Platform.OS === 'android') {
-      const authorizationStatus = await messaging().requestPermission();
-      console.log('authorizationStatus: ', authorizationStatus);
-      try {
-        const fcmToken = await messaging().getToken();
-        console.log('fcmToken: ', fcmToken);
-        if (Platform.Version >= 33) {
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
-          );
-          // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          //   console.log('Android 13이상, 알림권한 허용');
-          //   if (fcmToken) {
-          //     if (
-          //       NativeModules.DotReactBridge &&
-          //       NativeModules.DotReactBridge.setPushToken
-          //     ) {
-          //       NativeModules.DotReactBridge.setPushToken(fcmToken);
-          //     } else {
-          //       console.error(
-          //         'NativeModules.DotReactBridge is null, undefined, or setPushToken method is not available.',
-          //       );
-          //     }
-          // NativeModules.DotReactBridge.setPushToken(fcmToken);
-          // }
-          // } else {
-          //   if (fcmToken) {
-          //     NativeModules.DotReactBridge.setPushToken(fcmToken);
-          //   }
-          // }
-        }
-      } catch (error) {
-        console.log('Android error: ', error);
+      const authorizationStatus = await messaging().requestPermission({
+        sound: true,
+        announcement: true,
+        options: ['Alert', 'Badge', 'Sound'],
+      });
+
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+        {
+          title: 'Notification Permission',
+          message:
+            '이 앱은 일부 기능을 제공하기 위해 알림에 대한 액세스가 필요합니다.',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        return 'granted';
+      } else {
+        return 'denied';
       }
     }
-  };
+  } catch (error) {
+    console.log('Android Push Notification error: ', error);
+  }
+}
+
+const usePushNotification = () => {
   const listentoBackgroundNotifications = async () => {
     const unsubscribe = messaging().setBackgroundMessageHandler(
-      async remoteMessage => {
+      remoteMessage => {
         console.log(
           ' BACKGROUND - a new message: ',
           JSON.stringify(remoteMessage),
@@ -89,7 +81,6 @@ const usePushNotification = () => {
   };
 
   return {
-    requestUserPermission,
     listenToForegroundNotifications,
     listentoBackgroundNotifications,
     onNotificationOpenedAppFromBackground,

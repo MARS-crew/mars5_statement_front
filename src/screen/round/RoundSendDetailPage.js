@@ -79,7 +79,10 @@ const RoundSendDetailPage = ({route}) => {
   const opinionList = ({item, shareData}) => (
     <View style={styles.opinionbox}>
       <View style={styles.opinionbox2}>
-        <Text style={styles.user}>{item.memberName}</Text>
+        <View style={styles.top}>
+          <Text style={styles.user}>{item.memberName}</Text>
+          <Text style={styles.location}>{item.location}</Text>
+        </View>
         <TouchableOpacity onPress={() => toggleBookmark(item.sendId)}>
           <Image
             source={item.bookmark_yn ? book : nonBook}
@@ -192,6 +195,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
+  top: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   user: {
     marginTop: 18,
     fontSize: 14,
@@ -200,11 +207,19 @@ const styles = StyleSheet.create({
     fontFamily: 'NotoSansKR',
     fontWeight: '700',
   },
+  location: {
+    marginTop: 18,
+    fontSize: 10,
+    marginLeft: 10,
+    color: Colors.grey,
+    fontFamily: 'NotoSansKR',
+  },
   heart: {
     marginTop: 18,
     marginRight: 20,
     width: 24,
     height: 24,
+    marginLeft: 'auto',
   },
   opMargin: {
     marginLeft: 20,

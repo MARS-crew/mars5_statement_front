@@ -38,7 +38,13 @@ export const TextStyles = StyleSheet.create({
     fontFamily: 'NotoSansEN',
     color: Colors.white,
   },
-  placeholder : {
-    color : Colors.grey
-  }
+  placeholder: {
+    color: Colors.grey,
+  },
+  location: {
+    fontSize: 10,
+    marginLeft: 10,
+    color: Colors.grey,
+    fontFamily: 'NotoSansKR',
+  },
 });

@@ -15,6 +15,7 @@ import heart from '../../assest/images/share/heart.png';
 import nonHeart from '../../assest/images/share/nonHeart.png';
 import {getRoundShareDetail} from '../../api/GetData';
 import {postHeart} from '../../api/PostData';
+import MainHeader from '../../components/header/MainHeader';
 
 const RoundShareDetailPage = ({route}) => {
   const navigation = useNavigation();
@@ -92,36 +93,31 @@ const RoundShareDetailPage = ({route}) => {
 
   return (
     <SafeAreaView>
-      {/* 헤더 */}
-      <View style={styles.head}>
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <TouchableOpacity onPress={handleBack}>
-              <Image source={backBtn} style={styles.backBtn} />
-            </TouchableOpacity>
-            <Text style={styles.title}>Share</Text>
-          </View>
-          {/* <Image source={shareBtn} style={styles.share} /> */}
+      <View style={styles.container}>
+        {/* 헤더 */}
+        <MainHeader title={'Share'} navigation={navigation}></MainHeader>
+        {/* 써머리 */}
+        <View style={styles.middle}>
+          <Text style={styles.suggest}>{summary}</Text>
+          <Text style={styles.date}>{formatDate(regDt)}</Text>
         </View>
-      </View>
-      {/* 써머리 */}
-      <View style={styles.middle}>
-        <Text style={styles.suggest}>{summary}</Text>
-        <Text style={styles.date}>{formatDate(regDt)}</Text>
-      </View>
-      {/* 개인 의견 목록 */}
-      <View style={styles.opinionContain}>
-        <FlatList
-          data={opinion}
-          renderItem={opinionList}
-          // keyExtractor={item => item.opinion_id.toString()}
-        />
+        {/* 개인 의견 목록 */}
+        <View style={styles.opinionContain}>
+          <FlatList
+            data={opinion}
+            renderItem={opinionList}
+            // keyExtractor={item => item.opinion_id.toString()}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+  },
   head: {
     alignItems: 'center',
     top: 20,

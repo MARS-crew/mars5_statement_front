@@ -75,32 +75,37 @@ const PersonShare = ({route}) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      {/* 헤더 */}
-      <MainHeader navigation={navigation}></MainHeader>
-      {/* 주제 및 멤버 */}
-      <View style={styles.middle}>
-        <Text style={TextStyles.title}>{personalShareData.suggest}</Text>
-        <FlatList
-          data={personalShareData.opinionList}
-          horizontal={true}
-          renderItem={memberList}
-          keyExtractor={item => item.memberId.toString()}
-          style={styles.flatlist}
-        />
-      </View>
-      {/* 써머리 목록 */}
-      <View style={{flex: 1}}>
-        <FlatList
-          data={personalShareData.opinionList}
-          renderItem={summaryList}
-          keyExtractor={item => item.memberId.toString()}
-        />
+      <View style={styles.container}>
+        {/* 헤더 */}
+        <MainHeader title={'Share'} navigation={navigation}></MainHeader>
+        {/* 주제 및 멤버 */}
+        <View style={styles.middle}>
+          <Text style={TextStyles.title}>{personalShareData.suggest}</Text>
+          <FlatList
+            data={personalShareData.opinionList}
+            horizontal={true}
+            renderItem={memberList}
+            keyExtractor={item => item.memberId.toString()}
+            style={styles.flatlist}
+          />
+        </View>
+        {/* 써머리 목록 */}
+        <View>
+          <FlatList
+            data={personalShareData.opinionList}
+            renderItem={summaryList}
+            keyExtractor={item => item.memberId.toString()}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+  },
   title: {
     fontSize: 14,
     fontWeight: '500',

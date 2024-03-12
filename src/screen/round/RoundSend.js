@@ -13,6 +13,7 @@ import backBtn from '../../assest/images/header/back.png';
 import Colors from '../../constants/Colors';
 import shareBtn from '../../assest/images/header/shareBtn.png';
 import {getRoundSend} from '../../api/GetData';
+import MainHeader from '../../components/header/MainHeader';
 
 const RoundSend = ({route}) => {
   const navigation = useNavigation();
@@ -69,41 +70,36 @@ const RoundSend = ({route}) => {
 
   return (
     <SafeAreaView>
-      {/* 헤더 */}
-      <View style={styles.head}>
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <TouchableOpacity onPress={handleBack}>
-              <Image source={backBtn} style={styles.backBtn} />
-            </TouchableOpacity>
-            <Text style={styles.title}>Send</Text>
-          </View>
-          <Image source={shareBtn} style={styles.share} />
+      <View style={styles.container}>
+        {/* 헤더 */}
+        <MainHeader title={'Send'} navigation={navigation}></MainHeader>
+        {/* 주제 */}
+        <View style={styles.middle}>
+          <Text style={styles.suggest}>{suggest}</Text>
+          {/* Round 추가 버튼 */}
+          <TouchableOpacity>
+            <View style={styles.btn}>
+              <Text style={styles.btnText}>Add Session</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-      </View>
-      {/* 주제 */}
-      <View style={styles.middle}>
-        <Text style={styles.suggest}>{suggest}</Text>
-        {/* Round 추가 버튼 */}
-        <TouchableOpacity>
-          <View style={styles.btn}>
-            <Text style={styles.btnText}>Add Session</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      {/* 써머리 목록 */}
-      <View style={styles.summaryContain}>
-        <FlatList
-          data={summary}
-          renderItem={summaryList}
-          keyExtractor={item => item.chapterId}
-        />
+        {/* 써머리 목록 */}
+        <View style={styles.summaryContain}>
+          <FlatList
+            data={summary}
+            renderItem={summaryList}
+            keyExtractor={item => item.chapterId}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+  },
   head: {
     alignItems: 'center',
     top: 20,

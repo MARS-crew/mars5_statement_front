@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -15,17 +15,17 @@ import {
 } from '@react-navigation/native';
 import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
-import {useLogin} from '../../context/AuthContext';
-import {getFetchData, postFetchData} from '../../api';
+import { useLogin } from '../../context/AuthContext';
+import { getFetchData, postFetchData } from '../../api';
 import LoadingUserModal from '../../components/modal/LoadingUserModal';
-import {useTextType} from '../../context/TextTypeContext';
+import { useTextType } from '../../context/TextTypeContext';
 import SwipeAbleList from '../../components/view/NewSwipeView';
 
 const Send = () => {
   const navigation = useNavigation();
-  const {data} = useLogin();
-  const {sendData} = data;
-  const {changeTextType, textType} = useTextType();
+  const { data } = useLogin();
+  const { sendData } = data;
+  const { changeTextType, textType } = useTextType();
   const [joinCnt, setJoinCnt] = useState('');
   const [memberCnt, setMemberCnt] = useState('');
   const [loading, setLoading] = useState(false);

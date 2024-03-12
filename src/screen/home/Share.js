@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -15,18 +15,18 @@ import {
 } from '@react-navigation/native';
 import SwipeView from '../../components/view/SwipeView';
 import Colors from '../../constants/Colors';
-import {useTextType} from '../../context/TextTypeContext';
-import {useLogin} from '../../context/AuthContext';
-import {getFetchData, postFetchData} from '../../api';
+import { useTextType } from '../../context/TextTypeContext';
+import { useLogin } from '../../context/AuthContext';
+import { getFetchData, postFetchData } from '../../api';
 import LoadingUserModal from '../../components/modal/LoadingUserModal';
 import SwipeAbleList from '../../components/view/NewSwipeView';
 
 const Share = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const {changeTextType, textType} = useTextType();
-  const {data} = useLogin();
-  const {shareData} = data;
+  const { changeTextType, textType } = useTextType();
+  const { data } = useLogin();
+  const { shareData } = data;
   const [joinCnt, setJoinCnt] = useState('');
   const [memberCnt, setMemberCnt] = useState('');
   const [loading, setLoading] = useState(false);
@@ -50,47 +50,6 @@ const Share = () => {
 
   const handleCloseModal = () => {
     setLoading(false);
-  };
-
-  const handleClick = async suggestId => {
-    try {
-      setLoading(true);
-      const response = await getFetchData(`/api/v1/share/chapter/${suggestId}`);
-
-      if (response.data.summaryList[0].summary == null) {
-        const response1 = await postFetchData(
-          `/api/v1/share/join/${response.data.summaryList[0].chapterId}`,
-        );
-        const member = response1.data.map(member => member.name);
-        const memberId = response1.data.map(member => member.userId);
-        const ChapterId = response.data.summaryList[0].chapterId;
-
-        const intervalId = setInterval(async () => {
-          const response2 = await getFetchData(
-            `/api/v1/share/join/${response.data.summaryList[0].chapterId}`,
-          );
-
-          setJoinCnt(response2.data.joinCnt);
-          setMemberCnt(response2.data.memberCnt);
-          if (response2.data.joinCnt === response2.data.memberCnt) {
-            clearInterval(intervalId);
-            setLoading(false);
-
-            navigation.navigate('NewTopicWrite', {
-              title: response.data.suggest,
-              selectedType: 'share',
-              selectedButtons: memberId,
-              member,
-              ChapterId,
-            });
-          }
-        }, 2000);
-      } else {
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error('에러 발생:', error);
-    }
   };
 
   return (

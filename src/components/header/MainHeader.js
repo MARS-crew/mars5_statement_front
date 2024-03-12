@@ -11,7 +11,7 @@ import {TextStyles} from '../../constants/TextStyles';
 import {scale, moderateScale} from '../../constants/Scale';
 import backBtn from '../../assest/images/header/back.png';
 import shareBtn from '../../assest/images/header/shareBtn.png';
-const MainHeader = ({navigation}) => {
+const MainHeader = ({title, navigation}) => {
   const handleBack = () => {
     navigation.goBack();
   };
@@ -22,7 +22,7 @@ const MainHeader = ({navigation}) => {
           <TouchableOpacity onPress={handleBack}>
             <Image source={backBtn} style={styles.backBtn} />
           </TouchableOpacity>
-          <Text style={styles.title}>Share</Text>
+          <Text style={styles.title}>{title}</Text>
         </View>
         <Image source={shareBtn} style={styles.share} />
       </View>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '700',
     color: Colors.black,
     left: 20,
     fontFamily: 'NotoSansEN',

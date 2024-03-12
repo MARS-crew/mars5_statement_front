@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: Colors.white,
+    backgroundColor: Colors.white,
   },
   secondImageContainer: {
     width: moderateScale(84),
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.lightgrey,
+    backgroundColor: Colors.white,
   },
 });
 

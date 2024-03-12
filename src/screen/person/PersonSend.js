@@ -10,12 +10,12 @@ import {
 import Colors from '../../constants/Colors';
 import {useNavigation} from '@react-navigation/native';
 import {FlatList} from 'react-native-gesture-handler';
-import { TextStyles } from '../../constants/TextStyles';
+import {TextStyles} from '../../constants/TextStyles';
 import Summary from '../../components/view/Summary';
 import {moderateScale, scale} from '../../constants/Scale';
 import MainHeader from '../../components/header/MainHeader';
 import CircleImage from '../../components/image/CircleImage';
-import { getPersonSend, getPersonShare } from '../../api/GetData';
+import {getPersonSend, getPersonShare} from '../../api/GetData';
 import Sendsummary from '../../components/view/SendSummary';
 
 const PersonSend = ({route}) => {
@@ -24,17 +24,16 @@ const PersonSend = ({route}) => {
   const [personalSendData, setPersonalSendData] = useState();
   const [loading, setLoading] = useState(true);
 
-  const handlePress = (item) => {
+  const handlePress = item => {
     setSelectedMember(item);
   };
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await getPersonSend(route.params.suggestId)
+        const response = await getPersonSend(route.params.suggestId);
 
-        setPersonalSendData(response.data)
-
+        setPersonalSendData(response.data);
       } catch (error) {
         console.error('데이터 조회 실패:', error);
       }
@@ -43,18 +42,20 @@ const PersonSend = ({route}) => {
     loadData();
   }, [route.params.suggestId]);
 
-  useEffect(()=>{
-    if(personalSendData){
+  useEffect(() => {
+    if (personalSendData) {
       setSelectedMember(personalSendData.messageList[0]);
-      setLoading(false)
+      setLoading(false);
     }
-  }, [personalSendData])
+  }, [personalSendData]);
 
   const memberList = ({item}) => (
     // 멤버 이미지 상대경로가 동적할당 X memberImage로 임의 할당
     <TouchableOpacity onPress={() => handlePress(item)}>
       <View style={styles.member}>
-        <CircleImage url={item.memberImg} isSelected={selectedMember.memberId === item.memberId}></CircleImage>
+        <CircleImage
+          url={item.memberImg}
+          isSelected={selectedMember.memberId === item.memberId}></CircleImage>
         <Text style={TextStyles.semiBold}>{item.memberName}</Text>
       </View>
     </TouchableOpacity>
@@ -62,9 +63,10 @@ const PersonSend = ({route}) => {
 
   const summaryList = ({item}) => (
     <>
-    {item.memberId == selectedMember.memberId && item.messageList.map((data, index) => (
-      <Sendsummary key={index} item = {data}></Sendsummary>
-    ))}
+      {item.memberId == selectedMember.memberId &&
+        item.messageList.map((data, index) => (
+          <Sendsummary key={index} item={data}></Sendsummary>
+        ))}
     </>
   );
 
@@ -73,33 +75,38 @@ const PersonSend = ({route}) => {
   }
 
   return (
-    <SafeAreaView style={{flex : 1}}>
-      {/* 헤더 */}
-      <MainHeader navigation={navigation} ></MainHeader>
-      {/* 주제 및 멤버 */}
-      <View style={styles.middle}>
-        <Text style={TextStyles.title}>{personalSendData.suggest}</Text>
-        <FlatList
-          data={personalSendData.messageList}
-          horizontal={true}
-          renderItem={memberList}
-          keyExtractor={item => item.memberId.toString()}
-          style = {styles.flatlist}
-        />
-      </View>
-      {/* 써머리 목록 */}
-      <View style={{flex : 1}}>
-        <FlatList
-          data={personalSendData.messageList}
-          renderItem={summaryList}
-          keyExtractor={item => item.memberId.toString()}
-        />
+    <SafeAreaView style={{flex: 1}}>
+      <View style={styles.container}>
+        {/* 헤더 */}
+        <MainHeader title={'Send'} navigation={navigation}></MainHeader>
+        {/* 주제 및 멤버 */}
+        <View style={styles.middle}>
+          <Text style={TextStyles.title}>{personalSendData.suggest}</Text>
+          <FlatList
+            data={personalSendData.messageList}
+            horizontal={true}
+            renderItem={memberList}
+            keyExtractor={item => item.memberId.toString()}
+            style={styles.flatlist}
+          />
+        </View>
+        {/* 써머리 목록 */}
+        <View>
+          <FlatList
+            data={personalSendData.messageList}
+            renderItem={summaryList}
+            keyExtractor={item => item.memberId.toString()}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+  },
   title: {
     fontSize: 14,
     fontWeight: '500',
@@ -107,17 +114,17 @@ const styles = StyleSheet.create({
     left: 20,
   },
   middle: {
-    paddingHorizontal : 20,
-    gap : 12,
-    backgroundColor : Colors.white
+    marginTop: 20,
+    paddingHorizontal: 20,
+    gap: 12,
   },
-  flatlist : {
-    paddingVertical : 12,
+  flatlist: {
+    paddingVertical: 12,
   },
   member: {
     alignItems: 'center',
-    gap : 4,
-    marginRight : 4,
+    gap: 4,
+    marginRight: 4,
   },
 });
 

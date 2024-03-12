@@ -8,7 +8,7 @@ const Summary = ({item}) => {
   return (
     <View style={styles.summarybox}>
       <View style={styles.round}>
-        <Text style={[TextStyles.title]}>{item.chapterId}th</Text>
+        <Text style={[TextStyles.title]}>{item.seq}th</Text>
         <Text style={[TextStyles.normal, TextStyles.placeholder]}>
           {formattedDate}
         </Text>

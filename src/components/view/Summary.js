@@ -8,7 +8,11 @@ const Summary = ({item}) => {
   return (
     <View style={styles.summarybox}>
       <View style={styles.round}>
-        <Text style={[TextStyles.title]}>{item.chapterId}th</Text>
+        <View style={styles.top}>
+          <Text style={[TextStyles.title]}>{item.seq}th</Text>
+          <Text style={[TextStyles.location]}>{item.location}</Text>
+        </View>
+
         <Text style={[TextStyles.normal, TextStyles.placeholder]}>
           {formattedDate}
         </Text>
@@ -35,13 +39,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.white,
   },
-<<<<<<< HEAD
   top: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-=======
->>>>>>> 77df643 (회차값 변경)
 });
 
 export default Summary;

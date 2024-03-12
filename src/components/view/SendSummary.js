@@ -32,22 +32,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
   },
-  top: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   round: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.white,
   },
-  location: {
-    marginTop: 18,
-    fontSize: 10,
-    marginLeft: 10,
-    color: Colors.grey,
-    fontFamily: 'NotoSansKR',
+  top: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

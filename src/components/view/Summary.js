@@ -8,7 +8,11 @@ const Summary = ({item}) => {
   return (
     <View style={styles.summarybox}>
       <View style={styles.round}>
-        <Text style={[TextStyles.title]}>{item.chapterId}th</Text>
+        <View style={styles.top}>
+          <Text style={[TextStyles.title]}>{item.seq}th</Text>
+          <Text style={[TextStyles.location]}>{item.location}</Text>
+        </View>
+
         <Text style={[TextStyles.normal, TextStyles.placeholder]}>
           {formattedDate}
         </Text>
@@ -24,7 +28,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderColor: Colors.grey,
     borderTopWidth: 1,
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.white,
     gap: 24,
     paddingHorizontal: 20,
     paddingVertical: 16,
@@ -33,7 +37,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.white,
+  },
+  top: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

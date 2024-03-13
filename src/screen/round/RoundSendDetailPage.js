@@ -15,6 +15,7 @@ import book from '../../assest/images/send/book.png';
 import nonBook from '../../assest/images/send/nonBook.png';
 import {getRoundSendDetail} from '../../api/GetData';
 import {postBookmark} from '../../api/PostData';
+import MainHeader from '../../components/header/MainHeader';
 
 const RoundSendDetailPage = ({route}) => {
   const navigation = useNavigation();
@@ -79,7 +80,10 @@ const RoundSendDetailPage = ({route}) => {
   const opinionList = ({item, shareData}) => (
     <View style={styles.opinionbox}>
       <View style={styles.opinionbox2}>
-        <Text style={styles.user}>{item.memberName}</Text>
+        <View style={styles.top}>
+          <Text style={styles.user}>{item.memberName}</Text>
+          <Text style={styles.location}>{item.location}</Text>
+        </View>
         <TouchableOpacity onPress={() => toggleBookmark(item.sendId)}>
           <Image
             source={item.bookmark_yn ? book : nonBook}
@@ -95,37 +99,33 @@ const RoundSendDetailPage = ({route}) => {
 
   return (
     <SafeAreaView>
-      {/* 헤더 */}
-      <View style={styles.head}>
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <TouchableOpacity onPress={handleBack}>
-              <Image source={backBtn} style={styles.backBtn} />
-            </TouchableOpacity>
-            <Text style={styles.title}>Send</Text>
-          </View>
-          {/* <Image source={shareBtn} style={styles.share} /> */}
+      <View style={styles.container}>
+        {/* 헤더 */}
+        <MainHeader title={'Send'} navigation={navigation}></MainHeader>
+
+        {/* 써머리 */}
+        <View style={styles.middle}>
+          <Text style={styles.suggest}>{summary}</Text>
+          <Text style={styles.date}>{formatDate(regDt)}</Text>
         </View>
-      </View>
-      {/* 써머리 */}
-      <View style={styles.middle}>
-        <Text style={styles.suggest}>{summary}</Text>
-        <Text style={styles.date}>{formatDate(regDt)}</Text>
-      </View>
-      {/* 개인 의견 목록 */}
-      <View style={styles.opinionContain}>
-        <FlatList
-          data={opinion}
-          renderItem={opinionList}
-          extraData={opinion}
-          // keyExtractor={item => item.opinion_id.toString()}
-        />
+        {/* 개인 의견 목록 */}
+        <View style={styles.opinionContain}>
+          <FlatList
+            data={opinion}
+            renderItem={opinionList}
+            extraData={opinion}
+            // keyExtractor={item => item.opinion_id.toString()}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+  },
   head: {
     alignItems: 'center',
     top: 20,
@@ -192,6 +192,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
+  top: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   user: {
     marginTop: 18,
     fontSize: 14,
@@ -200,11 +204,19 @@ const styles = StyleSheet.create({
     fontFamily: 'NotoSansKR',
     fontWeight: '700',
   },
+  location: {
+    marginTop: 18,
+    fontSize: 10,
+    marginLeft: 10,
+    color: Colors.grey,
+    fontFamily: 'NotoSansKR',
+  },
   heart: {
     marginTop: 18,
     marginRight: 20,
     width: 24,
     height: 24,
+    marginLeft: 'auto',
   },
   opMargin: {
     marginLeft: 20,

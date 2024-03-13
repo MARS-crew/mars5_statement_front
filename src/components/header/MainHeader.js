@@ -11,9 +11,15 @@ import {TextStyles} from '../../constants/TextStyles';
 import {scale, moderateScale} from '../../constants/Scale';
 import backBtn from '../../assest/images/header/back.png';
 import shareBtn from '../../assest/images/header/shareBtn.png';
-const MainHeader = ({title, navigation}) => {
+const MainHeader = ({title, onSharePress, navigation}) => {
   const handleBack = () => {
     navigation.goBack();
+  };
+
+  const handleSharePress = () => {
+    if (onSharePress) {
+      onSharePress();
+    }
   };
   return (
     <View style={styles.head}>
@@ -24,7 +30,9 @@ const MainHeader = ({title, navigation}) => {
           </TouchableOpacity>
           <Text style={styles.title}>{title}</Text>
         </View>
-        <Image source={shareBtn} style={styles.share} />
+        <TouchableOpacity onPress={handleSharePress}>
+          <Image source={shareBtn} style={styles.share} />
+        </TouchableOpacity>
       </View>
     </View>
   );

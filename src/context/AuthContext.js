@@ -62,7 +62,7 @@ export const AuthProvider = ({children}) => {
   }, [isLogin, groupId]);
 
   return (
-    <Context.Provider value={{isLogin, setIsLogin, setGroupId, data}}>
+    <Context.Provider value={{isLogin, setIsLogin, groupId, setGroupId, data}}>
       {children}
     </Context.Provider>
   );

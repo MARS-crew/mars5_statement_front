@@ -16,9 +16,11 @@ import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {TextStyles} from '../../constants/TextStyles';
 import {postFetchData} from '../../api';
+import {useAuth} from '../../context/AuthContext';
 
 const ReviewPage = ({route}) => {
   const navigation = useNavigation();
+
   const [review, setReview] = useState('');
 
   const {

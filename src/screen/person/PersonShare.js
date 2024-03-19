@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   StyleSheet,
@@ -16,15 +16,33 @@ import {moderateScale, scale} from '../../constants/Scale';
 import MainHeader from '../../components/header/MainHeader';
 import CircleImage from '../../components/image/CircleImage';
 import {getPersonShare} from '../../api/GetData';
+import ViewShot from 'react-native-view-shot';
+import Share from 'react-native-share';
 
 const PersonShare = ({route}) => {
   const navigation = useNavigation();
   const [selectedMember, setSelectedMember] = useState();
   const [personalShareData, setPersonalShareData] = useState();
   const [loading, setLoading] = useState(true);
+  const viewRef = useRef(null);
 
   const handlePress = item => {
     setSelectedMember(item);
+  };
+  const handleCaptureAndShare = async () => {
+    try {
+      const uri = await viewRef.current.capture();
+
+      const shareOptions = {
+        title: 'Share Image',
+        message: 'Check out this captured image!',
+        url: uri,
+      };
+
+      const result = await Share.open(shareOptions);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -77,26 +95,31 @@ const PersonShare = ({route}) => {
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         {/* 헤더 */}
-        <MainHeader title={'Share'} navigation={navigation}></MainHeader>
+        <MainHeader
+          title={'Share'}
+          onSharePress={handleCaptureAndShare}
+          navigation={navigation}></MainHeader>
         {/* 주제 및 멤버 */}
-        <View style={styles.middle}>
-          <Text style={TextStyles.title}>{personalShareData.suggest}</Text>
-          <FlatList
-            data={personalShareData.opinionList}
-            horizontal={true}
-            renderItem={memberList}
-            keyExtractor={item => item.memberId.toString()}
-            style={styles.flatlist}
-          />
-        </View>
-        {/* 써머리 목록 */}
-        <View>
-          <FlatList
-            data={personalShareData.opinionList}
-            renderItem={summaryList}
-            keyExtractor={item => item.memberId.toString()}
-          />
-        </View>
+        <ViewShot ref={viewRef} style={styles.captureContainer}>
+          <View style={styles.middle}>
+            <Text style={TextStyles.title}>{personalShareData.suggest}</Text>
+            <FlatList
+              data={personalShareData.opinionList}
+              horizontal={true}
+              renderItem={memberList}
+              keyExtractor={item => item.memberId.toString()}
+              style={styles.flatlist}
+            />
+          </View>
+          {/* 써머리 목록 */}
+          <View>
+            <FlatList
+              data={personalShareData.opinionList}
+              renderItem={summaryList}
+              keyExtractor={item => item.memberId.toString()}
+            />
+          </View>
+        </ViewShot>
       </View>
     </SafeAreaView>
   );
@@ -105,6 +128,10 @@ const PersonShare = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
+  },
+  captureContainer: {
+    backgroundColor: Colors.white,
+    top: 10,
   },
   title: {
     fontSize: 14,

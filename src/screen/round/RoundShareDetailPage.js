@@ -1,5 +1,5 @@
 import Colors from '../../constants/Colors';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   StyleSheet,
@@ -16,6 +16,8 @@ import nonHeart from '../../assest/images/share/nonHeart.png';
 import {getRoundShareDetail} from '../../api/GetData';
 import {postHeart} from '../../api/PostData';
 import MainHeader from '../../components/header/MainHeader';
+import ViewShot from 'react-native-view-shot';
+import Share from 'react-native-share';
 
 const RoundShareDetailPage = ({route}) => {
   const navigation = useNavigation();
@@ -24,6 +26,7 @@ const RoundShareDetailPage = ({route}) => {
   const [opinion, setOpinion] = useState([]);
   const [summary, setSummary] = useState();
   const [regDt, setRegDt] = useState();
+  const viewRef = useRef(null);
 
   const formatDate = dateString => {
     const date = new Date(dateString);
@@ -36,6 +39,21 @@ const RoundShareDetailPage = ({route}) => {
 
   const handleBack = () => {
     navigation.goBack();
+  };
+  const handleCaptureAndShare = async () => {
+    try {
+      const uri = await viewRef.current.capture();
+
+      const shareOptions = {
+        title: 'Share Image',
+        message: 'Check out this captured image!',
+        url: uri,
+      };
+
+      const result = await Share.open(shareOptions);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -95,20 +113,25 @@ const RoundShareDetailPage = ({route}) => {
     <SafeAreaView>
       <View style={styles.container}>
         {/* 헤더 */}
-        <MainHeader title={'Share'} navigation={navigation}></MainHeader>
+        <MainHeader
+          title={'Share'}
+          onSharePress={handleCaptureAndShare}
+          navigation={navigation}></MainHeader>
         {/* 써머리 */}
-        <View style={styles.middle}>
-          <Text style={styles.suggest}>{summary}</Text>
-          <Text style={styles.date}>{formatDate(regDt)}</Text>
-        </View>
-        {/* 개인 의견 목록 */}
-        <View style={styles.opinionContain}>
-          <FlatList
-            data={opinion}
-            renderItem={opinionList}
-            // keyExtractor={item => item.opinion_id.toString()}
-          />
-        </View>
+        <ViewShot ref={viewRef} style={styles.captureContainer}>
+          <View style={styles.middle}>
+            <Text style={styles.suggest}>{summary}</Text>
+            <Text style={styles.date}>{formatDate(regDt)}</Text>
+          </View>
+          {/* 개인 의견 목록 */}
+          <View style={styles.opinionContain}>
+            <FlatList
+              data={opinion}
+              renderItem={opinionList}
+              // keyExtractor={item => item.opinion_id.toString()}
+            />
+          </View>
+        </ViewShot>
       </View>
     </SafeAreaView>
   );
@@ -117,6 +140,10 @@ const RoundShareDetailPage = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
+  },
+  captureContainer: {
+    backgroundColor: Colors.white,
+    top: 10,
   },
   head: {
     alignItems: 'center',

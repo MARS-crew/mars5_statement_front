@@ -1,5 +1,3 @@
-// CustomModal.js
-
 import React from 'react';
 import {
   View,
@@ -12,7 +10,7 @@ import {
 import Colors from '../../constants/Colors';
 import {TextStyles} from '../../constants/TextStyles';
 
-const CustomModal = ({isVisible, onConfirm, onClose}) => {
+const HomeModal = ({isVisible, onConfirm, onClose}) => {
   return (
     <Modal
       animationType="slide"
@@ -69,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomModal;
+export default HomeModal;

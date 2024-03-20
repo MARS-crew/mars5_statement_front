@@ -3,7 +3,7 @@ import React, {createContext, useContext, useState} from 'react';
 const TextContext = createContext();
 
 export function TextTypeProvider({children}) {
-  const [textType, setTextType] = useState('Share'); // 'Share'가 기본값
+  const [textType, setTextType] = useState('Share');
 
   const changeTextType = () => {
     setTextType(currentStatus =>

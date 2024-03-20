@@ -30,7 +30,7 @@ const SwipeView = ({DATA}) => (
         <RoundButton suggestId={DATA.suggestId} />
         <HumanButton suggestId={DATA.suggestId} texttype={DATA.type} />
       </View>
-    )}  
+    )}
     rightOpenValue={scale(88)}
     closeOnRowPress={true}
   />

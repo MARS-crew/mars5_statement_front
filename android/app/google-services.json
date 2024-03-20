@@ -1,41 +1,114 @@
 {
   "project_info": {
-    "project_number": "572679723275",
-    "project_id": "comits-bdd9f",
-    "storage_bucket": "comits-bdd9f.appspot.com"
+    "project_number": "506348598249",
+    "firebase_url": "https://comit-3037b-default-rtdb.firebaseio.com",
+    "project_id": "comit-3037b",
+    "storage_bucket": "comit-3037b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:572679723275:android:4c7e6b18448d0a34f52a0e",
+        "mobilesdk_app_id": "1:506348598249:android:00d0740cbe2453e9269178",
         "android_client_info": {
           "package_name": "com.statement_project"
         }
       },
       "oauth_client": [
         {
-          "client_id": "572679723275-2akbeho4plp2lahi0qljaadsce2plf15.apps.googleusercontent.com",
+          "client_id": "506348598249-05mtevjc0d1ocpkh50k6v69s2o1avl64.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.statement_project",
-            "certificate_hash": "7a634d7b542531eba2ef441bae70e186527a6bfe"
+            "certificate_hash": "41feec412239f36a8d81a1f5cf21a030a024e26f"
           }
         },
         {
-          "client_id": "572679723275-9q30lppn9emeo9812s8g2b8tfsmuddlm.apps.googleusercontent.com",
+          "client_id": "506348598249-60oob847rr6kjbd1it4ej55qdrvee1ff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "e6ca87381ec1133c2fd32efa1e480a3ae904ea2e"
+          }
+        },
+        {
+          "client_id": "506348598249-778oru93g9mstptvjah02bpv19i3bis6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "98c5de5242bc759c713c8c9385fe0c4c54317ee4"
+          }
+        },
+        {
+          "client_id": "506348598249-7c9oj0ukj7hp1k7ehuihv3ae775355ap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "d0ff96527c1b588676e29fe374be183a5af69936"
+          }
+        },
+        {
+          "client_id": "506348598249-9b7cptht1us87fv6nmf7oq8bn61rsivs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "5d8e6b5c4fb94a8bc3893cab58d5654ebc4c1c5d"
+          }
+        },
+        {
+          "client_id": "506348598249-eptpoepqpiel6t52c2hrrq7r1bl60q4h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "597153c20436d76f7108239b4a483da682a0814a"
+          }
+        },
+        {
+          "client_id": "506348598249-h1qhokvpk76rkm4r9saug2eree102non.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "8aebee3330c6656cc3b236769bc34f838557a9cc"
+          }
+        },
+        {
+          "client_id": "506348598249-ng8tth6rq525nhtcblg12m1lipcuaq92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "3cf9d7ffc9cd1e3a0af354e56bfd08c1ac2f97bf"
+          }
+        },
+        {
+          "client_id": "506348598249-odm4tlmrn278m9lktaiss1d97ho6s2jh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "506348598249-t9utefrasnj44t8jbetbpv50oe5b7a4a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.statement_project",
+            "certificate_hash": "d8227fd4a8ec0ad1c8dff9b3b25d785fd7f8aa0e"
+          }
+        },
+        {
+          "client_id": "506348598249-cr7ob0od99ajtujf92qq2396f0i94hjk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBsCCACtV9pQjAdcAiqrcdPqLCK3XshhzY"
+          "current_key": "AIzaSyCYoxqgeAhi-JsewMQ6vXNIJVZs57tA0ZA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "572679723275-9q30lppn9emeo9812s8g2b8tfsmuddlm.apps.googleusercontent.com",
+              "client_id": "506348598249-cr7ob0od99ajtujf92qq2396f0i94hjk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -27,6 +27,12 @@ export const postBookmark = async data => {
 export const postHeart = async (chapterId, opinionId) => {
   const endpoint = `/api/v1/share/detail/${chapterId}`;
   const data = {shareId: opinionId};
-  console.log(endpoint);
+
+  return postFetchData(endpoint, data);
+};
+
+export const postAddSuggest = async (suggestId, memberIds) => {
+  const endpoint = `/api/v1/chapter/create/${suggestId}`;
+  const data = {memberIds: memberIds};
   return postFetchData(endpoint, data);
 };

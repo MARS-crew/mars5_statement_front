@@ -15,7 +15,6 @@ import {useLogin} from '../context/AuthContext';
 const CustomDrawer = props => {
   const {setGroupId} = useLogin();
   const {state, descriptors, navigation} = props;
-  //현재 그룹 이름
   const activeRouteName = state.routes[state.index].name;
   return (
     <View style={styles.container}>
@@ -47,7 +46,6 @@ const CustomDrawer = props => {
       <View style={[styles.view, styles.footer]}>
         <TouchableOpacity
           style={styles.addGroup}
-          //클릭 시 그룹 추가로 이동
           onPress={() => navigation.navigate('AddGroup')}>
           <AddSvg></AddSvg>
           <Text style={TextStyles.title}> New Group </Text>

@@ -9,19 +9,37 @@ import {
   FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useRoute} from '@react-navigation/native';
-import backBtn from '../../assest/images/header/back.png';
 import Colors from '../../constants/Colors';
-import shareBtn from '../../assest/images/header/shareBtn.png';
+import {postAddSuggest} from '../../api/PostData';
 import {getRoundShare} from '../../api/GetData';
 import MainHeader from '../../components/header/MainHeader';
+import {getPersonShare} from '../../api/GetData';
+import {getFetchData} from '../../api';
+import LoadingUserModal from '../../components/modal/LoadingUserModal';
 
 const RoundShare = ({route}) => {
   const navigation = useNavigation();
   const {suggestId} = route.params;
-
   const [summary, setSummary] = useState([]);
   const [suggest, setSuggest] = useState();
+  const [loading, setLoading] = useState(false);
+  const [memberIds, setMemberIds] = useState(false);
+  const [memberNames, setMemberNames] = useState(false);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const responseData = await getRoundShare(suggestId);
+        console.log('responseData:', responseData);
+        setSummary(responseData.data.summaryList);
+        setSuggest(responseData.data.suggest);
+      } catch (error) {
+        console.error('데이터 조회 실패:', error);
+      }
+    };
+
+    loadData();
+  }, [suggestId]);
 
   const formatDate = dateString => {
     const date = new Date(dateString);
@@ -36,25 +54,38 @@ const RoundShare = ({route}) => {
     navigation.navigate('RoundShareDetailPage', {chapterId: chapterId});
   };
 
-  const handleBack = () => {
-    navigation.goBack();
-  };
+  const addSessionPress = async () => {
+    const data = await getPersonShare(suggestId);
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const responseData = await getRoundShare(suggestId);
-        setSummary(responseData.data.summaryList);
-        setSuggest(responseData.data.suggest);
-        console.log(suggest);
-        console.log(summary);
-      } catch (error) {
-        console.error('데이터 조회 실패:', error);
+    const memberIds = data.data.opinionList.map(item => item.memberId);
+    setMemberIds(memberIds);
+    const memberNames = data.data.opinionList.map(item => item.memberName);
+    setMemberNames(memberNames);
+
+    const addSession = await postAddSuggest(suggestId, memberIds);
+
+    const intervalId = setInterval(async () => {
+      setLoading(true);
+      const response1 = await getFetchData(
+        `/api/v1/share/join/${addSession.data.chapterId}`,
+      );
+      console.log('response1', response1.data);
+
+      if (response1.data.joinCnt === response1.data.memberCnt) {
+        clearInterval(intervalId);
+
+        setLoading(false);
+
+        navigation.navigate('NewTopicWrite', {
+          title: suggest,
+          selectedType: 'share',
+          selectedButtons: memberIds,
+          member: memberNames,
+          ChapterId: addSession.data.chapterId,
+        });
       }
-    };
-
-    loadData();
-  }, [suggestId]);
+    }, 2000);
+  };
 
   const summaryList = ({item}) => (
     <TouchableOpacity onPress={() => handlePress({chapterId: item.chapterId})}>
@@ -74,20 +105,15 @@ const RoundShare = ({route}) => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        {/* 헤더 */}
         <MainHeader title={'Share'} navigation={navigation}></MainHeader>
-
-        {/* 주제 */}
         <View style={styles.middle}>
           <Text style={styles.suggest}>{suggest}</Text>
-          {/* Round 추가 버튼 */}
-          <TouchableOpacity>
+          <TouchableOpacity onPress={addSessionPress}>
             <View style={styles.btn}>
               <Text style={styles.btnText}>Add Session</Text>
             </View>
           </TouchableOpacity>
         </View>
-        {/* 써머리 목록 */}
         <View style={styles.summaryContain}>
           <FlatList
             data={summary}
@@ -96,6 +122,7 @@ const RoundShare = ({route}) => {
           />
         </View>
       </View>
+      <LoadingUserModal isVisible={loading} />
     </SafeAreaView>
   );
 };

@@ -27,11 +27,13 @@ export const onGoogleLogin = async () => {
       picture: user.photo,
       fcmToken: fcmToken,
     };
+
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
     await auth().signInWithCredential(googleCredential);
 
     const response = await postLogin(data);
-    console.log('durl');
+    console.log('accessToken', response.data.refreshToken);
     await AsyncStorage.setItem('user', JSON.stringify(data));
     await AsyncStorage.setItem('accessToken', response.data.refreshToken);
     await AsyncStorage.setItem('userImg', user.photo);

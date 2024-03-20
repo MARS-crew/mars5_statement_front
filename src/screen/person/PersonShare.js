@@ -49,7 +49,7 @@ const PersonShare = ({route}) => {
     const loadData = async () => {
       try {
         const response = await getPersonShare(route.params.suggestId);
-
+        console.log('data:', response.data);
         setPersonalShareData(response.data);
       } catch (error) {
         console.error('데이터 조회 실패:', error);

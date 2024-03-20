@@ -18,7 +18,6 @@ export const getRoundShareDetail = async chapterId => {
 
 //전달 회차별 조회
 export const getRoundSend = async suggestId => {
-  console.log(suggestId);
   const endpoint = '/api/v1/send/chapter/' + suggestId;
   return getFetchDataWithParam(endpoint);
 };

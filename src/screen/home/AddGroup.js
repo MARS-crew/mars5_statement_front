@@ -9,6 +9,7 @@ import {
   ScrollView,
   SafeAreaView,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
@@ -16,11 +17,11 @@ import back from '../../assest/images/header/back.png';
 import check from '../../assest/images/header/check.png';
 import {launchImageLibrary} from 'react-native-image-picker';
 import plusBtn from '../../assest/images/PlusBtn.png';
-import CustomModal from '../../components/modal/CustomModal';
 import minusBtn from '../../assest/images/minusBtn.png';
 import {postCreateGroup} from '../../api/PostData';
 import storage from '@react-native-firebase/storage';
 import LoadingModal from '../../components/modal/LoadingModal';
+import HomeModal from '../../components/modal/HomeModal';
 
 const AddGroup = () => {
   const navigation = useNavigation();
@@ -41,7 +42,7 @@ const AddGroup = () => {
     return null;
   };
 
-  const sendDataToBackend = async () => {
+  const sendData = async () => {
     try {
       const imageUrl = await uploadImage();
       const data = {
@@ -56,9 +57,9 @@ const AddGroup = () => {
       console.error('에러 :', error);
     }
   };
-  const handleCheckButtonPress = async () => {
+  const CheckButtonPress = async () => {
     setIsLoading(true);
-    await sendDataToBackend();
+    await sendData();
     setIsLoading(false);
   };
 
@@ -69,10 +70,6 @@ const AddGroup = () => {
   const handleConfirm = () => {
     setModalVisible(false);
     navigation.navigate('TeamName');
-  };
-
-  const handleCancel = () => {
-    setModalVisible(false);
   };
 
   const onSelectImage = async () => {
@@ -112,71 +109,73 @@ const AddGroup = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={styles.head}>
-        <View style={styles.header}>
-          <TouchableOpacity onPress={handleGoBack}>
-            <View style={styles.headerLeft}>
-              <Image source={back} style={styles.backBtn} />
-              <Text style={styles.title}>Add a writing</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleCheckButtonPress}>
-            <Image source={check} style={styles.share} />
-          </TouchableOpacity>
+      <KeyboardAvoidingView style={{flex: 1}} keyboardVerticalOffset={100}>
+        <View style={styles.head}>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={handleGoBack}>
+              <View style={styles.headerLeft}>
+                <Image source={back} style={styles.backBtn} />
+                <Text style={styles.title}>Home</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={CheckButtonPress}>
+              <Image source={check} style={styles.share} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      <ScrollView>
-        <TouchableOpacity
-          style={styles.selectImageButton}
-          onPress={onSelectImage}>
-          {imageSource ? (
-            <Image source={imageSource} style={styles.selectedImage} />
-          ) : (
-            <View style={styles.imageButtonContainer}>
-              <Text style={styles.plusIcon}>+</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-
-        <Text style={styles.label}>Group Name</Text>
-        <TextInput
-          placeholder="Write Group Name"
-          placeholderTextColor="#D3D6D3"
-          style={styles.input}
-          onChangeText={setGroupName}
-          value={groupName}
-        />
-
-        <View style={styles.labelContainer}>
-          <Text style={styles.labelAdd}>Add Member</Text>
-          <TouchableOpacity onPress={handleAddEmail}>
-            <Image source={plusBtn} style={styles.plusBtn} />
+        <ScrollView>
+          <TouchableOpacity
+            style={styles.selectImageButton}
+            onPress={onSelectImage}>
+            {imageSource ? (
+              <Image source={imageSource} style={styles.selectedImage} />
+            ) : (
+              <View style={styles.imageButtonContainer}>
+                <Text style={styles.plusIcon}>+</Text>
+              </View>
+            )}
           </TouchableOpacity>
-        </View>
-        <ScrollView style={styles.scrollView}>
-          {emails.map((email, index) => (
-            <View key={index} style={styles.emailContainer}>
-              <TextInput
-                style={styles.emailInput}
-                placeholder="Enter Email"
-                placeholderTextColor="#D3D6D3"
-                value={email}
-                onChangeText={text => handleEmailChange(text, index)}
-              />
-              <TouchableOpacity onPress={() => handleRemoveEmail(index)}>
-                <Image source={minusBtn} style={styles.minusBtn} />
-              </TouchableOpacity>
-            </View>
-          ))}
+
+          <Text style={styles.label}>Group Name</Text>
+          <TextInput
+            placeholder="Write Group Name"
+            placeholderTextColor="#D3D6D3"
+            style={styles.input}
+            onChangeText={setGroupName}
+            value={groupName}
+          />
+
+          <View style={styles.labelContainer}>
+            <Text style={styles.labelAdd}>Add Member</Text>
+            <TouchableOpacity onPress={handleAddEmail}>
+              <Image source={plusBtn} style={styles.plusBtn} />
+            </TouchableOpacity>
+          </View>
+          <ScrollView style={styles.scrollView}>
+            {emails.map((email, index) => (
+              <View key={index} style={styles.emailContainer}>
+                <TextInput
+                  style={styles.emailInput}
+                  placeholder="Enter Email"
+                  placeholderTextColor="#D3D6D3"
+                  value={email}
+                  onChangeText={text => handleEmailChange(text, index)}
+                />
+                <TouchableOpacity onPress={() => handleRemoveEmail(index)}>
+                  <Image source={minusBtn} style={styles.minusBtn} />
+                </TouchableOpacity>
+              </View>
+            ))}
+          </ScrollView>
+
+          <HomeModal
+            isVisible={isModalVisible}
+            onConfirm={handleConfirm}
+            onClose={() => setModalVisible(false)}
+          />
+          <LoadingModal isVisible={isLoading} />
         </ScrollView>
-
-        <CustomModal
-          isVisible={isModalVisible}
-          onConfirm={handleConfirm}
-          onClose={() => setModalVisible(false)}
-        />
-        <LoadingModal isVisible={isLoading} />
-      </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

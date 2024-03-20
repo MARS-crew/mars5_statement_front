@@ -31,7 +31,7 @@ const Item = ({item, index}) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const ref = useRef();
-  console.log(item);
+
   const handleClick = async (suggestId, type) => {
     try {
       setLoading(true);

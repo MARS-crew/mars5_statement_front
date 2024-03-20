@@ -59,6 +59,9 @@ export const AuthProvider = ({children}) => {
     };
 
     loadData();
+    const refreshInterval = setInterval(loadData, 5000);
+
+    return () => clearInterval(refreshInterval);
   }, [isLogin, groupId]);
 
   return (
